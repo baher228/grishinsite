@@ -4,8 +4,8 @@ export const sampleProducts: Product[] = [
   {
     id: 1,
     name: "Professional Drill Set - 18V Cordless",
-    price: 149.99,
-    originalPrice: 199.99,
+    price: 119.99,
+    originalPrice: 159.99,
     image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop",
     brand: "PowerTech",
     category: "tools",
@@ -17,7 +17,7 @@ export const sampleProducts: Product[] = [
   {
     id: 2,
     name: "Adjustable Wrench Set - Chrome Vanadium",
-    price: 89.99,
+    price: 71.99,
     image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop",
     brand: "CraftMaster",
     category: "tools",
@@ -29,8 +29,8 @@ export const sampleProducts: Product[] = [
   {
     id: 3,
     name: "Copper Pipe Fitting Kit - 1/2 inch",
-    price: 34.99,
-    originalPrice: 44.99,
+    price: 27.99,
+    originalPrice: 35.99,
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
     brand: "PlumbPro",
     category: "plumbing",
@@ -42,7 +42,7 @@ export const sampleProducts: Product[] = [
   {
     id: 4,
     name: "Heavy Duty Hammer - 16oz Steel",
-    price: 24.99,
+    price: 19.99,
     image: "https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?w=400&h=300&fit=crop",
     brand: "BuildRight",
     category: "construction",
@@ -54,8 +54,8 @@ export const sampleProducts: Product[] = [
   {
     id: 5,
     name: "PVC Pipe Cutter - Professional Grade",
-    price: 45.99,
-    originalPrice: 59.99,
+    price: 36.99,
+    originalPrice: 47.99,
     image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=300&fit=crop",
     brand: "PlumbPro",
     category: "plumbing",
@@ -67,8 +67,8 @@ export const sampleProducts: Product[] = [
   {
     id: 6,
     name: "Circular Saw - 7.25 inch Blade",
-    price: 179.99,
-    originalPrice: 229.99,
+    price: 143.99,
+    originalPrice: 183.99,
     image: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&h=300&fit=crop",
     brand: "PowerTech",
     category: "tools",
@@ -80,7 +80,7 @@ export const sampleProducts: Product[] = [
   {
     id: 7,
     name: "Toilet Flange Repair Kit",
-    price: 19.99,
+    price: 15.99,
     image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=400&h=300&fit=crop",
     brand: "FixIt",
     category: "plumbing",
@@ -92,8 +92,8 @@ export const sampleProducts: Product[] = [
   {
     id: 8,
     name: "Construction Level - 48 inch",
-    price: 67.99,
-    originalPrice: 84.99,
+    price: 54.99,
+    originalPrice: 67.99,
     image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=400&h=300&fit=crop",
     brand: "BuildRight",
     category: "construction",
@@ -105,8 +105,8 @@ export const sampleProducts: Product[] = [
   {
     id: 9,
     name: "Impact Driver - 20V Max",
-    price: 129.99,
-    originalPrice: 159.99,
+    price: 103.99,
+    originalPrice: 127.99,
     image: "https://images.unsplash.com/photo-1581092918484-8313a22c5735?w=400&h=300&fit=crop",
     brand: "PowerTech",
     category: "tools",
@@ -118,7 +118,7 @@ export const sampleProducts: Product[] = [
   {
     id: 10,
     name: "Drain Snake - 25 Foot",
-    price: 39.99,
+    price: 31.99,
     image: "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=400&h=300&fit=crop",
     brand: "PlumbPro",
     category: "plumbing",
@@ -130,7 +130,7 @@ export const sampleProducts: Product[] = [
   {
     id: 11,
     name: "Safety Helmet - ANSI Certified",
-    price: 29.99,
+    price: 23.99,
     image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=400&h=300&fit=crop",
     brand: "SafeGuard",
     category: "construction",
@@ -142,8 +142,8 @@ export const sampleProducts: Product[] = [
   {
     id: 12,
     name: "Socket Wrench Set - 42 Piece",
-    price: 79.99,
-    originalPrice: 99.99,
+    price: 63.99,
+    originalPrice: 79.99,
     image: "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?w=400&h=300&fit=crop",
     brand: "CraftMaster",
     category: "tools",

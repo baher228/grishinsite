@@ -2,19 +2,21 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    --header-height: 80px;
-    --primary-color: #1a1a1a;
-    --accent-color: #dc3545;
-    --text-color: #333333;
+    --header-height: 120px;
+    --primary-color: #000000;
+    --accent-color: #004422;
+    --racing-green: #004422;
+    --text-color: #000000;
     --text-light: #666666;
     --border-color: #e5e5e5;
     --background-color: #ffffff;
     --background-light: #f8f9fa;
-    --background-dark: #1a1a1a;
+    --background-dark: #000000;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     --container-width: 1200px;
+    --max-width: 1200px;
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;

@@ -1,171 +1,229 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiSearch, FiUser, FiShoppingCart } from 'react-icons/fi';
-import Container from '../../common/Container';
 import Icon from '../../common/Icon';
 import { useCart } from '../../../context/CartContext';
 
 const HeaderWrapper = styled.header`
-  height: var(--header-height);
+  width: 100%;
+  background: var(--background-color);
   border-bottom: 1px solid var(--border-color);
-  background-color: var(--background-color);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
 `;
 
-const HeaderContainer = styled(Container)`
-  height: 100%;
+const TopBar = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  padding: 1.5rem var(--container-padding, 2rem);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  position: relative;
+
+  @media (max-width: 1024px) {
+    justify-content: space-between;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 const Logo = styled(Link)`
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--primary-color);
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  gap: 2rem;
-`;
-
-const NavLink = styled(Link)`
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-color);
-  transition: color 0.2s ease;
-
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Times New Roman', serif;
+  text-decoration: none;
+  text-align: center;
+  
   &:hover {
-    color: var(--accent-color);
+    color: var(--racing-green);
   }
-`;
-
-const SearchContainer = styled.form`
-  position: relative;
-  display: flex;
-  align-items: center;
-  max-width: 400px;
-  flex: 1;
-  margin: 0 2rem;
 
   @media (max-width: 768px) {
-    display: none;
+    font-size: 2rem;
   }
 `;
 
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 0.75rem 1rem 0.75rem 3rem;
-  border: 2px solid var(--border-color);
-  border-radius: 25px;
-  font-size: 0.9rem;
-  background-color: var(--background-light);
-  transition: all 0.2s ease;
-
-  &:focus {
-    border-color: var(--primary-color);
-    background-color: white;
-    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
-  }
-
-  &::placeholder {
-    color: var(--text-light);
-  }
-`;
-
-const SearchIcon = styled.div`
+const SearchBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  width: 300px;
   position: absolute;
-  left: 1rem;
-  color: var(--text-light);
-  pointer-events: none;
+  right: 120px;
+
+  @media (max-width: 1024px) {
+    position: static;
+    width: 250px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  input {
+    border: none;
+    width: 100%;
+    padding: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
 `;
 
 const Actions = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
-`;
+  position: absolute;
+  right: 0;
 
-const IconButton = styled.button`
-  font-size: 1.5rem;
-  color: var(--text-color);
-  display: flex;
-  align-items: center;
-  transition: color 0.2s ease;
+  @media (max-width: 1024px) {
+    position: static;
+  }
 
-  &:hover {
-    color: var(--accent-color);
+  @media (max-width: 768px) {
+    justify-content: center;
   }
 `;
 
-const CartCount = styled.span`
-  background-color: var(--accent-color);
-  color: white;
-  font-size: 0.75rem;
-  padding: 0.1rem 0.4rem;
-  border-radius: 50%;
-  position: absolute;
-  top: -5px;
-  right: -8px;
+const IconButton = styled(Link)`
+  position: relative;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
-const CartWrapper = styled.div`
-  position: relative;
+const CartCount = styled.span`
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--racing-green);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  min-width: 20px;
+  text-align: center;
+`;
+
+const Navigation = styled.nav`
+  border-top: 1px solid var(--border-color);
+  padding: 1rem 0;
+  background: var(--background-color);
+`;
+
+const NavList = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  list-style: none;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.5rem var(--container-padding, 2rem);
+`;
+
+const NavItem = styled.li`
+  a {
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--text-color);
+    transition: color 0.2s ease;
+    text-decoration: none;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--racing-green);
+      transition: width 0.2s ease;
+    }
+
+    &:hover {
+      color: var(--racing-green);
+      
+      &:after {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 const Header: React.FC = () => {
-  const { state } = useCart();
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
+  const { state: { itemCount } } = useCart();
 
   return (
     <HeaderWrapper>
-      <HeaderContainer>
-        <Logo to="/">Affera</Logo>
+      <TopBar>
+        <Logo to="/">AFFERA</Logo>
         
-        <Nav>
-          <NavLink to="/tools">Tools</NavLink>
-          <NavLink to="/plumbing">Plumbing</NavLink>
-          <NavLink to="/construction">Construction</NavLink>
-          <NavLink to="/brands">Brands</NavLink>
-          <NavLink to="/sale">Sale</NavLink>
-        </Nav>
-
-        <SearchContainer onSubmit={handleSearch}>
-          <SearchIcon>
-            <Icon icon={FiSearch} size={18} />
-          </SearchIcon>
-          <SearchInput
-            type="text"
-            placeholder="Search for tools, plumbing supplies..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </SearchContainer>
-
+        <SearchBar>
+          <Icon icon={FiSearch} />
+          <input type="text" placeholder="Search tools and supplies..." />
+        </SearchBar>
+        
         <Actions>
-          <IconButton>
-            <Icon icon={FiUser} size={24} />
+          <IconButton to="/account">
+            <Icon icon={FiUser} />
           </IconButton>
-          <IconButton as={Link} to="/cart">
-            <CartWrapper>
-              <Icon icon={FiShoppingCart} size={24} />
-              {state.itemCount > 0 && <CartCount>{state.itemCount}</CartCount>}
-            </CartWrapper>
+          <IconButton to="/cart">
+            <Icon icon={FiShoppingCart} />
+            {itemCount > 0 && <CartCount>{itemCount}</CartCount>}
           </IconButton>
         </Actions>
-      </HeaderContainer>
+      </TopBar>
+
+      <Navigation>
+        <NavList>
+          <NavItem>
+            <Link to="/">HOME</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/about">ABOUT US</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/bathroom-plumbing">BATHROOM & PLUMBING</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/landscaping">LANDSCAPING</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/storage">STORAGE & SHELVING</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/lighting">LIGHTING</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/security">DOOR LOCKS & SECURITY</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/screws">SCREWS & FIXINGS</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/contact">CONTACT</Link>
+          </NavItem>
+        </NavList>
+      </Navigation>
     </HeaderWrapper>
   );
 };

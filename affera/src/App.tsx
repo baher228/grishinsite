@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Search from './pages/Search';
+import ProductDetail from './pages/ProductDetail';
 import ProductGrid from './components/product/ProductGrid';
 import { CartProvider, useCart } from './context/CartContext';
 import { getProductsByCategory, sampleProducts } from './data/products';
@@ -103,6 +104,7 @@ function App() {
               <Route path="/sale" element={<Sale />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
             </Routes>
           </Main>
           <Footer />

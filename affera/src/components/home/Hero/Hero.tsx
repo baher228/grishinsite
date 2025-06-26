@@ -1,95 +1,217 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { FiShield } from 'react-icons/fi';
+import Icon from '../../common/Icon';
 import Container from '../../common/Container';
 
-const HeroWrapper = styled.section`
-  background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
-  padding: 6rem 0;
-  text-align: center;
+const HeroSection = styled.section`
+  background: linear-gradient(135deg, var(--racing-green) 0%, #002211 100%);
+  color: white;
+  padding: 3rem 0;
   position: relative;
   overflow: hidden;
 
-  &::before {
+  &::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 0.3;
+    background: linear-gradient(135deg, rgba(0, 68, 34, 0.95) 0%, rgba(0, 34, 17, 0.95) 100%);
+    z-index: 0;
   }
 `;
 
 const HeroContent = styled.div`
-  max-width: 700px;
-  margin: 0 auto;
   position: relative;
   z-index: 1;
-`;
-
-const HeroTitle = styled.h1`
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
-  line-height: 1.1;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 300px;
+  max-width: 800px;
+  margin: 0 auto;
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    min-height: 250px;
+    padding: 0 1rem;
   }
 `;
 
-const HeroSubtitle = styled.p`
-  font-size: 1.3rem;
-  color: #ecf0f1;
-  margin-bottom: 3rem;
-  line-height: 1.6;
-  opacity: 0.9;
-
-  @media (max-width: 768px) {
-    font-size: 1.1rem;
-  }
-`;
-
-const CTAButton = styled.button`
-  background: linear-gradient(135deg, var(--accent-color) 0%, #e74c3c 100%);
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 700;
-  padding: 1.2rem 3rem;
+const Badge = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
   border-radius: 50px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: white;
   text-transform: uppercase;
   letter-spacing: 1px;
+`;
+
+const Title = styled.h1`
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  color: white;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const Subtitle = styled.p`
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 500px;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+  }
+`;
+
+const PrimaryButton = styled(Link)`
+  background: white;
+  color: var(--racing-green);
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.6);
-    background: linear-gradient(135deg, #e74c3c 0%, var(--accent-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background: var(--racing-green);
+    color: white;
   }
+`;
 
-  &:active {
-    transform: translateY(-1px);
+const SecondaryButton = styled(Link)`
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+
+  &:hover {
+    background: white;
+    border-color: white;
+    color: var(--racing-green);
   }
+`;
+
+const StatsGrid = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+`;
+
+const StatItem = styled.div`
+  text-align: center;
+`;
+
+const StatNumber = styled.div`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.25rem;
+`;
+
+const StatLabel = styled.div`
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;
 
 const Hero: React.FC = () => {
   return (
-    <HeroWrapper>
+    <HeroSection>
       <Container>
         <HeroContent>
-          <HeroTitle>Professional Tools for Every Project</HeroTitle>
-          <HeroSubtitle>
-            Discover our extensive collection of construction and plumbing tools. 
-            Quality equipment for professionals and DIY enthusiasts.
-          </HeroSubtitle>
-          <CTAButton>Shop Now</CTAButton>
+          <Badge>
+            <Icon icon={FiShield} size={14} />
+            Quality Guaranteed
+          </Badge>
+          
+          <Title>
+            Professional Tools for Every Project
+          </Title>
+          
+          <Subtitle>
+            Premium construction and plumbing tools from trusted brands. Quality equipment for professionals and DIY enthusiasts.
+          </Subtitle>
+          
+          <ButtonGroup>
+            <PrimaryButton to="/products">
+              Shop Now
+              <span>→</span>
+            </PrimaryButton>
+            <SecondaryButton to="/brands">
+              View Brands
+            </SecondaryButton>
+          </ButtonGroup>
+
+          <StatsGrid>
+            <StatItem>
+              <StatNumber>500+</StatNumber>
+              <StatLabel>Products</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>50+</StatNumber>
+              <StatLabel>Brands</StatLabel>
+            </StatItem>
+            <StatItem>
+              <StatNumber>Fast</StatNumber>
+              <StatLabel>Delivery</StatLabel>
+            </StatItem>
+          </StatsGrid>
         </HeroContent>
       </Container>
-    </HeroWrapper>
+    </HeroSection>
   );
 };
 
