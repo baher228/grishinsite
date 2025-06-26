@@ -4,6 +4,7 @@ import Container from '../../components/common/Container';
 import { useCart } from '../../context/CartContext';
 import Icon from '../../components/common/Icon';
 import { FiTrash2, FiMinus, FiPlus } from 'react-icons/fi';
+import { formatCurrency } from '../../utils/currency';
 
 const CartWrapper = styled.div`
   padding: 2rem 0;
@@ -192,7 +193,7 @@ const Cart: React.FC = () => {
               <ItemInfo>
                 <ItemBrand>{item.brand}</ItemBrand>
                 <ItemName>{item.name}</ItemName>
-                <ItemPrice>${item.price}</ItemPrice>
+                <ItemPrice>{formatCurrency(item.price)}</ItemPrice>
               </ItemInfo>
               <ItemActions>
                 <QuantityControl>
@@ -221,7 +222,7 @@ const Cart: React.FC = () => {
         <CartSummary>
           <SummaryRow>
             <span>Subtotal</span>
-            <span>${state.total.toFixed(2)}</span>
+            <span>{formatCurrency(state.total)}</span>
           </SummaryRow>
           <SummaryRow>
             <span>Shipping</span>
@@ -229,7 +230,7 @@ const Cart: React.FC = () => {
           </SummaryRow>
           <SummaryRow>
             <span>Total</span>
-            <span>${state.total.toFixed(2)}</span>
+            <span>{formatCurrency(state.total)}</span>
           </SummaryRow>
           <CheckoutButton>Proceed to Checkout</CheckoutButton>
         </CartSummary>
