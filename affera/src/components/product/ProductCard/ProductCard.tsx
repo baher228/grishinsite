@@ -11,6 +11,10 @@ interface Product {
   image: string;
   brand: string;
   category: string;
+  description?: string;
+  inStock?: boolean;
+  rating?: number;
+  reviews?: number;
 }
 
 interface ProductCardProps {
@@ -119,6 +123,24 @@ const Discount = styled.span`
   font-weight: 600;
 `;
 
+const RatingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #666;
+`;
+
+const Rating = styled.span`
+  color: var(--accent-color);
+  font-weight: 600;
+`;
+
+const Reviews = styled.span`
+  color: #666;
+`;
+
 const AddToCartButton = styled.button`
   width: 100%;
   background-color: var(--primary-color);
@@ -155,6 +177,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
       <CardContent>
         <Brand>{product.brand}</Brand>
         <ProductName>{product.name}</ProductName>
+        
+        {(product.rating && product.reviews) && (
+          <RatingContainer>
+            <Rating>{product.rating}★</Rating>
+            <Reviews>({product.reviews} reviews)</Reviews>
+          </RatingContainer>
+        )}
         
         <PriceContainer>
           <Price>${product.price}</Price>

@@ -1,46 +1,222 @@
-# Getting Started with Create React App
+# Affera - Professional Tools E-commerce Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive e-commerce website for construction and plumbing tools built with React, TypeScript, and styled-components.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+### Core Functionality
+- **Product Catalog**: Browse tools by categories (Tools, Plumbing, Construction)
+- **Shopping Cart**: Add/remove items, update quantities, real-time price calculations
+- **Search**: Full-text search across products, brands, and descriptions
+- **Responsive Design**: Mobile-first approach with responsive layouts
+- **Dark Theme**: Professional dark color scheme with high contrast
 
-### `npm start`
+### User Experience
+- **Hero Section**: Engaging landing page with call-to-action
+- **Product Cards**: Rich product information with ratings and reviews
+- **Cart Management**: Persistent cart state with item counter
+- **Search Results**: Dedicated search page with filtering
+- **Loading States**: Smooth loading indicators for better UX
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Technical Features
+- **TypeScript**: Full type safety throughout the application
+- **React Router**: Client-side routing for seamless navigation
+- **Context API**: Global state management for cart functionality
+- **Styled Components**: CSS-in-JS with theme support
+- **Component Architecture**: Modular, reusable components
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🛠️ Tech Stack
 
-### `npm test`
+- **Frontend**: React 18, TypeScript
+- **Styling**: Styled Components, CSS-in-JS
+- **Routing**: React Router v6
+- **Icons**: React Icons (Feather Icons)
+- **State Management**: React Context API
+- **Build Tool**: Create React App
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📁 Project Structure
 
-### `npm run build`
+```
+affera/
+├── public/
+│   ├── index.html
+│   └── robots.txt
+├── src/
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Container/
+│   │   │   ├── Icon/
+│   │   │   └── Loading/
+│   │   ├── home/
+│   │   │   └── Hero/
+│   │   ├── layout/
+│   │   │   ├── Header/
+│   │   │   └── Footer/
+│   │   └── product/
+│   │       ├── ProductCard/
+│   │       └── ProductGrid/
+│   ├── context/
+│   │   └── CartContext.tsx
+│   ├── data/
+│   │   └── products.ts
+│   ├── pages/
+│   │   ├── Home/
+│   │   ├── Cart/
+│   │   └── Search/
+│   ├── styles/
+│   │   └── GlobalStyles.ts
+│   ├── App.tsx
+│   └── index.tsx
+└── package.json
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🎨 Design System
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Colors
+- **Primary**: `#1a1a1a` (Dark charcoal)
+- **Accent**: `#dc3545` (Red)
+- **Background**: `#ffffff` (White)
+- **Text**: `#333333` (Dark gray)
+- **Border**: `#e0e0e0` (Light gray)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Typography
+- **Font Family**: Inter (Google Fonts)
+- **Weights**: 400, 500, 600, 700, 800
 
-### `npm run eject`
+### Components
+- **Cards**: Rounded corners (12px), subtle shadows
+- **Buttons**: Rounded (8px), hover effects
+- **Forms**: Rounded inputs (25px for search)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🚀 Getting Started
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Installation
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd affera
+```
 
-## Learn More
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Start the development server:
+```bash
+npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### Available Scripts
+
+- `npm start` - Runs the app in development mode
+- `npm test` - Launches the test runner
+- `npm run build` - Builds the app for production
+- `npm run eject` - Ejects from Create React App (one-way operation)
+
+## 📱 Pages & Routes
+
+- `/` - Home page with hero section and featured products
+- `/tools` - Tools category page
+- `/plumbing` - Plumbing category page
+- `/construction` - Construction category page
+- `/brands` - Brands page
+- `/sale` - Sale items page
+- `/cart` - Shopping cart page
+- `/search?q=<query>` - Search results page
+
+## 🛒 Cart Functionality
+
+The shopping cart includes:
+- Add items to cart from product cards
+- Update item quantities with +/- buttons
+- Remove items from cart
+- Real-time price calculations (subtotal, shipping, total)
+- Persistent cart state across page navigation
+- Cart counter in header
+
+## 🔍 Search Functionality
+
+- Full-text search across product names, brands, descriptions, and categories
+- Search form in header with Enter key support
+- Dedicated search results page
+- "No results" state with helpful messaging
+
+## 🎯 Product Data
+
+Products include:
+- Basic info (name, price, brand, category)
+- Images from Unsplash
+- Ratings and review counts
+- Detailed descriptions
+- Stock status
+- Original prices for sale items
+
+## 🌟 Key Components
+
+### ProductCard
+- Displays product information
+- Add to cart functionality
+- Wishlist button (UI only)
+- Hover effects and animations
+
+### Header
+- Navigation menu
+- Search functionality
+- Cart icon with item counter
+- User account icon (UI only)
+
+### Hero
+- Engaging headline and description
+- Call-to-action button
+- Dark gradient background with subtle pattern
+
+### Footer
+- Company information
+- Quick links
+- Customer service links
+- Social media icons
+- Newsletter signup (UI only)
+
+## 🔧 Customization
+
+### Adding New Products
+Edit `src/data/products.ts` to add new products to the catalog.
+
+### Styling
+Global styles are defined in `src/styles/GlobalStyles.ts`. Component-specific styles use styled-components.
+
+### Adding New Pages
+1. Create component in `src/pages/`
+2. Add route in `src/App.tsx`
+3. Update navigation in Header component
+
+## 📈 Future Enhancements
+
+- User authentication and accounts
+- Product reviews and ratings system
+- Wishlist functionality
+- Order history
+- Payment integration
+- Product filtering and sorting
+- Inventory management
+- Admin dashboard
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiSearch, FiUser, FiShoppingCart } from 'react-icons/fi';
 import Container from '../../common/Container';
 import Icon from '../../common/Icon';
@@ -44,7 +44,7 @@ const NavLink = styled(Link)`
   }
 `;
 
-const SearchContainer = styled.div`
+const SearchContainer = styled.form`
   position: relative;
   display: flex;
   align-items: center;
@@ -120,6 +120,14 @@ const CartWrapper = styled.div`
 const Header: React.FC = () => {
   const { state } = useCart();
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   return (
     <HeaderWrapper>
@@ -134,7 +142,7 @@ const Header: React.FC = () => {
           <NavLink to="/sale">Sale</NavLink>
         </Nav>
 
-        <SearchContainer>
+        <SearchContainer onSubmit={handleSearch}>
           <SearchIcon>
             <Icon icon={FiSearch} size={18} />
           </SearchIcon>
