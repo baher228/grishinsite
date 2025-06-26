@@ -11,14 +11,31 @@ const HeaderWrapper = styled.header`
   border-bottom: 1px solid var(--border-color, #ccc);
 `;
 
+const TopBarContainer = styled.div`
+  width: 100%;
+  padding: 0 var(--padding-lg);
+  
+  @media (min-width: 1440px) {
+    padding: 0 var(--padding-xl);
+  }
+
+  @media (min-width: 1920px) {
+    padding: 0 var(--padding-xxl);
+  }
+`;
+
 const TopBar = styled.div`
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 1.5rem 2rem;
-  max-width: var(--max-width, 1200px);
+  padding: 1.5rem 0;
+  max-width: var(--max-width);
   margin: 0 auto;
-  gap: 2rem;
+  gap: clamp(1rem, 3vw, 2rem);
+  
+  @media (min-width: 1440px) {
+    gap: clamp(2rem, 4vw, 3rem);
+  }
 `;
 
 const LeftNav = styled.div`
@@ -116,24 +133,32 @@ const CartCount = styled.span`
 
 const Navigation = styled.nav`
   border-top: 1px solid var(--border-color, #ccc);
-  padding: 1rem 0;
   background: var(--background-color, #fff);
+  padding: 0 var(--padding-lg);
+  
+  @media (min-width: 1440px) {
+    padding: 0 var(--padding-xl);
+  }
+
+  @media (min-width: 1920px) {
+    padding: 0 var(--padding-xxl);
+  }
 `;
 
 const NavList = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: clamp(1.5rem, 3vw, 3rem);
   list-style: none;
-  max-width: var(--max-width, 1200px);
+  max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0.5rem 2rem;
+  padding: 1rem 0;
   flex-wrap: wrap;
 
   @media (max-width: 768px) {
     gap: 1rem;
-    padding: 0.5rem;
+    padding: 0.75rem 0;
   }
 `;
 
@@ -159,10 +184,12 @@ const Header: React.FC = () => {
 
   return (
     <HeaderWrapper>
-      <TopBar>
+      <TopBarContainer>
+        <TopBar>
         <LeftNav>
           <NavLink to="/">HOME</NavLink>
           <NavLink to="/about">ABOUT US</NavLink>
+          <NavLink to="/contact">CONTACT</NavLink>
         </LeftNav>
 
         <Logo to="/">AFFERA</Logo>
@@ -173,18 +200,21 @@ const Header: React.FC = () => {
             <input type="text" placeholder="Search tools and supplies..." />
           </SearchBar>
           
-          <NavLink to="/contact">CONTACT</NavLink>
           
-          <IconButton to="/account">
+          
+          <IconButton to="/login">
             <Icon icon={FiUser} />
+            <span style={{ fontSize: '0.8rem', marginLeft: '0.25rem' }}>LOGIN</span>
           </IconButton>
+          <NavLink to="/signup" style={{ fontSize: '0.8rem' }}>SIGN UP</NavLink>
           
           <IconButton to="/cart">
             <Icon icon={FiShoppingCart} />
             {itemCount > 0 && <CartCount>{itemCount}</CartCount>}
           </IconButton>
         </RightNav>
-      </TopBar>
+        </TopBar>
+      </TopBarContainer>
 
       <Navigation>
         <NavList>

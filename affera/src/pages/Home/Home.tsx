@@ -5,7 +5,7 @@ import ProductGrid from '../../components/product/ProductGrid';
 import Container from '../../components/common/Container';
 import { useCart } from '../../context/CartContext';
 import { getFeaturedProducts } from '../../data/products';
-import { FiTool, FiDroplet, FiSettings } from 'react-icons/fi';
+import { FiTool, FiDroplet, FiSettings, FiHome, FiLock, FiPackage } from 'react-icons/fi';
 import Icon from '../../components/common/Icon';
 import { Link } from 'react-router-dom';
 
@@ -40,21 +40,35 @@ const SectionTitle = styled.h2`
 `;
 
 const CategoriesSection = styled.section`
-  padding: 5rem 0;
+  padding: clamp(3rem, 5vw, 5rem) 0;
   background: white;
 `;
 
 const CategoriesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr), auto-fit);
+  gap: clamp(1.5rem, 3vw, 2rem);
   margin-top: 3rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+
+  @media (min-width: 1440px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
 `;
 
 const CategoryCard = styled(Link)`
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-  border-radius: 20px;
-  padding: 3rem 2rem;
+  border-radius: clamp(16px, 2vw, 20px);
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2rem);
   text-align: center;
   text-decoration: none;
   color: inherit;
@@ -67,11 +81,15 @@ const CategoryCard = styled(Link)`
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
     border-color: var(--accent-color);
   }
+
+  @media (min-width: 1440px) {
+    padding: clamp(3rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+  }
 `;
 
 const CategoryIcon = styled.div`
-  width: 80px;
-  height: 80px;
+  width: clamp(60px, 8vw, 80px);
+  height: clamp(60px, 8vw, 80px);
   background: linear-gradient(135deg, var(--accent-color), #e53e3e);
   border-radius: 50%;
   display: flex;
@@ -79,77 +97,137 @@ const CategoryIcon = styled.div`
   justify-content: center;
   margin: 0 auto 1.5rem;
   color: white;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   transition: all 0.3s ease;
 
   ${CategoryCard}:hover & {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
   }
+
+  @media (min-width: 1440px) {
+    width: clamp(80px, 6vw, 100px);
+    height: clamp(80px, 6vw, 100px);
+    font-size: clamp(2rem, 3vw, 2.5rem);
+  }
 `;
 
 const CategoryTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
   font-weight: 600;
   color: var(--primary-color);
   margin-bottom: 1rem;
+
+  @media (min-width: 1440px) {
+    font-size: clamp(1.5rem, 2.5vw, 1.75rem);
+  }
 `;
 
 const CategoryDescription = styled.p`
   color: var(--text-color);
   line-height: 1.6;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+
+  @media (min-width: 1440px) {
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
+    line-height: 1.7;
+  }
 `;
 
 const StatsSection = styled.section`
-  padding: 4rem 0;
-  background: linear-gradient(135deg, var(--primary-color) 0%, #333 100%);
+  padding: clamp(4rem, 6vw, 6rem) 0;
+  background: #1a1a1a;
   color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(60, 179, 113, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    pointer-events: none;
+  }
 `;
 
 const StatsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2rem);
   text-align: center;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1440px) {
+    gap: clamp(3rem, 5vw, 4rem);
+  }
 `;
 
 const StatCard = styled.div`
-  padding: 2rem 1rem;
+  padding: clamp(1.5rem, 3vw, 2rem) 1rem;
+
+  @media (min-width: 1440px) {
+    padding: clamp(2rem, 4vw, 3rem) 1rem;
+  }
 `;
 
 const StatNumber = styled.div`
-  font-size: 3rem;
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
-  color: var(--accent-color);
+  color: #00FF7F;
   margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+
+  @media (min-width: 1440px) {
+    font-size: clamp(3.5rem, 6vw, 5rem);
+  }
 `;
 
 const StatLabel = styled.div`
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   opacity: 0.9;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+
+  @media (min-width: 1440px) {
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
+  }
 `;
 
 const NewsletterSection = styled.section`
-  padding: 4rem 0;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: clamp(4rem, 6vw, 6rem) 0;
+  background: #f8f9fa;
   text-align: center;
+  position: relative;
 `;
 
 const NewsletterTitle = styled.h2`
-  font-size: 2rem;
+  font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 700;
-  color: var(--primary-color);
+  color: #1a1a1a;
   margin-bottom: 1rem;
 `;
 
 const NewsletterDescription = styled.p`
-  font-size: 1.1rem;
-  color: var(--text-color);
-  margin-bottom: 2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #666;
+  margin-bottom: 2.5rem;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.6;
 `;
 
 const NewsletterForm = styled.form`
@@ -178,16 +256,20 @@ const NewsletterInput = styled.input`
 `;
 
 const NewsletterButton = styled.button`
-  background: linear-gradient(135deg, var(--accent-color), #e53e3e);
+  background: #8B4513;
   color: white;
   font-weight: 600;
   padding: 1rem 2rem;
-  border-radius: 25px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1rem;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+    background: #A0522D;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
   }
 `;
 
@@ -218,33 +300,63 @@ const Home: React.FC = () => {
         <Container>
           <SectionTitle>Shop by Category</SectionTitle>
           <CategoriesGrid>
-            <CategoryCard to="/tools">
-              <CategoryIcon>
-                <Icon icon={FiTool} size={32} />
-              </CategoryIcon>
-              <CategoryTitle>Professional Tools</CategoryTitle>
-              <CategoryDescription>
-                High-quality power tools and hand tools for every project. From drills to saws, find the right tool for the job.
-              </CategoryDescription>
-            </CategoryCard>
-
-            <CategoryCard to="/plumbing">
+            <CategoryCard to="/bathroom-plumbing">
               <CategoryIcon>
                 <Icon icon={FiDroplet} size={32} />
               </CategoryIcon>
-              <CategoryTitle>Plumbing Supplies</CategoryTitle>
+              <CategoryTitle>Bathroom & Plumbing</CategoryTitle>
               <CategoryDescription>
-                Complete range of plumbing equipment and supplies. Pipes, fittings, and repair kits for all your plumbing needs.
+                Complete range of bathroom fixtures and plumbing supplies. Pipes, fittings, and repair kits for all your needs.
               </CategoryDescription>
             </CategoryCard>
 
-            <CategoryCard to="/construction">
+            <CategoryCard to="/landscaping">
+              <CategoryIcon>
+                <Icon icon={FiTool} size={32} />
+              </CategoryIcon>
+              <CategoryTitle>Landscaping</CategoryTitle>
+              <CategoryDescription>
+                Garden tools, outdoor equipment, and landscaping supplies to create and maintain beautiful outdoor spaces.
+              </CategoryDescription>
+            </CategoryCard>
+
+            <CategoryCard to="/storage">
+              <CategoryIcon>
+                <Icon icon={FiPackage} size={32} />
+              </CategoryIcon>
+              <CategoryTitle>Storage & Shelving</CategoryTitle>
+              <CategoryDescription>
+                Organize your space with our selection of storage solutions, shelving units, and organizational systems.
+              </CategoryDescription>
+            </CategoryCard>
+
+            <CategoryCard to="/lighting">
+              <CategoryIcon>
+                <Icon icon={FiHome} size={32} />
+              </CategoryIcon>
+              <CategoryTitle>Lighting</CategoryTitle>
+              <CategoryDescription>
+                Indoor and outdoor lighting solutions. From LED bulbs to decorative fixtures for every room and space.
+              </CategoryDescription>
+            </CategoryCard>
+
+            <CategoryCard to="/security">
+              <CategoryIcon>
+                <Icon icon={FiLock} size={32} />
+              </CategoryIcon>
+              <CategoryTitle>Door Locks & Security</CategoryTitle>
+              <CategoryDescription>
+                Secure your property with our range of door locks, security systems, and safety equipment.
+              </CategoryDescription>
+            </CategoryCard>
+
+            <CategoryCard to="/screws">
               <CategoryIcon>
                 <Icon icon={FiSettings} size={32} />
               </CategoryIcon>
-              <CategoryTitle>Construction Equipment</CategoryTitle>
+              <CategoryTitle>Screws & Fixings</CategoryTitle>
               <CategoryDescription>
-                Essential construction materials and safety equipment. Build with confidence using our premium supplies.
+                Essential fasteners, screws, bolts, and fixing solutions for all your construction and repair projects.
               </CategoryDescription>
             </CategoryCard>
           </CategoriesGrid>

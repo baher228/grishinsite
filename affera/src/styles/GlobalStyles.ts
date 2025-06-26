@@ -20,6 +20,42 @@ const GlobalStyles = createGlobalStyle`
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
+    
+    /* Responsive breakpoints */
+    --breakpoint-sm: 480px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1440px;
+    --breakpoint-ultra: 1920px;
+    
+    /* Responsive container widths */
+    --container-sm: 100%;
+    --container-md: 100%;
+    --container-lg: 1024px;
+    --container-xl: 1200px;
+    --container-xxl: 1400px;
+    --container-ultra: 1600px;
+    
+    /* Responsive padding */
+    --padding-sm: 1rem;
+    --padding-md: 1.5rem;
+    --padding-lg: 2rem;
+    --padding-xl: 2.5rem;
+    --padding-xxl: 3rem;
+  }
+
+  /* Responsive container width adjustments */
+  @media (min-width: 1440px) {
+    :root {
+      --max-width: var(--container-xxl);
+    }
+  }
+
+  @media (min-width: 1920px) {
+    :root {
+      --max-width: var(--container-ultra);
+    }
   }
 
   * {
