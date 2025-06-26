@@ -19,7 +19,7 @@ const HeroTitle = styled.h1`
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 700;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #3CB371, #00FF7F);
+  background: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -58,17 +58,26 @@ const SectionTitle = styled.h2`
   }
 `;
 
-const StorySection = styled.div`
+const AboutGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 4rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: 900px) {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
   }
+`;
+
+const InfoCard = styled.div`
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+  margin-bottom: 2rem;
 `;
 
 const StoryContent = styled.div`
@@ -141,7 +150,7 @@ const ValueCard = styled.div`
 const ValueIcon = styled.div`
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #3CB371, #00FF7F);
+  background: var(--racing-green);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -165,7 +174,7 @@ const ValueDescription = styled.p`
 `;
 
 const StatsSection = styled.section`
-  background: #1a1a1a;
+  background: var(--racing-green);
   color: white;
   padding: clamp(4rem, 8vw, 6rem) 0;
 `;
@@ -240,7 +249,7 @@ const TeamCard = styled.div`
 const TeamPhoto = styled.div`
   width: 120px;
   height: 120px;
-  background: linear-gradient(135deg, #3CB371, #00FF7F);
+  background: var(--racing-green);
   border-radius: 50%;
   margin: 0 auto 1.5rem;
   display: flex;
@@ -286,27 +295,31 @@ const About: React.FC = () => {
       <ContentSection>
         <Container>
           <SectionTitle>Our Story</SectionTitle>
-          <StorySection>
-            <StoryContent>
-              <h3>Building Trust Since 2010</h3>
-              <p>
-                Affera was founded with a simple mission: to provide professionals and DIY enthusiasts 
-                with access to the highest quality tools and construction supplies at competitive prices.
-              </p>
-              <p>
-                What started as a small family business has grown into a trusted supplier serving 
-                thousands of customers across the region. Our commitment to quality, reliability, 
-                and customer service remains at the heart of everything we do.
-              </p>
-              <p>
-                Today, we partner with leading brands and manufacturers to bring you the latest 
-                innovations in tools, equipment, and construction materials.
-              </p>
-            </StoryContent>
-            <StoryImage>
-              [Company History Image]
-            </StoryImage>
-          </StorySection>
+          <AboutGrid>
+            <InfoCard>
+              <StoryContent>
+                <h3>Building Trust Since 2010</h3>
+                <p>
+                  Affera was founded with a simple mission: to provide professionals and DIY enthusiasts 
+                  with access to the highest quality tools and construction supplies at competitive prices.
+                </p>
+                <p>
+                  What started as a small family business has grown into a trusted supplier serving 
+                  thousands of customers across the region. Our commitment to quality, reliability, 
+                  and customer service remains at the heart of everything we do.
+                </p>
+                <p>
+                  Today, we partner with leading brands and manufacturers to bring you the latest 
+                  innovations in tools, equipment, and construction materials.
+                </p>
+              </StoryContent>
+            </InfoCard>
+            <InfoCard>
+              <StoryImage>
+                [Company History Image]
+              </StoryImage>
+            </InfoCard>
+          </AboutGrid>
 
           <SectionTitle>Our Values</SectionTitle>
           <ValuesGrid>

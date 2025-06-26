@@ -124,20 +124,24 @@ const ForgotPassword = styled(Link)`
 `;
 
 const LoginButton = styled.button`
-  background: linear-gradient(135deg, #3CB371, #2E8B57);
+  width: 100%;
+  background: var(--racing-green);
   color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-size: 1rem;
   font-weight: 600;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   margin-top: 1rem;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(60, 179, 113, 0.3);
+    background: #003319;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 66, 37, 0.3);
   }
 
   &:disabled {

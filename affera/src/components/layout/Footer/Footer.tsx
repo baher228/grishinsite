@@ -104,11 +104,12 @@ const Footer: React.FC = () => {
 
         <FooterSection>
           <FooterTitle>Quick Links</FooterTitle>
-          <FooterLink to="/tools">Tools</FooterLink>
-          <FooterLink to="/plumbing">Plumbing</FooterLink>
-          <FooterLink to="/construction">Construction</FooterLink>
-          <FooterLink to="/brands">Brands</FooterLink>
-          <FooterLink to="/sale">Sale</FooterLink>
+          <FooterLink to="/bathroom-plumbing">BATHROOM & PLUMBING</FooterLink>
+          <FooterLink to="/landscaping">LANDSCAPING</FooterLink>
+          <FooterLink to="/storage">STORAGE & SHELVING</FooterLink>
+          <FooterLink to="/lighting">LIGHTING</FooterLink>
+          <FooterLink to="/security">DOORS & SECURITY</FooterLink>
+          <FooterLink to="/screws">SCREWS & FIXINGS</FooterLink>
         </FooterSection>
 
         <FooterSection>

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Hero from '../../components/home/Hero';
+import Discounts from '../../components/home/Discounts';
+import Brands from '../../components/home/Brands';
 import ProductGrid from '../../components/product/ProductGrid';
 import Container from '../../components/common/Container';
 import { useCart } from '../../context/CartContext';
@@ -34,7 +36,7 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(135deg, var(--accent-color), #e53e3e);
+    background: linear-gradient(135deg, var(--racing-green), #000000);
     border-radius: 2px;
   }
 `;
@@ -46,7 +48,7 @@ const CategoriesSection = styled.section`
 
 const CategoriesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr), auto-fit);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: clamp(1.5rem, 3vw, 2rem);
   margin-top: 3rem;
 
@@ -79,7 +81,7 @@ const CategoryCard = styled(Link)`
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
-    border-color: var(--accent-color);
+    border-color: var(--racing-green);
   }
 
   @media (min-width: 1440px) {
@@ -90,7 +92,7 @@ const CategoryCard = styled(Link)`
 const CategoryIcon = styled.div`
   width: clamp(60px, 8vw, 80px);
   height: clamp(60px, 8vw, 80px);
-  background: linear-gradient(135deg, var(--accent-color), #e53e3e);
+  background: linear-gradient(135deg, var(--racing-green), #000000);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -102,7 +104,7 @@ const CategoryIcon = styled.div`
 
   ${CategoryCard}:hover & {
     transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 66, 37, 0.3);
   }
 
   @media (min-width: 1440px) {
@@ -148,7 +150,7 @@ const StatsSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(60, 179, 113, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: linear-gradient(135deg, rgba(0, 66, 37, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
     pointer-events: none;
   }
 `;
@@ -184,7 +186,7 @@ const StatCard = styled.div`
 const StatNumber = styled.div`
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
-  color: #00FF7F;
+  color: #004225;
   margin-bottom: 0.5rem;
   position: relative;
   z-index: 1;
@@ -250,13 +252,13 @@ const NewsletterInput = styled.input`
   transition: all 0.3s ease;
 
   &:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+    border-color: var(--racing-green);
+    box-shadow: 0 0 0 3px rgba(0, 66, 37, 0.1);
   }
 `;
 
 const NewsletterButton = styled.button`
-  background: #8B4513;
+  background: var(--racing-green);
   color: white;
   font-weight: 600;
   padding: 1rem 2rem;
@@ -267,9 +269,9 @@ const NewsletterButton = styled.button`
   font-size: 1rem;
 
   &:hover {
-    background: #A0522D;
+    background: #003319;
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 66, 37, 0.3);
   }
 `;
 
@@ -286,6 +288,8 @@ const Home: React.FC = () => {
     <HomeWrapper>
       <Hero />
       
+      <Discounts />
+      
       <FeaturedSection>
         <Container>
           <SectionTitle>Featured Products</SectionTitle>
@@ -295,6 +299,8 @@ const Home: React.FC = () => {
           />
         </Container>
       </FeaturedSection>
+
+      <Brands />
 
       <CategoriesSection>
         <Container>
@@ -344,7 +350,7 @@ const Home: React.FC = () => {
               <CategoryIcon>
                 <Icon icon={FiLock} size={32} />
               </CategoryIcon>
-              <CategoryTitle>Door Locks & Security</CategoryTitle>
+              <CategoryTitle>Doors & Security</CategoryTitle>
               <CategoryDescription>
                 Secure your property with our range of door locks, security systems, and safety equipment.
               </CategoryDescription>

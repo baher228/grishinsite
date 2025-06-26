@@ -222,7 +222,7 @@ const Header: React.FC = () => {
           <NavItem><Link to="/landscaping">LANDSCAPING</Link></NavItem>
           <NavItem><Link to="/storage">STORAGE & SHELVING</Link></NavItem>
           <NavItem><Link to="/lighting">LIGHTING</Link></NavItem>
-          <NavItem><Link to="/security">DOOR LOCKS & SECURITY</Link></NavItem>
+          <NavItem><Link to="/security">DOORS & SECURITY</Link></NavItem>
           <NavItem><Link to="/screws">SCREWS & FIXINGS</Link></NavItem>
         </NavList>
       </Navigation>
