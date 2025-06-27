@@ -9,7 +9,7 @@ const ContactWrapper = styled.div`
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, var(--racing-green) 0%, #002211 100%);
   color: white;
   padding: clamp(4rem, 8vw, 8rem) 0;
   text-align: center;

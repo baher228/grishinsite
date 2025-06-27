@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FiShoppingCart, FiHeart } from 'react-icons/fi';
@@ -24,6 +24,7 @@ interface ProductCardProps {
   onAddToCart: (product: Product) => void;
 }
 
+// 1. FIX HEIGHT AND FLEX ON THE CARD
 const Card = styled.div`
   background: white;
   border-radius: 16px;
@@ -32,6 +33,12 @@ const Card = styled.div`
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 550px; // <--- Set to fit your design, 550px is usually good for 1-line/2-line names
+  width: 100%;
+  max-width: 340px;
+  min-width: 300px;
 
   &:hover {
     transform: translateY(-8px);
@@ -42,7 +49,9 @@ const Card = styled.div`
 const ProductLink = styled(Link)`
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 const ImageContainer = styled.div`
@@ -102,8 +111,27 @@ const SaleTag = styled.div`
   z-index: 2;
 `;
 
+// 2. FLEX COLUMN, FULL HEIGHT
 const CardContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   padding: 1.75rem;
+  height: 100%;
+`;
+
+// 3. GROW INFO AREA TO FILL AVAILABLE SPACE
+const CardInfo = styled.div`
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+`;
+
+const CardFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 const Brand = styled.span`
@@ -242,36 +270,38 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
             <Icon icon={FiHeart} size={20} />
           </WishlistButton>
         </ImageContainer>
-        
-        <CardContent>
-          <Brand>{product.brand}</Brand>
-          <ProductName>{product.name}</ProductName>
-          
-          {(product.rating && product.reviews) && (
-            <RatingContainer>
-              <Rating>{product.rating}★</Rating>
-              <Reviews>({product.reviews} reviews)</Reviews>
-            </RatingContainer>
-          )}
-          
-          <PriceContainer>
-            <Price>{formatCurrency(product.price)}</Price>
-            {product.originalPrice && (
-              <>
-                <OriginalPrice>{formatCurrency(product.originalPrice)}</OriginalPrice>
-                <Discount>Save {discountPercentage}%</Discount>
-              </>
-            )}
-          </PriceContainer>
 
-          <StockStatus $inStock={product.inStock}>
-            {product.inStock ? 'In Stock' : 'Out of Stock'}
-          </StockStatus>
-          
-          <AddToCartButton onClick={handleAddToCart}>
-            <Icon icon={FiShoppingCart} size={20} />
-            Add to Cart
-          </AddToCartButton>
+        <CardContent>
+          <CardInfo>
+            <Brand>{product.brand}</Brand>
+            <ProductName>{product.name}</ProductName>
+
+            {(product.rating && product.reviews) && (
+              <RatingContainer>
+                <Rating>{product.rating}★</Rating>
+                <Reviews>({product.reviews} reviews)</Reviews>
+              </RatingContainer>
+            )}
+
+            <PriceContainer>
+              <Price>{formatCurrency(product.price)}</Price>
+              {product.originalPrice && (
+                <>
+                  <OriginalPrice>{formatCurrency(product.originalPrice)}</OriginalPrice>
+                  <Discount>Save {discountPercentage}%</Discount>
+                </>
+              )}
+            </PriceContainer>
+          </CardInfo>
+          <CardFooter>
+            <StockStatus $inStock={product.inStock}>
+              {product.inStock ? 'In Stock' : 'Out of Stock'}
+            </StockStatus>
+            <AddToCartButton onClick={handleAddToCart}>
+              <Icon icon={FiShoppingCart} size={20} />
+              Add to Cart
+            </AddToCartButton>
+          </CardFooter>
         </CardContent>
       </ProductLink>
     </Card>

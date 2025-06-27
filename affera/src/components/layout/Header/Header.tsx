@@ -218,12 +218,12 @@ const Header: React.FC = () => {
 
       <Navigation>
         <NavList>
-          <NavItem><Link to="/bathroom-plumbing">BATHROOM & PLUMBING</Link></NavItem>
-          <NavItem><Link to="/landscaping">LANDSCAPING</Link></NavItem>
-          <NavItem><Link to="/storage">STORAGE & SHELVING</Link></NavItem>
-          <NavItem><Link to="/lighting">LIGHTING</Link></NavItem>
-          <NavItem><Link to="/security">DOORS & SECURITY</Link></NavItem>
-          <NavItem><Link to="/screws">SCREWS & FIXINGS</Link></NavItem>
+          <NavItem><Link to="/Bath & Plumbing">BATHROOM & PLUMBING</Link></NavItem>
+          <NavItem><Link to="/Landscaping">LANDSCAPING</Link></NavItem>
+          <NavItem><Link to="/Storage & Shelving">STORAGE & SHELVING</Link></NavItem>
+          <NavItem><Link to="/Lighting">LIGHTING</Link></NavItem>
+          <NavItem><Link to="/Doors & Security">DOORS & SECURITY</Link></NavItem>
+          <NavItem><Link to="/Screws & Fixings">SCREWS & FIXINGS</Link></NavItem>
         </NavList>
       </Navigation>
     </HeaderWrapper>

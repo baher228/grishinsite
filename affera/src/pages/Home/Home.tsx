@@ -306,7 +306,7 @@ const Home: React.FC = () => {
         <Container>
           <SectionTitle>Shop by Category</SectionTitle>
           <CategoriesGrid>
-            <CategoryCard to="/bathroom-plumbing">
+            <CategoryCard to="/Bath & Plumbing">
               <CategoryIcon>
                 <Icon icon={FiDroplet} size={32} />
               </CategoryIcon>
@@ -316,7 +316,7 @@ const Home: React.FC = () => {
               </CategoryDescription>
             </CategoryCard>
 
-            <CategoryCard to="/landscaping">
+            <CategoryCard to="/Landscaping">
               <CategoryIcon>
                 <Icon icon={FiTool} size={32} />
               </CategoryIcon>
@@ -326,7 +326,7 @@ const Home: React.FC = () => {
               </CategoryDescription>
             </CategoryCard>
 
-            <CategoryCard to="/storage">
+            <CategoryCard to="/Storage & Shelving">
               <CategoryIcon>
                 <Icon icon={FiPackage} size={32} />
               </CategoryIcon>
@@ -336,7 +336,7 @@ const Home: React.FC = () => {
               </CategoryDescription>
             </CategoryCard>
 
-            <CategoryCard to="/lighting">
+            <CategoryCard to="/Lighting">
               <CategoryIcon>
                 <Icon icon={FiHome} size={32} />
               </CategoryIcon>
@@ -346,7 +346,7 @@ const Home: React.FC = () => {
               </CategoryDescription>
             </CategoryCard>
 
-            <CategoryCard to="/security">
+            <CategoryCard to="/Doors & Security">
               <CategoryIcon>
                 <Icon icon={FiLock} size={32} />
               </CategoryIcon>
@@ -356,7 +356,7 @@ const Home: React.FC = () => {
               </CategoryDescription>
             </CategoryCard>
 
-            <CategoryCard to="/screws">
+            <CategoryCard to="/Screws & Fixings">
               <CategoryIcon>
                 <Icon icon={FiSettings} size={32} />
               </CategoryIcon>

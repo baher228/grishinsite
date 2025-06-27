@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import Container from '../../components/common/Container';
-import { FiAward, FiUsers, FiTruck, FiShield } from 'react-icons/fi';
-import Icon from '../../components/common/Icon';
+import React from "react";
+import styled from "styled-components";
+import Container from "../../components/common/Container";
+import { FiAward, FiUsers, FiTruck, FiShield } from "react-icons/fi";
+import Icon from "../../components/common/Icon";
 
 const AboutWrapper = styled.div`
   min-height: 100vh;
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, var(--racing-green) 0%, #002211 100%);
   color: white;
   padding: clamp(4rem, 8vw, 8rem) 0;
   text-align: center;
@@ -46,14 +46,14 @@ const SectionTitle = styled.h2`
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(135deg, #3CB371, #00FF7F);
+    background: linear-gradient(135deg, #3cb371, #00ff7f);
     border-radius: 2px;
   }
 `;
@@ -202,7 +202,7 @@ const StatCard = styled.div`
 const StatNumber = styled.div`
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
-  color: #00FF7F;
+  color: #00ff7f;
   margin-bottom: 0.5rem;
 `;
 
@@ -268,7 +268,7 @@ const TeamName = styled.h3`
 `;
 
 const TeamRole = styled.p`
-  color: #3CB371;
+  color: #3cb371;
   font-weight: 500;
   margin-bottom: 1rem;
 `;
@@ -286,8 +286,9 @@ const About: React.FC = () => {
         <Container>
           <HeroTitle>About Affera</HeroTitle>
           <HeroSubtitle>
-            Your trusted partner for professional tools and construction supplies. 
-            Building excellence since 2010 with quality products and exceptional service.
+            Your trusted partner for professional tools and construction
+            supplies. Building excellence since 2010 with quality products and
+            exceptional service.
           </HeroSubtitle>
         </Container>
       </HeroSection>
@@ -298,26 +299,27 @@ const About: React.FC = () => {
           <AboutGrid>
             <InfoCard>
               <StoryContent>
-                <h3>Building Trust Since 2010</h3>
+                <h3>Affera</h3>
                 <p>
-                  Affera was founded with a simple mission: to provide professionals and DIY enthusiasts 
-                  with access to the highest quality tools and construction supplies at competitive prices.
+                  Affera was founded with a simple mission: to provide
+                  professionals and DIY enthusiasts with access to the highest
+                  quality tools and construction supplies at competitive prices.
                 </p>
                 <p>
-                  What started as a small family business has grown into a trusted supplier serving 
-                  thousands of customers across the region. Our commitment to quality, reliability, 
-                  and customer service remains at the heart of everything we do.
+                  What started as a small family business has grown into a
+                  trusted supplier serving thousands of customers across the
+                  region. Our commitment to quality, reliability, and customer
+                  service remains at the heart of everything we do.
                 </p>
                 <p>
-                  Today, we partner with leading brands and manufacturers to bring you the latest 
-                  innovations in tools, equipment, and construction materials.
+                  Today, we partner with leading brands and manufacturers to
+                  bring you the latest innovations in tools, equipment, and
+                  construction materials.
                 </p>
               </StoryContent>
             </InfoCard>
             <InfoCard>
-              <StoryImage>
-                [Company History Image]
-              </StoryImage>
+              <StoryImage>[Company History Image]</StoryImage>
             </InfoCard>
           </AboutGrid>
 
@@ -329,8 +331,8 @@ const About: React.FC = () => {
               </ValueIcon>
               <ValueTitle>Quality First</ValueTitle>
               <ValueDescription>
-                We source only the highest quality products from trusted manufacturers 
-                and rigorously test everything we sell.
+                We source only the highest quality products from trusted
+                manufacturers and rigorously test everything we sell.
               </ValueDescription>
             </ValueCard>
 
@@ -340,8 +342,8 @@ const About: React.FC = () => {
               </ValueIcon>
               <ValueTitle>Customer Focus</ValueTitle>
               <ValueDescription>
-                Our customers are at the center of everything we do. We provide expert 
-                advice and support to help you succeed.
+                Our customers are at the center of everything we do. We provide
+                expert advice and support to help you succeed.
               </ValueDescription>
             </ValueCard>
 
@@ -351,8 +353,8 @@ const About: React.FC = () => {
               </ValueIcon>
               <ValueTitle>Fast Delivery</ValueTitle>
               <ValueDescription>
-                Quick and reliable delivery service ensures you get your tools and 
-                supplies when you need them most.
+                Quick and reliable delivery service ensures you get your tools
+                and supplies when you need them most.
               </ValueDescription>
             </ValueCard>
 
@@ -362,7 +364,7 @@ const About: React.FC = () => {
               </ValueIcon>
               <ValueTitle>Reliability</ValueTitle>
               <ValueDescription>
-                Count on us for consistent quality, competitive pricing, and 
+                Count on us for consistent quality, competitive pricing, and
                 dependable service you can trust.
               </ValueDescription>
             </ValueCard>
@@ -372,7 +374,7 @@ const About: React.FC = () => {
 
       <StatsSection>
         <Container>
-          <SectionTitle style={{ color: 'white' }}>Our Impact</SectionTitle>
+          <SectionTitle style={{ color: "white" }}>Our Impact</SectionTitle>
           <StatsGrid>
             <StatCard>
               <StatNumber>10,000+</StatNumber>
@@ -403,8 +405,9 @@ const About: React.FC = () => {
               <TeamName>John Davis</TeamName>
               <TeamRole>Founder & CEO</TeamRole>
               <TeamDescription>
-                With over 20 years in the construction industry, John founded Affera 
-                to bridge the gap between quality and affordability in professional tools.
+                With over 20 years in the construction industry, John founded
+                Affera to bridge the gap between quality and affordability in
+                professional tools.
               </TeamDescription>
             </TeamCard>
 
@@ -413,8 +416,8 @@ const About: React.FC = () => {
               <TeamName>Sarah Mitchell</TeamName>
               <TeamRole>Operations Manager</TeamRole>
               <TeamDescription>
-                Sarah ensures our operations run smoothly and our customers receive 
-                the best possible service and support experience.
+                Sarah ensures our operations run smoothly and our customers
+                receive the best possible service and support experience.
               </TeamDescription>
             </TeamCard>
 
@@ -423,8 +426,8 @@ const About: React.FC = () => {
               <TeamName>Mike Rodriguez</TeamName>
               <TeamRole>Product Specialist</TeamRole>
               <TeamDescription>
-                Mike's expertise in tools and construction equipment helps customers 
-                find exactly what they need for their projects.
+                Mike's expertise in tools and construction equipment helps
+                customers find exactly what they need for their projects.
               </TeamDescription>
             </TeamCard>
           </TeamGrid>

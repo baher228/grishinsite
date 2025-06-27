@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
+import Category from './pages/Category';
 import ProductGrid from './components/product/ProductGrid';
 import { CartProvider, useCart } from './context/CartContext';
 import { getProductsByCategory, sampleProducts } from './data/products';
@@ -115,6 +116,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/:category" element={<Category />} />
             </Routes>
           </Main>
           <Footer />

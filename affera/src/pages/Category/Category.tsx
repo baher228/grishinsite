@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 import Container from '../../components/common/Container';
 import ProductGrid from '../../components/product/ProductGrid';
 import { useCart } from '../../context/CartContext';
-import { getProductsByCategory } from '../../data/products';
+import { getProductsByCategory } from '../../services/api';
 import Loading from '../../components/common/Loading';
+import { Product } from '../../components/product/ProductCard';
 
 const CategoryWrapper = styled.div`
   padding: 2rem 0;
@@ -35,36 +36,34 @@ const NoProducts = styled.div`
   padding: 4rem 2rem;
 `;
 
-const getCategoryDescription = (category: string): string => {
-  switch (category) {
-    case 'tools':
-      return 'Professional-grade tools for every job. From power tools to hand tools, find everything you need for your next project.';
-    case 'plumbing':
-      return 'Complete range of plumbing supplies and equipment. Quality products for both professional plumbers and DIY enthusiasts.';
-    case 'construction':
-      return 'Essential construction equipment and materials. Build with confidence using our premium construction supplies.';
-    default:
-      return 'Browse our selection of quality products.';
-  }
-};
+
 
 const CategoryPage: React.FC = () => {
   const { category } = useParams<{ category: string }>();
   const { addItem } = useCart();
   const [isLoading, setIsLoading] = React.useState(true);
-
-  const products = React.useMemo(() => {
-    if (!category) return [];
-    return getProductsByCategory(category);
-  }, [category]);
+  const [products, setProducts] = React.useState<Product[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    // Simulate loading state
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
+    const fetchProducts = async () => {
+      if (!category) return;
+      
+      setIsLoading(true);
+      setError(null);
+      
+      try {
+        const fetchedProducts = await getProductsByCategory(category);
+        setProducts(fetchedProducts);
+      } catch (err) {
+        setError('Failed to load products. Please try again.');
+        console.error('Error fetching products:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    fetchProducts();
   }, [category]);
 
   if (!category) {
@@ -87,14 +86,22 @@ const CategoryPage: React.FC = () => {
     );
   }
 
+  if (error) {
+    return (
+      <CategoryWrapper>
+        <Container>
+          <NoProducts>{error}</NoProducts>
+        </Container>
+      </CategoryWrapper>
+    );
+  }
+
   return (
     <CategoryWrapper>
       <Container>
         <CategoryHeader>
           <CategoryTitle>{category}</CategoryTitle>
-          <CategoryDescription>
-            {getCategoryDescription(category)}
-          </CategoryDescription>
+
         </CategoryHeader>
 
         {products.length > 0 ? (
