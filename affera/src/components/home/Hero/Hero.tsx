@@ -178,11 +178,11 @@ const Hero: React.FC = () => {
           </Badge>
           
           <Title>
-            Professional Tools for Every Project
+            Professional supplies for Every Project
           </Title>
           
           <Subtitle>
-            Premium construction and plumbing tools from trusted brands. Quality equipment for professionals and DIY enthusiasts.
+          Your trusted partner for professional tools and construction supplies. Quality equipment for professionals and DIY enthusiasts.
           </Subtitle>
           
           <ButtonGroup>

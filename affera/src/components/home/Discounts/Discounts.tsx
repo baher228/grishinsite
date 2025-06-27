@@ -5,13 +5,13 @@ import { discounts, Discount } from '../../../data/discounts';
 const BannerSection = styled.section`
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 520px;
   overflow: hidden;
   margin: 0;
   padding: 0;
 
   @media (min-width: 768px) {
-    height: 500px;
+    height: 650px;
   }
 `;
 
@@ -157,7 +157,7 @@ const Discounts: React.FC = () => {
               Up To {discount.percentage}% Off
             </BannerTitle>
             <BannerDescription>
-              {discount.description}. Use code <strong>{discount.code}</strong> at checkout to enjoy this exclusive offer.
+              {discount.description}. 
             </BannerDescription>
             
           </BannerContent>

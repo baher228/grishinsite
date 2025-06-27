@@ -92,7 +92,7 @@ const CategoryCard = styled(Link)`
 const CategoryIcon = styled.div`
   width: clamp(60px, 8vw, 80px);
   height: clamp(60px, 8vw, 80px);
-  background: linear-gradient(135deg, var(--racing-green), #000000);
+  background: linear-gradient(135deg, rgba(0, 68, 34, 0.95) 0%, rgba(0, 34, 17, 0.95) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -150,7 +150,7 @@ const StatsSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 66, 37, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: linear-gradient(135deg, rgba(0, 68, 34, 0.95) 0%, rgba(0, 34, 17, 0.95) 100%);
     pointer-events: none;
   }
 `;
@@ -186,7 +186,7 @@ const StatCard = styled.div`
 const StatNumber = styled.div`
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
-  color: #004225;
+  color: white;
   margin-bottom: 0.5rem;
   position: relative;
   z-index: 1;
@@ -286,7 +286,7 @@ const Home: React.FC = () => {
 
   return (
     <HomeWrapper>
-      <Hero />
+      
       
       <Discounts />
       

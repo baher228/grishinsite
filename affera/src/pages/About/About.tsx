@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Container from "../../components/common/Container";
 import { FiAward, FiUsers, FiTruck, FiShield } from "react-icons/fi";
+import Hero from '../../components/home/Hero';
 import Icon from "../../components/common/Icon";
 
 const AboutWrapper = styled.div`
@@ -279,19 +280,22 @@ const TeamDescription = styled.p`
   font-size: 0.95rem;
 `;
 
+/**previous hero: <HeroSection>
+        <Container>
+        <HeroTitle>About Affera</HeroTitle>
+        <HeroSubtitle>
+          Your trusted partner for professional tools and construction
+          supplies. Building excellence since 2010 with quality products and
+          exceptional service.
+        </HeroSubtitle>
+      </Container>
+    </HeroSection>**/
+
 const About: React.FC = () => {
   return (
     <AboutWrapper>
-      <HeroSection>
-        <Container>
-          <HeroTitle>About Affera</HeroTitle>
-          <HeroSubtitle>
-            Your trusted partner for professional tools and construction
-            supplies. Building excellence since 2010 with quality products and
-            exceptional service.
-          </HeroSubtitle>
-        </Container>
-      </HeroSection>
+      <Hero></Hero>
+      
 
       <ContentSection>
         <Container>
