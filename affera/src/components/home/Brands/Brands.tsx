@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-import Container from '../../common/Container';
-import { brands } from '../../../data/brands';
+import React, { useRef, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
+import Container from "../../common/Container";
+import { brands } from "../../../data/brands";
 
 const BrandsSection = styled.section`
   padding: clamp(3rem, 5vw, 5rem) 0;
@@ -19,7 +19,7 @@ const SectionTitle = styled.h2`
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -10px;
     left: 50%;
@@ -54,7 +54,7 @@ const BrandsTrack = styled.div`
   align-items: center;
   height: 100%;
   width: fit-content;
-  animation: ${slide} 30s linear infinite;
+  animation: ${slide} 100s linear infinite;
   will-change: transform;
 `;
 
@@ -105,8 +105,6 @@ const Brands: React.FC = () => {
   // Duplicate brands array for seamless infinite scroll
   const logos = [...brands, ...brands];
 
-  
-
   return (
     <BrandsSection>
       <Container>
@@ -124,11 +122,11 @@ const Brands: React.FC = () => {
                   draggable={false}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
+                    target.style.display = "none";
                     const parent = target.parentElement;
-                    if (parent && !parent.querySelector('.fallback-logo')) {
-                      const fallback = document.createElement('div');
-                      fallback.className = 'fallback-logo';
+                    if (parent && !parent.querySelector(".fallback-logo")) {
+                      const fallback = document.createElement("div");
+                      fallback.className = "fallback-logo";
                       fallback.textContent = brand.name;
                       fallback.style.cssText = `
                         width: 100%;
