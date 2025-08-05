@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Container from '../../common/Container';
-import Icon from '../../common/Icon';
-import { FiFacebook, FiInstagram, FiTwitter } from 'react-icons/fi';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Container from "../../common/Container";
+import Icon from "../../common/Icon";
+import { FiFacebook, FiInstagram, FiTwitter } from "react-icons/fi";
 
 const FooterWrapper = styled.footer`
   background-color: #1a1a1a;
@@ -86,9 +86,11 @@ const Footer: React.FC = () => {
         <FooterSection>
           <FooterTitle>About Us</FooterTitle>
           <FooterText>
-            Affera is your trusted source for professional construction and plumbing tools. 
-            We provide quality equipment for both professionals and DIY enthusiasts.
+            Feronova is your trusted source for professional construction and
+            plumbing tools. We provide quality equipment for both professionals
+            and DIY enthusiasts.
           </FooterText>
+
           <SocialLinks>
             <SocialIcon href="#" target="_blank" rel="noopener noreferrer">
               <Icon icon={FiFacebook} size={24} />
@@ -124,14 +126,15 @@ const Footer: React.FC = () => {
         <FooterSection>
           <FooterTitle>Newsletter</FooterTitle>
           <FooterText>
-            Subscribe to our newsletter for the latest updates, exclusive offers, and expert tips.
+            Subscribe to our newsletter for the latest updates, exclusive
+            offers, and expert tips.
           </FooterText>
           {/* Newsletter form could be added here */}
         </FooterSection>
       </FooterContainer>
       <Copyright>
         <Container>
-          © {new Date().getFullYear()} Affera. All rights reserved.
+          © {new Date().getFullYear()} Feronova. All rights reserved.
         </Container>
       </Copyright>
     </FooterWrapper>

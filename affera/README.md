@@ -5,6 +5,7 @@ A modern, responsive e-commerce website for construction and plumbing tools buil
 ## 🚀 Features
 
 ### Core Functionality
+
 - **Product Catalog**: Browse tools by categories (Tools, Plumbing, Construction)
 - **Shopping Cart**: Add/remove items, update quantities, real-time price calculations
 - **Search**: Full-text search across products, brands, and descriptions
@@ -12,6 +13,7 @@ A modern, responsive e-commerce website for construction and plumbing tools buil
 - **Dark Theme**: Professional dark color scheme with high contrast
 
 ### User Experience
+
 - **Hero Section**: Engaging landing page with call-to-action
 - **Product Cards**: Rich product information with ratings and reviews
 - **Cart Management**: Persistent cart state with item counter
@@ -19,6 +21,7 @@ A modern, responsive e-commerce website for construction and plumbing tools buil
 - **Loading States**: Smooth loading indicators for better UX
 
 ### Technical Features
+
 - **TypeScript**: Full type safety throughout the application
 - **React Router**: Client-side routing for seamless navigation
 - **Context API**: Global state management for cart functionality
@@ -73,6 +76,7 @@ affera/
 ## 🎨 Design System
 
 ### Colors
+
 - **Primary**: `#1a1a1a` (Dark charcoal)
 - **Accent**: `#dc3545` (Red)
 - **Background**: `#ffffff` (White)
@@ -80,10 +84,12 @@ affera/
 - **Border**: `#e0e0e0` (Light gray)
 
 ### Typography
+
 - **Font Family**: Inter (Google Fonts)
 - **Weights**: 400, 500, 600, 700, 800
 
 ### Components
+
 - **Cards**: Rounded corners (12px), subtle shadows
 - **Buttons**: Rounded (8px), hover effects
 - **Forms**: Rounded inputs (25px for search)
@@ -91,28 +97,46 @@ affera/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
 - npm or yarn
 
-### Installation
+### Installation & Launch
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd affera
-```
+1. **Clone the repository** (if you haven't already):
 
-2. Install dependencies:
-```bash
-npm install
-```
+   ```sh
+   git clone <repository-url>
+   cd affera
+   ```
 
-3. Start the development server:
-```bash
-npm start
-```
+2. **Install dependencies**:
 
-4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+   ```sh
+   npm install
+   ```
+
+   or
+
+   ```sh
+   yarn
+   ```
+
+3. **Start the development server**:
+
+   ```sh
+   npm start
+   ```
+
+   or
+
+   ```sh
+   yarn start
+   ```
+
+4. **Open your browser** and go to [http://localhost:3000](http://localhost:3000)
+
+The app will automatically reload if you make changes to the source files.
 
 ### Available Scripts
 
@@ -135,6 +159,7 @@ npm start
 ## 🛒 Cart Functionality
 
 The shopping cart includes:
+
 - Add items to cart from product cards
 - Update item quantities with +/- buttons
 - Remove items from cart
@@ -152,6 +177,7 @@ The shopping cart includes:
 ## 🎯 Product Data
 
 Products include:
+
 - Basic info (name, price, brand, category)
 - Images from Unsplash
 - Ratings and review counts
@@ -162,23 +188,27 @@ Products include:
 ## 🌟 Key Components
 
 ### ProductCard
+
 - Displays product information
 - Add to cart functionality
 - Wishlist button (UI only)
 - Hover effects and animations
 
 ### Header
+
 - Navigation menu
 - Search functionality
 - Cart icon with item counter
 - User account icon (UI only)
 
 ### Hero
+
 - Engaging headline and description
 - Call-to-action button
 - Dark gradient background with subtle pattern
 
 ### Footer
+
 - Company information
 - Quick links
 - Customer service links
@@ -188,12 +218,15 @@ Products include:
 ## 🔧 Customization
 
 ### Adding New Products
+
 Edit `src/data/products.ts` to add new products to the catalog.
 
 ### Styling
+
 Global styles are defined in `src/styles/GlobalStyles.ts`. Component-specific styles use styled-components.
 
 ### Adding New Pages
+
 1. Create component in `src/pages/`
 2. Add route in `src/App.tsx`
 3. Update navigation in Header component

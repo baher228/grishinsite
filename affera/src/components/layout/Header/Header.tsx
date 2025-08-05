@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FiSearch, FiUser, FiShoppingCart } from 'react-icons/fi';
-import Icon from '../../common/Icon'; // assuming this wraps react-icons nicely
-import { useCart } from '../../../context/CartContext';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
+import Icon from "../../common/Icon"; // assuming this wraps react-icons nicely
+import { useCart } from "../../../context/CartContext";
 
 const HeaderWrapper = styled.header`
   width: 100%;
@@ -14,7 +14,7 @@ const HeaderWrapper = styled.header`
 const TopBarContainer = styled.div`
   width: 100%;
   padding: 0 var(--padding-lg);
-  
+
   @media (min-width: 1440px) {
     padding: 0 var(--padding-xl);
   }
@@ -32,7 +32,7 @@ const TopBar = styled.div`
   max-width: var(--max-width);
   margin: 0 auto;
   gap: clamp(1rem, 3vw, 2rem);
-  
+
   @media (min-width: 1440px) {
     gap: clamp(2rem, 4vw, 3rem);
   }
@@ -50,12 +50,13 @@ const Logo = styled(Link)`
   color: var(--primary-color, #000);
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-family: 'Times New Roman', serif;
+  font-family: "Cinzel Variable", serif;
   text-decoration: none;
+
   text-align: center;
 
   &:hover {
-    color: var(--racing-green, #3CB371);
+    color: var(--racing-green, #3cb371);
   }
 `;
 
@@ -76,7 +77,7 @@ const NavLink = styled(Link)`
   transition: color 0.2s ease;
 
   &:hover {
-    color: var(--racing-green, #3CB371);
+    color: var(--racing-green, #3cb371);
   }
 `;
 
@@ -119,7 +120,7 @@ const CartCount = styled.span`
   position: absolute;
   top: -6px;
   right: -6px;
-  background: var(--racing-green, #3CB371);
+  background: var(--racing-green, #3cb371);
   color: white;
   font-size: 0.75rem;
   font-weight: 600;
@@ -135,7 +136,7 @@ const Navigation = styled.nav`
   border-top: 1px solid var(--border-color, #ccc);
   background: var(--background-color, #fff);
   padding: 0 var(--padding-lg);
-  
+
   @media (min-width: 1440px) {
     padding: 0 var(--padding-xl);
   }
@@ -174,56 +175,72 @@ const NavItem = styled.li`
     white-space: nowrap;
 
     &:hover {
-      color: var(--racing-green, #3CB371);
+      color: var(--racing-green, #3cb371);
     }
   }
 `;
 
 const Header: React.FC = () => {
-  const { state: { itemCount } } = useCart();
+  const {
+    state: { itemCount },
+  } = useCart();
 
   return (
     <HeaderWrapper>
       <TopBarContainer>
         <TopBar>
-        <LeftNav>
-          <NavLink to="/">HOME</NavLink>
-          <NavLink to="/about">ABOUT US</NavLink>
-          <NavLink to="/contact">CONTACT</NavLink>
-        </LeftNav>
+          <LeftNav>
+            <NavLink to="/">HOME</NavLink>
+            <NavLink to="/about">ABOUT US</NavLink>
+            <NavLink to="/contact">CONTACT</NavLink>
+          </LeftNav>
 
-        <Logo to="/">AFFERA</Logo>
+          <Logo to="/">FERONOVA</Logo>
 
-        <RightNav>
-          <SearchBar>
-            <Icon icon={FiSearch} />
-            <input type="text" placeholder="Search tools and supplies..." />
-          </SearchBar>
-          
-          
-          
-          <IconButton to="/login">
-            <Icon icon={FiUser} />
-            <span style={{ fontSize: '0.8rem', marginLeft: '0.25rem' }}>LOGIN</span>
-          </IconButton>
-          <NavLink to="/signup" style={{ fontSize: '0.8rem' }}>SIGN UP</NavLink>
-          
-          <IconButton to="/cart">
-            <Icon icon={FiShoppingCart} />
-            {itemCount > 0 && <CartCount>{itemCount}</CartCount>}
-          </IconButton>
-        </RightNav>
+          <RightNav>
+            <SearchBar>
+              <Icon icon={FiSearch} />
+              <input type="text" placeholder="Search tools and supplies..." />
+            </SearchBar>
+
+            <IconButton to="/login">
+              <Icon icon={FiUser} />
+              <span style={{ fontSize: "0.8rem", marginLeft: "0.25rem" }}>
+                LOGIN
+              </span>
+            </IconButton>
+            <NavLink to="/signup" style={{ fontSize: "0.8rem" }}>
+              SIGN UP
+            </NavLink>
+
+            <IconButton to="/cart">
+              <Icon icon={FiShoppingCart} />
+              {itemCount > 0 && <CartCount>{itemCount}</CartCount>}
+            </IconButton>
+          </RightNav>
         </TopBar>
       </TopBarContainer>
 
       <Navigation>
         <NavList>
-          <NavItem><Link to="/Bath & Plumbing">BATHROOM & PLUMBING</Link></NavItem>
-          <NavItem><Link to="/Landscaping">LANDSCAPING</Link></NavItem>
-          <NavItem><Link to="/Storage & Shelving">STORAGE & SHELVING</Link></NavItem>
-          <NavItem><Link to="/Lighting">LIGHTING</Link></NavItem>
-          <NavItem><Link to="/Doors & Security">DOORS & SECURITY</Link></NavItem>
-          <NavItem><Link to="/Screws & Fixings">SCREWS & FIXINGS</Link></NavItem>
+          <NavItem>
+            <Link to="/Bath & Plumbing">BATHROOM & PLUMBING</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/Landscaping">LANDSCAPING</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/Storage & Shelving">STORAGE & SHELVING</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/Lighting">LIGHTING</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/Doors & Security">DOORS & SECURITY</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/Screws & Fixings">SCREWS & FIXINGS</Link>
+          </NavItem>
         </NavList>
       </Navigation>
     </HeaderWrapper>
