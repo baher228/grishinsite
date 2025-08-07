@@ -207,7 +207,7 @@ const Contact: React.FC = () => {
                 </InfoIcon>
                 <InfoContent>
                   <strong>Email:</strong><br />
-                  support@affera.co.uk
+                  support@feronova.co.uk
                 </InfoContent>
               </InfoItem>
               <InfoItem>

@@ -50,7 +50,7 @@ const Logo = styled(Link)`
   color: var(--primary-color, #000);
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-family: "Cinzel Variable", serif;
+  font-family: "Cinzel Semi Bold", serif;
   text-decoration: none;
 
   text-align: center;

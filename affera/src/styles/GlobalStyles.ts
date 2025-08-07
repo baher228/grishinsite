@@ -69,7 +69,6 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Cinzel Variable', sans-serif;
     font-weight: 500;
     line-height: 1.5;
 

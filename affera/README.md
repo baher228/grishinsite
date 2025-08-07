@@ -40,7 +40,7 @@ A modern, responsive e-commerce website for construction and plumbing tools buil
 ## 📁 Project Structure
 
 ```
-affera/
+feronova/
 ├── public/
 │   ├── index.html
 │   └── robots.txt
@@ -107,7 +107,7 @@ affera/
 
    ```sh
    git clone <repository-url>
-   cd affera
+   cd feronova
    ```
 
 2. **Install dependencies**:

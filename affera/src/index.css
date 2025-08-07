@@ -1,15 +1,34 @@
 @font-face {
+  font-family: "Cinzel Semi Bold";
+  src: url("./fonts/Cinzel-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "Cinzel Variable";
   src: url("./fonts/Cinzel-VariableFont_wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Nimbus Sans";
+  src: url("./fonts/NimbusSanL-Reg.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nimbus Sans";
+  src: url("./fonts/NimbusSanL-Bol.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Nimbus Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
