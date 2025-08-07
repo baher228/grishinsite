@@ -400,43 +400,6 @@ const About: React.FC = () => {
         </Container>
       </StatsSection>
 
-      <TeamSection>
-        <Container>
-          <SectionTitle>Meet Our Team</SectionTitle>
-          <TeamGrid>
-            <TeamCard>
-              <TeamPhoto>JD</TeamPhoto>
-              <TeamName>John Davis</TeamName>
-              <TeamRole>Founder & CEO</TeamRole>
-              <TeamDescription>
-                With over 20 years in the construction industry, John founded
-                Affera to bridge the gap between quality and affordability in
-                professional tools.
-              </TeamDescription>
-            </TeamCard>
-
-            <TeamCard>
-              <TeamPhoto>SM</TeamPhoto>
-              <TeamName>Sarah Mitchell</TeamName>
-              <TeamRole>Operations Manager</TeamRole>
-              <TeamDescription>
-                Sarah ensures our operations run smoothly and our customers
-                receive the best possible service and support experience.
-              </TeamDescription>
-            </TeamCard>
-
-            <TeamCard>
-              <TeamPhoto>MR</TeamPhoto>
-              <TeamName>Mike Rodriguez</TeamName>
-              <TeamRole>Product Specialist</TeamRole>
-              <TeamDescription>
-                Mike's expertise in tools and construction equipment helps
-                customers find exactly what they need for their projects.
-              </TeamDescription>
-            </TeamCard>
-          </TeamGrid>
-        </Container>
-      </TeamSection>
     </AboutWrapper>
   );
 };
