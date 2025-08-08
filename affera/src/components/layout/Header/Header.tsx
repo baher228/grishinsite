@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
-import Icon from "../../common/Icon"; // assuming this wraps react-icons nicely
+import Icon from "../../common/Icon";
 import { useCart } from "../../../context/CartContext";
 
 const HeaderWrapper = styled.header`
@@ -45,14 +45,13 @@ const LeftNav = styled.div`
 `;
 
 const Logo = styled(Link)`
+  font-family: "Cinzel", serif;
+  font-weight: 600;
   font-size: 2.5rem;
-  font-weight: 700;
   color: var(--primary-color, #000);
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-family: "Cinzel Semi Bold", serif;
   text-decoration: none;
-
   text-align: center;
 
   &:hover {
@@ -68,6 +67,7 @@ const RightNav = styled.div`
 `;
 
 const NavLink = styled(Link)`
+  font-family: "Nimbus Sans", sans-serif;
   text-transform: uppercase;
   font-size: 0.875rem;
   font-weight: 500;
@@ -82,6 +82,7 @@ const NavLink = styled(Link)`
 `;
 
 const SearchBar = styled.div`
+  font-family: "Noto Sans", sans-serif;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -96,6 +97,7 @@ const SearchBar = styled.div`
   }
 
   input {
+    font-family: "Noto Sans", sans-serif;
     border: none;
     width: 100%;
     padding: 0;
@@ -108,6 +110,7 @@ const SearchBar = styled.div`
 `;
 
 const IconButton = styled(Link)`
+  font-family: "Noto Sans", sans-serif;
   position: relative;
   color: var(--primary-color, #000);
   font-size: 1.25rem;
@@ -117,6 +120,7 @@ const IconButton = styled(Link)`
 `;
 
 const CartCount = styled.span`
+  font-family: "Noto Sans", sans-serif;
   position: absolute;
   top: -6px;
   right: -6px;
@@ -147,6 +151,7 @@ const Navigation = styled.nav`
 `;
 
 const NavList = styled.ul`
+  font-family: "Nimbus Sans", serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -165,6 +170,7 @@ const NavList = styled.ul`
 
 const NavItem = styled.li`
   a {
+    font-family: "Nimbus Sans", serif;
     text-transform: uppercase;
     font-size: 0.8125rem;
     font-weight: 500;
@@ -202,7 +208,7 @@ const Header: React.FC = () => {
               <Icon icon={FiSearch} />
               <input type="text" placeholder="Search tools and supplies..." />
             </SearchBar>
-
+{/** 
             <IconButton to="/login">
               <Icon icon={FiUser} />
               <span style={{ fontSize: "0.8rem", marginLeft: "0.25rem" }}>
@@ -212,7 +218,7 @@ const Header: React.FC = () => {
             <NavLink to="/signup" style={{ fontSize: "0.8rem" }}>
               SIGN UP
             </NavLink>
-
+*/}
             <IconButton to="/cart">
               <Icon icon={FiShoppingCart} />
               {itemCount > 0 && <CartCount>{itemCount}</CartCount>}
@@ -220,7 +226,6 @@ const Header: React.FC = () => {
           </RightNav>
         </TopBar>
       </TopBarContainer>
-
       <Navigation>
         <NavList>
           <NavItem>
