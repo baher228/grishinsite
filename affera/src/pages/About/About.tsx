@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Container from "../../components/common/Container";
 import { FiAward, FiUsers, FiTruck, FiShield } from "react-icons/fi";
-import Hero from '../../components/home/Hero';
+import Hero from "../../components/home/Hero";
 import Icon from "../../components/common/Icon";
 
 const AboutWrapper = styled.div`
@@ -295,30 +295,36 @@ const About: React.FC = () => {
   return (
     <AboutWrapper>
       <Hero></Hero>
-      
 
       <ContentSection>
         <Container>
-          <SectionTitle>Our Story</SectionTitle>
+          <SectionTitle>About us</SectionTitle>
           <AboutGrid>
             <InfoCard>
               <StoryContent>
-                <h3>Affera</h3>
+                <h3>Our Vision</h3>
                 <p>
-                  Affera was founded with a simple mission: to provide
-                  professionals and DIY enthusiasts with access to the highest
-                  quality tools and construction supplies at competitive prices.
+                  We are landscape architects and urban designers who create
+                  climate-resilient, sociable places that bring communities
+                  together. Our work spans from intimate garden spaces to
+                  large-scale urban developments, always with sustainability and
+                  social connection at the heart of our approach.
                 </p>
+                <h3>Our Approach</h3>
                 <p>
-                  What started as a small family business has grown into a
-                  trusted supplier serving thousands of customers across the
-                  region. Our commitment to quality, reliability, and customer
-                  service remains at the heart of everything we do.
+                  We believe that great places are born from understanding the
+                  unique character of each site and the needs of the people who
+                  will use them. Our designs respond to local climate, ecology,
+                  and culture while creating spaces that foster community
+                  interaction and environmental resilience.
                 </p>
+                <h3>Our Impact</h3>
                 <p>
-                  Today, we partner with leading brands and manufacturers to
-                  bring you the latest innovations in tools, equipment, and
-                  construction materials.
+                  From award-winning schools to transformative housing
+                  developments, our projects demonstrate how thoughtful
+                  landscape design can enhance quality of life, support
+                  biodiversity, and create lasting value for communities across
+                  the UK.
                 </p>
               </StoryContent>
             </InfoCard>
@@ -399,7 +405,6 @@ const About: React.FC = () => {
           </StatsGrid>
         </Container>
       </StatsSection>
-
     </AboutWrapper>
   );
 };
