@@ -7,8 +7,9 @@
   "author": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --exit-child --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" -r tsconfig-paths/register server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only --exit-child --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\" -r tsconfig-paths/register src/server.ts",
     "build": "tsc",
+    "start": "node dist/server.js",
     "add-products": "ts-node src/services/addproduct.ts"
   },
   "dependencies": {

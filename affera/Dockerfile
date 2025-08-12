@@ -2,6 +2,9 @@
 # Stage 1: Build the React app
 FROM node:18-alpine AS build
 
+# Set working directory
+WORKDIR /app
+
 # Copy package files first for better caching
 COPY package*.json ./
 
@@ -18,10 +21,10 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # Copy the build output to nginx html directory
-COPY --from=build /build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy custom nginx configuration (optional)
-COPY --from=build nginx.conf /etc/nginx/conf.d/default.conf
+# Copy custom nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 3000
 

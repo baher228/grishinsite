@@ -1,7 +1,7 @@
-import express from 'express';
-import { notFound, errorHandler } from "./src/middleware/error.middleware";
+import express from "express";
+import { notFound, errorHandler } from "./middleware/error.middleware";
 import dotenv from "dotenv";
-import productRouter from "./src/routes/product.routes";
+import productRouter from "./routes/product.routes";
 
 const app = express();
 const cors = require("cors");
@@ -9,14 +9,13 @@ const cors = require("cors");
 async function main() {
   app.use(
     cors({
-      origin: "http://localhost:3000", 
-      credentials: true, 
+      origin: "http://localhost:3000",
+      credentials: true,
     })
   );
   app.use(express.json());
 
   app.use("/api/products", productRouter);
-
 
   app.use(notFound);
   app.use(errorHandler);
@@ -27,4 +26,3 @@ async function main() {
 }
 
 main();
-
