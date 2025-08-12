@@ -5,8 +5,8 @@ FROM node:18-alpine AS build
 # Copy package files first for better caching
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install all dependencies (including dev dependencies for build)
+RUN npm ci
 
 # Copy source code
 COPY . .
@@ -18,7 +18,7 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # Copy the build output to nginx html directory
-COPY --from=build dist /usr/share/nginx/html
+COPY --from=build /build /usr/share/nginx/html
 
 # Copy custom nginx configuration (optional)
 COPY --from=build nginx.conf /etc/nginx/conf.d/default.conf
