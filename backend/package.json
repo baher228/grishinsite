@@ -19,6 +19,7 @@
     "dot-env": "^0.0.1",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "express-async-handler": "^1.2.0",
     "fontkit": "^2.0.4",
     "jsonwebtoken": "^9.0.2",
     "pdf-lib": "^1.17.1",
@@ -32,7 +33,6 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.2",
     "@types/pg": "^8.11.14",
-    "express-async-handler": "^1.2.0",
     "nodemon": "^3.1.10",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
