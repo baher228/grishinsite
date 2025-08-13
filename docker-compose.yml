@@ -11,6 +11,7 @@ services:
     depends_on:
       - frontend
       - backend
+      - postgres
     networks:
       - dev
   frontend:
@@ -22,5 +23,25 @@ services:
   backend:
     build:
       context: ./backend
+    environment:
+      DATABASE_URL: postgresql://postgres:bochka@postgres:5432/affera?schema=public
+    depends_on:
+      - postgres
     networks:
       - dev
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: bochka
+      POSTGRES_DB: affera
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - dev
+
+volumes:
+  postgres_data:
