@@ -9,7 +9,7 @@ const cors = require("cors");
 async function main() {
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      allow_origins: ["http://localhost:3000", "https://feronova.co.uk/"],
       credentials: true,
     })
   );
