@@ -34,7 +34,7 @@ const transformProduct = (apiProduct: ApiProduct) => {
 export const getProductsByCategory = async (category: string) => {
   try {
     const response = await fetch(
-      "http://localhost:4200/api/products/category",
+      "https://feronova.co.uk/api/products/category",
       {
         method: "POST",
         headers: {
@@ -58,15 +58,12 @@ export const getProductsByCategory = async (category: string) => {
 
 export const getAllProducts = async () => {
   try {
-    const response = await fetch(
-      "http://localhost:4200/api/products/category",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch("https://feronova.co.uk/api/products/all", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch products");
