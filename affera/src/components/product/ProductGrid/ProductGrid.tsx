@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import ProductCard, { Product } from '../ProductCard';
-import Container from '../../common/Container';
+import React from "react";
+import styled from "styled-components";
+import ProductCard, { Product } from "../ProductCard";
+import Container from "../../common/Container";
 
 interface ProductGridProps {
   products: Product[];
@@ -25,7 +25,7 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
@@ -39,7 +39,11 @@ const EmptyState = styled.div`
   font-size: 1.1rem;
 `;
 
-const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart, title }) => {
+const ProductGrid: React.FC<ProductGridProps> = ({
+  products,
+  onAddToCart,
+  title,
+}) => {
   if (products.length === 0) {
     return (
       <GridSection>

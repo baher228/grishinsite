@@ -1,9 +1,9 @@
-import React from 'react'; 
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FiShoppingCart, FiHeart } from 'react-icons/fi';
-import Icon from '../../common/Icon';
-import { formatCurrency } from '../../../utils/currency';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FiShoppingCart, FiHeart } from "react-icons/fi";
+import Icon from "../../common/Icon";
+import { formatCurrency } from "../../../utils/currency";
 
 interface Product {
   id: number;
@@ -35,14 +35,23 @@ const Card = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 550px; // <--- Set to fit your design, 550px is usually good for 1-line/2-line names
+  height: 550px;
   width: 100%;
   max-width: 340px;
-  min-width: 300px;
+  min-width: 0; // Changed from 300px to allow smaller widths
+
+  @media (max-width: 768px) {
+    height: auto;
+    max-width: none;
+  }
 
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+    @media (max-width: 768px) {
+      transform: translateY(-4px);
+    }
   }
 `;
 
@@ -60,6 +69,10 @@ const ImageContainer = styled.div`
   height: 280px;
   overflow: hidden;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+  @media (max-width: 768px) {
+    height: 200px;
+  }
 `;
 
 const ProductImage = styled.img`
@@ -96,6 +109,10 @@ const WishlistButton = styled.button`
     transform: scale(1.1);
     background: white;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SaleTag = styled.div`
@@ -109,6 +126,10 @@ const SaleTag = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 20px;
   z-index: 2;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 // 2. FLEX COLUMN, FULL HEIGHT
@@ -118,9 +139,12 @@ const CardContent = styled.div`
   flex: 1 1 auto;
   padding: 1.75rem;
   height: 100%;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
-// 3. GROW INFO AREA TO FILL AVAILABLE SPACE
 const CardInfo = styled.div`
   flex: 1 1 auto;
   display: flex;
@@ -140,6 +164,10 @@ const Brand = styled.span`
   text-transform: uppercase;
   letter-spacing: 0.8px;
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ProductName = styled.h3`
@@ -152,6 +180,11 @@ const ProductName = styled.h3`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin: 0.25rem 0;
+  }
 `;
 
 const PriceContainer = styled.div`
@@ -160,6 +193,10 @@ const PriceContainer = styled.div`
   gap: 0.75rem;
   margin: 1rem 0;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    margin: 0.5rem 0;
+  }
 `;
 
 const Price = styled.span`
@@ -189,6 +226,10 @@ const RatingContainer = styled.div`
   gap: 0.5rem;
   margin-bottom: 1.25rem;
   font-size: 0.9rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Rating = styled.span`
@@ -211,9 +252,13 @@ const StockStatus = styled.div<StockStatusProps>`
   border-radius: 12px;
   font-weight: 500;
   font-size: 0.875rem;
-  background-color: ${props => props.$inStock ? '#e8f5e9' : '#ffebee'};
-  color: ${props => props.$inStock ? '#2e7d32' : '#c62828'};
+  background-color: ${(props) => (props.$inStock ? "#e8f5e9" : "#ffebee")};
+  color: ${(props) => (props.$inStock ? "#2e7d32" : "#c62828")};
   margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const AddToCartButton = styled.button`
@@ -242,8 +287,10 @@ const AddToCartButton = styled.button`
 `;
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
-  const discountPercentage = product.originalPrice 
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+  const discountPercentage = product.originalPrice
+    ? Math.round(
+        ((product.originalPrice - product.price) / product.originalPrice) * 100
+      )
     : 0;
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -276,7 +323,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
             <Brand>{product.brand}</Brand>
             <ProductName>{product.name}</ProductName>
 
-            {(product.rating && product.reviews) && (
+            {product.rating && product.reviews && (
               <RatingContainer>
                 <Rating>{product.rating}★</Rating>
                 <Reviews>({product.reviews} reviews)</Reviews>
@@ -287,7 +334,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
               <Price>{formatCurrency(product.price)}</Price>
               {product.originalPrice && (
                 <>
-                  <OriginalPrice>{formatCurrency(product.originalPrice)}</OriginalPrice>
+                  <OriginalPrice>
+                    {formatCurrency(product.originalPrice)}
+                  </OriginalPrice>
                   <Discount>Save {discountPercentage}%</Discount>
                 </>
               )}
@@ -295,7 +344,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
           </CardInfo>
           <CardFooter>
             <StockStatus $inStock={product.inStock}>
-              {product.inStock ? 'In Stock' : 'Out of Stock'}
+              {product.inStock ? "In Stock" : "Out of Stock"}
             </StockStatus>
             <AddToCartButton onClick={handleAddToCart}>
               <Icon icon={FiShoppingCart} size={20} />

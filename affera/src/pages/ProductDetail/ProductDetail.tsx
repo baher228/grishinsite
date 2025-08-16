@@ -1,12 +1,12 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import Container from '../../components/common/Container';
-import { useCart } from '../../context/CartContext';
-import { sampleProducts } from '../../data/products';
-import { FiShoppingCart, FiHeart } from 'react-icons/fi';
-import Icon from '../../components/common/Icon';
-import Loading from '../../components/common/Loading';
+import React from "react";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import Container from "../../components/common/Container";
+import { useCart } from "../../context/CartContext";
+import { FiShoppingCart, FiHeart } from "react-icons/fi";
+import Icon from "../../components/common/Icon";
+import Loading from "../../components/common/Loading";
+import { getProductById } from "../../services/api";
 
 const ProductDetailWrapper = styled.div`
   padding: 3rem 0;
@@ -160,25 +160,34 @@ const StockStatus = styled.div<{ inStock?: boolean }>`
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 500;
-  background-color: ${props => props.inStock ? '#e8f5e9' : '#ffebee'};
-  color: ${props => props.inStock ? '#2e7d32' : '#c62828'};
+  background-color: ${(props) => (props.inStock ? "#e8f5e9" : "#ffebee")};
+  color: ${(props) => (props.inStock ? "#2e7d32" : "#c62828")};
 `;
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { addItem } = useCart();
   const [isLoading, setIsLoading] = React.useState(true);
-
-  const product = React.useMemo(() => {
-    return sampleProducts.find(p => p.id.toString() === id);
-  }, [id]);
+  const [product, setProduct] = React.useState<any>(null);
+  const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+    const fetchProduct = async () => {
+      try {
+        setIsLoading(true);
+        const data = await getProductById(Number(id));
+        setProduct(data);
+      } catch (err) {
+        setError("Failed to load product");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchProduct();
+    }
+  }, [id]);
 
   if (isLoading) {
     return (
@@ -190,18 +199,20 @@ const ProductDetail: React.FC = () => {
     );
   }
 
-  if (!product) {
+  if (error || !product) {
     return (
       <ProductDetailWrapper>
         <Container>
-          <h1>Product not found</h1>
+          <h1>{error || "Product not found"}</h1>
         </Container>
       </ProductDetailWrapper>
     );
   }
 
-  const discountPercentage = product.originalPrice 
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+  const discountPercentage = product.originalPrice
+    ? Math.round(
+        ((product.originalPrice - product.price) / product.originalPrice) * 100
+      )
     : 0;
 
   return (
@@ -229,7 +240,7 @@ const ProductDetail: React.FC = () => {
               )}
             </PriceContainer>
 
-            {(product.rating && product.reviews) && (
+            {product.rating && product.reviews && (
               <RatingContainer>
                 <Rating>{product.rating}★</Rating>
                 <Reviews>({product.reviews} reviews)</Reviews>
@@ -237,7 +248,7 @@ const ProductDetail: React.FC = () => {
             )}
 
             <StockStatus inStock={product.inStock}>
-              {product.inStock ? 'In Stock' : 'Out of Stock'}
+              {product.inStock ? "In Stock" : "Out of Stock"}
             </StockStatus>
 
             <Description>{product.description}</Description>

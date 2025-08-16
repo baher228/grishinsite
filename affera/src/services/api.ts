@@ -86,3 +86,8 @@ export const getAllProducts = async () => {
   });
   return data.products.map(transformProduct);
 };
+
+export const getProductById = async (id: number) => {
+  const data = await apiFetch<{ product: ApiProduct }>(`/products/${id}`);
+  return transformProduct(data.product);
+};
