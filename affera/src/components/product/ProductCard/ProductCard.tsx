@@ -295,13 +295,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
             <Brand>{product.brand}</Brand>
             <ProductName>{product.name}</ProductName>
 
-            {product.rating && product.reviews && (
-              <RatingContainer>
-                <Rating>{product.rating}★</Rating>
-                <Reviews>({product.reviews} reviews)</Reviews>
-              </RatingContainer>
-            )}
-
             <PriceContainer>
               <Price>{formatCurrency(product.price)}</Price>
               {product.originalPrice && (
