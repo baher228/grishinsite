@@ -105,9 +105,19 @@ const MenuButton = styled.button`
 `;
 
 const Logo = styled(Link)<{ $scrolled: boolean }>`
-  font-family: "Cinzel", serif;
+  font-family: var(
+    --font-display,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial
+  );
+
   font-weight: 600;
-  font-size: ${(p) => (p.$scrolled ? "2rem" : "2.5rem")};
+  font-size: ${(p) => (p.$scrolled ? "2.5rem" : "3rem")};
   color: var(--primary-color, #000);
   letter-spacing: ${(p) => (p.$scrolled ? "2px" : "3px")};
   text-transform: uppercase;

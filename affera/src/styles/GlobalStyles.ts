@@ -1,6 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
+@font-face {
+  font-family: "Tenor Sans";
+  src: url("/fonts/TenorSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
   :root {
     --header-height: 120px;
     --primary-color: #000000;
@@ -20,7 +27,7 @@ const GlobalStyles = createGlobalStyle`
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
-    
+    --font-display: "Tenor Sans", serif; /* logo / brand display */
     /* Responsive breakpoints */
     --breakpoint-sm: 480px;
     --breakpoint-md: 768px;
