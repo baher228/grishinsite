@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled, { createGlobalStyle } from "styled-components";
 import { Link } from "react-router-dom";
 import {
   FiSearch,
@@ -12,6 +12,22 @@ import Icon from "../../common/Icon";
 import { useCart } from "../../../context/CartContext";
 
 const MOBILE_BP = 920; // mobile breakpoint (px)
+
+/* ====== Global: scroll lock utility ====== */
+const ScrollLockStyles = createGlobalStyle`
+  /* Prevent page scrolling when the class is applied */
+  html.no-scroll,
+  body.no-scroll {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* Nice-to-have: stop scroll chaining / pull-to-refresh where supported */
+  html.no-scroll,
+  body.no-scroll {
+    overscroll-behavior: none;
+  }
+`;
 
 /* ====== Wrappers ====== */
 const HeaderWrapper = styled.header`
@@ -344,8 +360,30 @@ const Header: React.FC = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  /* Toggle scroll lock on <html> and <body> when the mobile menu is open */
+  useEffect(() => {
+    const root = document.documentElement;
+    const body = document.body;
+
+    if (menuOpen) {
+      root.classList.add("no-scroll");
+      body.classList.add("no-scroll");
+    } else {
+      root.classList.remove("no-scroll");
+      body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      root.classList.remove("no-scroll");
+      body.classList.remove("no-scroll");
+    };
+  }, [menuOpen]);
+
   return (
     <HeaderWrapper>
+      {/* inject the global scroll-lock CSS once */}
+      <ScrollLockStyles />
+
       <TopBarContainer>
         <TopBar>
           {/* Desktop left nav */}
