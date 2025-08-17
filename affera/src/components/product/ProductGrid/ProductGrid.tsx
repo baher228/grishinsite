@@ -11,6 +11,10 @@ interface ProductGridProps {
 
 const GridSection = styled.section`
   padding: 3rem 0;
+
+  @media (max-width: 768px) {
+    padding: 1rem 0;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -26,9 +30,16 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
 
+  /* --- Mobile: exactly two columns and tight gaps so both fit --- */
   @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 0 0px;
+  }
+
+  @media (max-width: 420px) {
+    gap: 8px;
+    padding: 0 0px;
   }
 `;
 

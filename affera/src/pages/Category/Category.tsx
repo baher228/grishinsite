@@ -1,16 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-import Container from '../../components/common/Container';
-import ProductGrid from '../../components/product/ProductGrid';
-import { useCart } from '../../context/CartContext';
-import { getProductsByCategory } from '../../services/api';
-import Loading from '../../components/common/Loading';
-import { Product } from '../../components/product/ProductCard';
+import React from "react";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import Container from "../../components/common/Container";
+import ProductGrid from "../../components/product/ProductGrid";
+import { useCart } from "../../context/CartContext";
+import { getProductsByCategory } from "../../services/api";
+import Loading from "../../components/common/Loading";
+import { Product } from "../../components/product/ProductCard";
 
 const CategoryWrapper = styled.div`
   padding: 2rem 0;
+  paddingright: 0;
   min-height: 60vh;
+  @media (max-width: 768px) {
+    padding: 1rem 0;
+  }
 `;
 
 const CategoryHeader = styled.div`
@@ -34,9 +38,10 @@ const CategoryDescription = styled.p`
 const NoProducts = styled.div`
   text-align: center;
   padding: 4rem 2rem;
+  @media (max-width: 768px) {
+    padding: 4rem 0;
+  }
 `;
-
-
 
 const CategoryPage: React.FC = () => {
   const { category } = useParams<{ category: string }>();
@@ -48,16 +53,16 @@ const CategoryPage: React.FC = () => {
   React.useEffect(() => {
     const fetchProducts = async () => {
       if (!category) return;
-      
+
       setIsLoading(true);
       setError(null);
-      
+
       try {
         const fetchedProducts = await getProductsByCategory(category);
         setProducts(fetchedProducts);
       } catch (err) {
-        setError('Failed to load products. Please try again.');
-        console.error('Error fetching products:', err);
+        setError("Failed to load products. Please try again.");
+        console.error("Error fetching products:", err);
       } finally {
         setIsLoading(false);
       }
@@ -101,15 +106,12 @@ const CategoryPage: React.FC = () => {
       <Container>
         <CategoryHeader>
           <CategoryTitle>{category}</CategoryTitle>
-
         </CategoryHeader>
 
         {products.length > 0 ? (
           <ProductGrid products={products} onAddToCart={addItem} />
         ) : (
-          <NoProducts>
-            No products found in this category
-          </NoProducts>
+          <NoProducts>No products found in this category</NoProducts>
         )}
       </Container>
     </CategoryWrapper>
