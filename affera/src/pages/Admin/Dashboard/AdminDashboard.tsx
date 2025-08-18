@@ -16,16 +16,13 @@ const AdminDashboard: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // HACK: Bypassing api.ts->getAllProducts because it transforms the data.
-        // The admin dashboard needs the raw `stock` number, not `inStock`.
-        // This should be refactored in api.ts to provide a raw data endpoint.
         const res = await fetch("http://127.0.0.1:4200/api/products/all");
         if (!res.ok) {
           throw new Error("Failed to fetch products from server");
         }
         const data = await res.json();
-        if (data && Array.isArray(data.products)) {
-          setProducts(data.products);
+        if (Array.isArray(data)) {
+          setProducts(data);
         } else {
           throw new Error("Invalid data format from API");
         }

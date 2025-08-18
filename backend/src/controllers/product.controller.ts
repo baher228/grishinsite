@@ -24,7 +24,7 @@ export const getCategory = asyncHandler(async (req: Request, res: Response) => {
 export const getAll = asyncHandler(async (req: Request, res: Response) => {
   console.log("Fetching products:");
   const products = await getAllProducts();
-  res.json({ products: products });
+  res.json(products);
 });
 
 export const getProduct = asyncHandler(async (req: Request, res: Response) => {
