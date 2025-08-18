@@ -18,6 +18,9 @@ import ProductGrid from "./components/product/ProductGrid";
 import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop";
 import { CartProvider, useCart } from "./context/CartContext";
 import { getProductsByCategory, sampleProducts } from "./data/products";
+import PrivateRoute from "./components/common/PrivateRoute/PrivateRoute";
+import LoginPage from "./pages/Admin/Login/LoginPage";
+import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard";
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -117,6 +120,10 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/:category" element={<Category />} />
+              <Route path="/admin/login" element={<LoginPage />} />
+              <Route path="/admin/dashboard" element={<PrivateRoute />}>
+                <Route index element={<AdminDashboard />} />
+              </Route>
             </Routes>
           </Main>
           <Footer />

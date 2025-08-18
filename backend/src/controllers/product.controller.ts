@@ -8,6 +8,11 @@ import {
   getRelatedProducts as getRelatedProductsService,
   filterProducts as filterProductsService,
 } from "../services/getproduct";
+import {
+  createProduct as createProductService,
+  updateProduct as updateProductService,
+  deleteProduct as deleteProductService,
+} from "../services/setproduct";
 
 export const getCategory = asyncHandler(async (req: Request, res: Response) => {
   const { category } = req.body;
@@ -72,5 +77,34 @@ export const filterProducts = asyncHandler(
     });
 
     res.json({ products });
+  }
+);
+
+export const createProduct = asyncHandler(
+  async (req: Request, res: Response) => {
+    const product = await createProductService(req.body);
+    res.status(201).json({ product });
+  }
+);
+
+export const updateProduct = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const product = await updateProductService(parseInt(id), req.body);
+
+    if (!product) {
+      res.status(404).json({ message: "Product not found" });
+      return;
+    }
+
+    res.json({ product });
+  }
+);
+
+export const deleteProduct = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await deleteProductService(parseInt(id));
+    res.status(204).send();
   }
 );

@@ -1,6 +1,6 @@
 // api.ts — production-safe API client
 
-interface ApiProduct {
+export interface ApiProduct {
   id: number;
   name: string;
   brand: string | undefined;
@@ -90,4 +90,53 @@ export const getAllProducts = async () => {
 export const getProductById = async (id: number) => {
   const data = await apiFetch<{ product: ApiProduct }>(`/products/${id}`);
   return transformProduct(data.product);
+};
+
+export const login = async (username: string, password: string) => {
+  return apiFetch<{ token: string }>("/auth/login", {
+    method: "POST",
+    body: JSON.stringify({ username, password }),
+  });
+};
+
+export const createProduct = async (
+  productData: Omit<ApiProduct, "id">,
+  token: string
+) => {
+  return apiFetch<{ product: ApiProduct }>("/products", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(productData),
+  });
+};
+
+export const updateProduct = async (
+  id: number,
+  productData: Partial<ApiProduct>,
+  token: string
+) => {
+  return apiFetch<{ product: ApiProduct }>(`/products/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(productData),
+  });
+};
+
+export const deleteProduct = async (id: number, token: string) => {
+  const url = `${API_BASE}/products/${id}`;
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    credentials: "include",
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`HTTP ${res.status} ${res.statusText} – ${text || url}`);
+  }
 };

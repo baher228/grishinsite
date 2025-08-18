@@ -2,6 +2,9 @@ import express from "express";
 import { notFound, errorHandler } from "./middleware/error.middleware";
 import dotenv from "dotenv";
 import productRouter from "./routes/product.routes";
+import authRouter from "./routes/auth.routes";
+
+dotenv.config();
 
 const app = express();
 const cors = require("cors");
@@ -22,6 +25,7 @@ async function main() {
   app.use(express.json());
 
   app.use("/api/products", productRouter);
+  app.use("/api/auth", authRouter);
 
   app.use(notFound);
   app.use(errorHandler);
