@@ -8,7 +8,8 @@ import fs from "fs";
 const router = Router();
 
 // Use an absolute path to the uploads directory
-const uploadDir = path.join(process.cwd(), "public", "uploads");
+const uploadDir = path.join(__dirname, "..", "..", "public", "uploads");
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -39,8 +40,9 @@ router.post(
       return;
     }
 
-    const filePath = `/uploads/${req.file.filename}`;
+    const filePath = `/public/uploads/${req.file.filename}`;
     res.status(200).json({ filePath });
+
     return;
   })
 );
