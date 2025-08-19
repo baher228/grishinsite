@@ -30,6 +30,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
     category: categories[0],
     stock: 0,
   });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
     if (product) {
@@ -42,6 +44,21 @@ const ProductForm: React.FC<ProductFormProps> = ({
         category: product.category || categories[0],
         stock: product.stock || 0,
       });
+      setImagePreview(product.image || null);
+      setSelectedFile(null);
+    } else {
+      // Reset form for new product
+      setFormData({
+        name: "",
+        brand: "",
+        description: "",
+        price: 0,
+        image: "",
+        category: categories[0],
+        stock: 0,
+      });
+      setImagePreview(null);
+      setSelectedFile(null);
     }
   }, [product]);
 
@@ -57,9 +74,54 @@ const ProductForm: React.FC<ProductFormProps> = ({
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSave(formData);
+    let imageUrl = formData.image;
+
+    if (selectedFile) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Authentication error. Please log in again.");
+        return;
+      }
+      const uploadData = new FormData();
+      uploadData.append("image", selectedFile);
+
+      try {
+        const res = await fetch("http://127.0.0.1:4200/api/upload/image", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: uploadData,
+        });
+
+        if (!res.ok) {
+          throw new Error("Image upload failed");
+        }
+
+        const { filePath } = await res.json();
+        imageUrl = `http://127.0.0.1:4200${filePath}`;
+      } catch (err) {
+        console.error(err);
+        alert("Failed to upload image. Please try again.");
+        return;
+      }
+    }
+
+    onSave({ ...formData, image: imageUrl });
   };
 
   return (
@@ -110,11 +172,30 @@ const ProductForm: React.FC<ProductFormProps> = ({
             <input
               type="text"
               name="image"
+              placeholder="Enter image URL or upload a file"
               value={formData.image}
               onChange={handleChange}
-              required
             />
           </div>
+          <div className="form-group">
+            <label>Or Upload Image</label>
+            <input type="file" name="imageFile" onChange={handleFileChange} />
+          </div>
+          {imagePreview && (
+            <div className="form-group">
+              <label>Image Preview</label>
+              <img
+                src={imagePreview}
+                alt="Preview"
+                style={{
+                  maxWidth: "100px",
+                  maxHeight: "100px",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+          )}
+
           <div className="form-group">
             <label>Category</label>
             <select
