@@ -7,6 +7,15 @@ interface ProductFormProps {
   onCancel: () => void;
 }
 
+const categories = [
+  "Bath & Plumbing",
+  "Landscaping",
+  "Storage & Shelving",
+  "Lighting",
+  "Doors & Security",
+  "Screws & Fixings",
+];
+
 const ProductForm: React.FC<ProductFormProps> = ({
   product,
   onSave,
@@ -18,7 +27,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     description: "",
     price: 0,
     image: "",
-    category: "",
+    category: categories[0],
     stock: 0,
   });
 
@@ -30,14 +39,16 @@ const ProductForm: React.FC<ProductFormProps> = ({
         description: product.description || "",
         price: product.price || 0,
         image: product.image || "",
-        category: product.category || "",
+        category: product.category || categories[0],
         stock: product.stock || 0,
       });
     }
   }, [product]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -106,14 +117,21 @@ const ProductForm: React.FC<ProductFormProps> = ({
           </div>
           <div className="form-group">
             <label>Category</label>
-            <input
-              type="text"
+            <select
               name="category"
               value={formData.category}
               onChange={handleChange}
               required
-            />
+            >
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat.charAt(0).toUpperCase() +
+                    cat.slice(1).replace(/-/g, " ")}
+                </option>
+              ))}
+            </select>
           </div>
+
           <div className="form-group">
             <label>Stock</label>
             <input
