@@ -16,10 +16,18 @@ if (!fs.existsSync(uploadDir)) {
 
 // Configure multer for file storage
 const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => {
+  destination: (
+    _req: Request,
+    _file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void
+  ) => {
     cb(null, uploadDir);
   },
-  filename: (_req, file, cb) => {
+  filename: (
+    _req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, filename: string) => void
+  ) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
     cb(
       null,
@@ -34,9 +42,10 @@ router.post(
   "/image",
   protect,
   upload.single("image"),
-  asyncHandler(async (req: Request, res: Response): Promise<void> => {
+  asyncHandler(async (req: any, res: Response): Promise<void> => {
     if (!req.file) {
       res.status(400).json({ message: "No file uploaded." });
+
       return;
     }
 
