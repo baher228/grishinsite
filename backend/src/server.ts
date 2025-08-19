@@ -1,12 +1,13 @@
 import express from "express";
 import { notFound, errorHandler } from "./middleware/error.middleware";
 import dotenv from "dotenv";
+
 import productRouter from "./routes/product.routes";
 import authRouter from "./routes/auth.routes";
 import uploadRouter from "./routes/upload.routes";
 import path from "path";
 
-dotenv.config();
+dotenv.config({ path: __dirname + "/.env" });
 
 const app = express();
 const cors = require("cors");
