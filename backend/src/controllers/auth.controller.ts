@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 export const login = asyncHandler(async (req: Request, res: Response) => {
   console.log("Login attempt - Request body:", {
     username: req.body.username,
