@@ -11,8 +11,8 @@ const GlobalStyles = createGlobalStyle`
   :root {
     --header-height: 120px;
     --primary-color: #000000;
-    --accent-color: #004225;
-    --racing-green: #004225;
+    --accent-color: #224834;
+    --racing-green: #224834;
     --text-color: #000000;
     --text-light: #666666;
     --border-color: #e5e5e5;
