@@ -128,7 +128,7 @@ const AdminDashboard: React.FC = () => {
             <tr key={product.id}>
               <td>{product.id}</td>
               <td>{product.name}</td>
-              <td>${Number(product.price).toFixed(2)}</td>
+              <td>£{Number(product.price).toFixed(2)}</td>
 
               <td>{product.stock}</td>
               <td className="actions">
