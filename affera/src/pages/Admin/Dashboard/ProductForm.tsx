@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ApiProduct } from "../../../services/api";
+import { ApiProduct, uploadImage } from "../../../services/api";
 
 interface ProductFormProps {
   product: Omit<ApiProduct, "id"> | ApiProduct | null;
@@ -96,24 +96,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
         alert("Authentication error. Please log in again.");
         return;
       }
-      const uploadData = new FormData();
-      uploadData.append("image", selectedFile);
 
       try {
-        const res = await fetch("http://127.0.0.1:4200/api/upload/image", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: uploadData,
-        });
-
-        if (!res.ok) {
-          throw new Error("Image upload failed");
-        }
-
-        const { filePath } = await res.json();
-        imageUrl = `http://127.0.0.1:4200${filePath}`;
+        const { filePath } = await uploadImage(selectedFile, token);
+        // Construct the full URL to the image
+        const serverBase = "http://127.0.0.1:4200";
+        imageUrl = `${serverBase}${filePath}`;
       } catch (err) {
         console.error(err);
         alert("Failed to upload image. Please try again.");

@@ -140,3 +140,24 @@ export const deleteProduct = async (id: number, token: string) => {
     throw new Error(`HTTP ${res.status} ${res.statusText} – ${text || url}`);
   }
 };
+
+export const uploadImage = async (file: File, token: string) => {
+  const url = `${API_BASE}/upload/image`;
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`HTTP ${res.status} ${res.statusText} – ${text || url}`);
+  }
+  return res.json() as Promise<{ filePath: string }>;
+};
