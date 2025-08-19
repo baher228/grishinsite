@@ -23,7 +23,9 @@ const AdminDashboard: React.FC = () => {
           throw new Error("Failed to fetch products from server");
         }
         const data = await res.json();
-        if (Array.isArray(data)) {
+        if (Array.isArray(data.products)) {
+          setProducts(data.products);
+        } else if (Array.isArray(data)) {
           setProducts(data);
         } else {
           throw new Error("Invalid data format from API");
@@ -113,39 +115,43 @@ const AdminDashboard: React.FC = () => {
       )}
 
       <h2>Products</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>£{Number(product.price).toFixed(2)}</td>
-
-              <td>{product.stock}</td>
-              <td className="actions">
-                <button onClick={() => openForm(product)} className="edit-btn">
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(product.id)}
-                  className="delete-btn"
-                >
-                  Delete
-                </button>
-              </td>
+      <div className="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td>{product.id}</td>
+                <td>{product.name}</td>
+                <td>£{Number(product.price).toFixed(2)}</td>
+                <td>{product.stock}</td>
+                <td className="actions">
+                  <button
+                    onClick={() => openForm(product)}
+                    className="edit-btn"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    className="delete-btn"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

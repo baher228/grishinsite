@@ -17,11 +17,16 @@
   margin-bottom: 1rem;
 }
 
+.admin-dashboard .table-responsive {
+  overflow-x: auto;
+}
+
 .admin-dashboard table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 600px;
 }
 
 .admin-dashboard th,
@@ -107,7 +112,8 @@
 }
 
 .product-form input,
-.product-form textarea {
+.product-form textarea,
+.product-form select {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #ccc;
