@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
-  getAllProducts,
   createProduct,
   updateProduct,
   deleteProduct,
   ApiProduct,
 } from "../../../services/api";
+import ProductForm from "./ProductForm";
+import "./AdminDashboard.css";
 
 const AdminDashboard: React.FC = () => {
   const [products, setProducts] = useState<ApiProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [editingProduct, setEditingProduct] = useState<ApiProduct | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -35,47 +37,81 @@ const AdminDashboard: React.FC = () => {
     fetchProducts();
   }, []);
 
-  const handleCreate = async (productData: Omit<ApiProduct, "id">) => {
+  const handleSave = async (
+    productData: Omit<ApiProduct, "id"> | ApiProduct
+  ) => {
     const token = localStorage.getItem("token");
-    if (!token) return;
-    try {
-      const { product } = await createProduct(productData, token);
-      setProducts([...products, product]);
-    } catch (err) {
-      setError("Failed to create product");
+    if (!token) {
+      setError("Authentication error. Please log in again.");
+      return;
     }
-  };
 
-  const handleUpdate = async (id: number, productData: Partial<ApiProduct>) => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
     try {
-      const { product } = await updateProduct(id, productData, token);
-      setProducts(products.map((p) => (p.id === id ? product : p)));
-      setEditingProduct(null);
+      if (editingProduct) {
+        const updatedProduct = await updateProduct(
+          editingProduct.id,
+          productData,
+          token
+        );
+        setProducts(
+          products.map((p) =>
+            p.id === editingProduct.id ? updatedProduct.product : p
+          )
+        );
+      } else {
+        const newProduct = await createProduct(productData, token);
+        setProducts([...products, newProduct.product]);
+      }
+      closeForm();
     } catch (err) {
-      setError("Failed to update product");
+      setError("Failed to save product. Please try again.");
     }
   };
 
   const handleDelete = async (id: number) => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-    try {
-      await deleteProduct(id, token);
-      setProducts(products.filter((p) => p.id !== id));
-    } catch (err) {
-      setError("Failed to delete product");
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Authentication error. Please log in again.");
+        return;
+      }
+      try {
+        await deleteProduct(id, token);
+        setProducts(products.filter((p) => p.id !== id));
+      } catch (err) {
+        setError("Failed to delete product.");
+      }
     }
   };
 
+  const openForm = (product: ApiProduct | null = null) => {
+    setEditingProduct(product);
+    setIsFormOpen(true);
+  };
+
+  const closeForm = () => {
+    setEditingProduct(null);
+    setIsFormOpen(false);
+  };
+
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
 
   return (
-    <div>
+    <div className="admin-dashboard">
       <h1>Admin Dashboard</h1>
-      {/* Add form for creating and editing products here */}
+      {error && <p className="error">{error}</p>}
+      <button onClick={() => openForm()} className="add-btn">
+        Add New Product
+      </button>
+
+      {isFormOpen && (
+        <ProductForm
+          product={editingProduct}
+          onSave={handleSave}
+          onCancel={closeForm}
+        />
+      )}
+
       <h2>Products</h2>
       <table>
         <thead>
@@ -92,11 +128,19 @@ const AdminDashboard: React.FC = () => {
             <tr key={product.id}>
               <td>{product.id}</td>
               <td>{product.name}</td>
-              <td>{product.price}</td>
+              <td>${Number(product.price).toFixed(2)}</td>
+
               <td>{product.stock}</td>
-              <td>
-                <button onClick={() => setEditingProduct(product)}>Edit</button>
-                <button onClick={() => handleDelete(product.id)}>Delete</button>
+              <td className="actions">
+                <button onClick={() => openForm(product)} className="edit-btn">
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(product.id)}
+                  className="delete-btn"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
