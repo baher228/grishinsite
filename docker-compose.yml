@@ -19,8 +19,8 @@ services:
       DATABASE_URL: postgresql://postgres:bochka@postgres:5432/affera?schema=public
       NODE_ENV: production
       ADMIN_USERNAME: admin
-      ADMIN_PASSWORD: admin
-      JWT_SECRET: your-jwt-secret
+      ADMIN_PASSWORD: grpod44
+      JWT_SECRET: 07e57407a3fd4c600abe73d1bba82eac736156e0c0b7fb8976911d6f5e0d40a86679629a50d1f62933a8e1172e48af710ff326dfb67e6fb0c9804973be4a0b5e
     depends_on:
       - postgres
     ports:

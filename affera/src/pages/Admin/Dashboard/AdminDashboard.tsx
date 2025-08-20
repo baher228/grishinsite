@@ -7,6 +7,7 @@ import {
   getAllProducts,
 } from "../../../services/api";
 import ProductForm from "./ProductForm";
+import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 
 const AdminDashboard: React.FC = () => {
@@ -16,14 +17,24 @@ const AdminDashboard: React.FC = () => {
   const [editingProduct, setEditingProduct] = useState<ApiProduct | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
+  const navigate = useNavigate();
+
+  // ✅ Redirect if not logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // adjust path if your login route differs
+    }
+  }, [navigate]);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const data = await getAllProducts();
         if (Array.isArray(data)) {
           setProducts(data);
-        } else if (Array.isArray(data.products)) {
-          setProducts(data.products);
+        } else if (Array.isArray((data as any).products)) {
+          setProducts((data as any).products);
         } else {
           throw new Error("Invalid data format from API");
         }
@@ -42,6 +53,7 @@ const AdminDashboard: React.FC = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       setError("Authentication error. Please log in again.");
+      navigate("/login");
       return;
     }
 
@@ -72,6 +84,7 @@ const AdminDashboard: React.FC = () => {
       const token = localStorage.getItem("token");
       if (!token) {
         setError("Authentication error. Please log in again.");
+        navigate("/login");
         return;
       }
       try {
