@@ -80,11 +80,17 @@ export const getProductsByCategory = async (category: string) => {
 export const getAllProducts = async () => {
   // If your backend has GET /products you can switch to that;
   // this mirrors your current POST-to-same-endpoint behavior.
-  const data = await apiFetch<ApiResponse>("/products/category", {
-    method: "POST",
-    body: JSON.stringify({}),
-  });
-  return data.products.map(transformProduct);
+  //const data = await apiFetch<ApiResponse>("/products/all");
+  let way: string;
+  way = "/products/all";
+  const url = `${API_BASE}${way.startsWith("/") ? way : `/${way}`}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error("Failed to fetch products from server");
+  }
+  const data = await res.json();
+
+  return data;
 };
 
 export const getProductById = async (id: number) => {

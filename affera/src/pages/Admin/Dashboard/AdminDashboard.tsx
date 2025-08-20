@@ -4,6 +4,7 @@ import {
   updateProduct,
   deleteProduct,
   ApiProduct,
+  getAllProducts,
 } from "../../../services/api";
 import ProductForm from "./ProductForm";
 import "./AdminDashboard.css";
@@ -18,15 +19,11 @@ const AdminDashboard: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:4200/api/products/all");
-        if (!res.ok) {
-          throw new Error("Failed to fetch products from server");
-        }
-        const data = await res.json();
-        if (Array.isArray(data.products)) {
-          setProducts(data.products);
-        } else if (Array.isArray(data)) {
+        const data = await getAllProducts();
+        if (Array.isArray(data)) {
           setProducts(data);
+        } else if (Array.isArray(data.products)) {
+          setProducts(data.products);
         } else {
           throw new Error("Invalid data format from API");
         }
