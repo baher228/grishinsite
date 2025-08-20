@@ -302,7 +302,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
                   <OriginalPrice>
                     {formatCurrency(product.originalPrice)}
                   </OriginalPrice>
-                  <Discount>Save {discountPercentage}%</Discount>
                 </>
               )}
             </PriceContainer>
