@@ -8,6 +8,15 @@ const GlobalStyles = createGlobalStyle`
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
   :root {
     --header-height: 120px;
     --primary-color: #000000;
@@ -27,7 +36,8 @@ const GlobalStyles = createGlobalStyle`
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
-    --font-display: "Tenor Sans", serif; /* logo / brand display */
+    --font-display: "Open Sans", sans-serif; /* primary body text */
+    --font-primary: "Open Sans", sans-serif; /* primary body text */
     /* Responsive breakpoints */
     --breakpoint-sm: 480px;
     --breakpoint-md: 768px;
