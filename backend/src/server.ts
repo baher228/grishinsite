@@ -7,7 +7,7 @@ import authRouter from "./routes/auth.routes";
 import uploadRouter from "./routes/upload.routes";
 import path from "path";
 
-dotenv.config({ path: __dirname + "/.env" });
+dotenv.config({ path: __dirname + "/../.env" });
 
 const app = express();
 const cors = require("cors");
