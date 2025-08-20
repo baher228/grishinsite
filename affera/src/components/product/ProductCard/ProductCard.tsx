@@ -119,8 +119,8 @@ const SaleTag = styled.div`
   position: absolute;
   top: clamp(8px, 2vw, 16px);
   left: clamp(8px, 2vw, 16px);
-  background: var(--accent-color);
-  color: white;
+  background: #e8c444;
+  color: black;
   font-size: clamp(0.7rem, 2.2vw, 0.875rem);
   font-weight: 600;
   padding: 0.4rem 0.75rem;

@@ -116,7 +116,7 @@ const Logo = styled(Link)<{ $scrolled: boolean }>`
     Arial
   );
 
-  font-weight: 700;
+  font-weight: 800;
   font-size: ${(p) => (p.$scrolled ? "2.5rem" : "3rem")};
   color: var(--primary-color, #000);
   letter-spacing: ${(p) => (p.$scrolled ? "1px" : "2px")};
