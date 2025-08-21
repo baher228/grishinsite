@@ -4,8 +4,8 @@ const GlobalStyles = createGlobalStyle`
 @font-face {
   font-family: "Tenor Sans";
   src: url("/fonts/TenorSans-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
+  font-weight: 100 400 700 900;
+  font-style: bold;
   font-display: swap;
 }
 
@@ -38,6 +38,8 @@ const GlobalStyles = createGlobalStyle`
     --radius-lg: 12px;
     --font-display: "Open Sans", sans-serif; /* primary body text */
     --font-primary: "Open Sans", sans-serif; /* primary body text */
+    --font-logo: "Tenor Sans", serif; /* logo / brand display */
+
     /* Responsive breakpoints */
     --breakpoint-sm: 480px;
     --breakpoint-md: 768px;
