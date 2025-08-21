@@ -16,12 +16,23 @@ const categories = [
   "Screws & Fixings",
 ];
 
+// Allow price to be number | '' so users can clear it while typing
+type FormDataState = {
+  name: string;
+  brand: string;
+  description: string;
+  price: number | "";
+  image: string;
+  category: string;
+  stock: number;
+};
+
 const ProductForm: React.FC<ProductFormProps> = ({
   product,
   onSave,
   onCancel,
 }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataState>({
     name: "",
     brand: "",
     description: "",
@@ -68,9 +79,35 @@ const ProductForm: React.FC<ProductFormProps> = ({
     >
   ) => {
     const { name, value } = e.target;
+
+    // Special handling ONLY for price to avoid the "stuck zero" issue
+    if (name === "price") {
+      setFormData((prev) => ({
+        ...prev,
+        price: value === "" ? "" : Number(value),
+      }));
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "price" || name === "stock" ? Number(value) : value,
+      [name]: name === "stock" ? Number(value) : value,
+    }));
+  };
+
+  // When tapping into the price field, remove the initial zero
+  const handlePriceFocus = () => {
+    setFormData((prev) => ({
+      ...prev,
+      price: prev.price === 0 ? "" : prev.price,
+    }));
+  };
+
+  // If the user leaves the price empty, normalize it back to 0
+  const handlePriceBlur = () => {
+    setFormData((prev) => ({
+      ...prev,
+      price: prev.price === "" ? 0 : prev.price,
     }));
   };
 
@@ -109,7 +146,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
       }
     }
 
-    onSave({ ...formData, image: imageUrl });
+    // Ensure price is a number when saving ('' -> 0)
+    const normalizedPrice = formData.price === "" ? 0 : formData.price;
+
+    onSave({ ...formData, price: normalizedPrice, image: imageUrl });
   };
 
   return (
@@ -152,6 +192,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
               name="price"
               value={formData.price}
               onChange={handleChange}
+              onFocus={handlePriceFocus}
+              onBlur={handlePriceBlur}
               required
             />
           </div>
