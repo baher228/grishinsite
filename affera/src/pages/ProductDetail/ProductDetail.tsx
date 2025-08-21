@@ -31,6 +31,10 @@ const ProductDetailWrapper = styled.div`
 
   padding: 3rem 0;
   min-height: 70vh;
+  @media (max-width: 768px) {
+    padding: 0;
+    min-height: 50vh;
+  }
   background: radial-gradient(
       60rem 60rem at 10% -10%,
       rgba(0, 0, 0, 0.03),
@@ -53,6 +57,7 @@ const ProductCard = styled.div`
 
   /* On mobile, square the bottom to mate cleanly with the sticky bar */
   @media (max-width: 768px) {
+    padding-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
