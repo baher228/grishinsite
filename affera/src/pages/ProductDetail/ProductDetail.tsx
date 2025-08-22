@@ -253,6 +253,9 @@ const TrustRow = styled.div`
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
   }
+  @media (max-width: 768px) {
+    padding-bottom: 0.85rem;
+  }
 `;
 
 const TrustChip = styled.div`
