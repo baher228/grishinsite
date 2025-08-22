@@ -34,6 +34,12 @@ const isLocalhost =
 const API_BASE =
   ENV_BASE ?? (isLocalhost ? "http://127.0.0.1:4200/api" : "/api");
 
+// Export helpers to construct absolute URLs for assets returned as file paths.
+export const API_BASE_URL = API_BASE;
+export const API_ORIGIN = API_BASE.replace(/\/api$/, "");
+export const absoluteFromFilePath = (filePath: string) =>
+  /^https?:\/\//i.test(filePath) ? filePath : `${API_ORIGIN}${filePath}`;
+
 // Helper with better errors
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const url = `${API_BASE}${path.startsWith("/") ? path : `/${path}`}`;
@@ -147,23 +153,38 @@ export const deleteProduct = async (id: number, token: string) => {
   }
 };
 
-export const uploadImage = async (file: File, token: string) => {
+// NOTE: token is now OPTIONAL; cookie auth (credentials: "include") will be used if available.
+export const uploadImage = async (file: File, tokenArg?: string) => {
   const url = `${API_BASE}/upload/image`;
   const formData = new FormData();
   formData.append("image", file);
 
+  // Try the explicit arg first; otherwise fall back to localStorage.
+  let token = tokenArg;
+  if (!token && typeof window !== "undefined") {
+    try {
+      const t = window.localStorage.getItem("token");
+      if (t) token = t;
+    } catch {
+      // ignore localStorage access errors
+    }
+  }
+
+  const headers: Record<string, string> = {};
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   const res = await fetch(url, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers,
     body: formData,
-    credentials: "include",
+    credentials: "include", // ok to include cookies, but server still needs Bearer
   });
 
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`HTTP ${res.status} ${res.statusText} – ${text || url}`);
+    throw new Error(`HTTP 401 Unauthorized – ${text || url}`);
   }
   return res.json() as Promise<{ filePath: string }>;
 };

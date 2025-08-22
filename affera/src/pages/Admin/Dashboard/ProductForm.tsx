@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ApiProduct, uploadImage } from "../../../services/api";
+import {
+  ApiProduct,
+  uploadImage,
+  absoluteFromFilePath,
+} from "../../../services/api";
 
 interface ProductFormProps {
   product: Omit<ApiProduct, "id"> | ApiProduct | null;
@@ -80,8 +84,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
   ) => {
     const { name, value } = e.target;
 
-    // Special handling ONLY for price to avoid the "stuck zero" issue
     if (name === "price") {
+      // Keep empty string while typing; otherwise coerce to number
       setFormData((prev) => ({
         ...prev,
         price: value === "" ? "" : Number(value),
@@ -92,22 +96,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
     setFormData((prev) => ({
       ...prev,
       [name]: name === "stock" ? Number(value) : value,
-    }));
-  };
-
-  // When tapping into the price field, remove the initial zero
-  const handlePriceFocus = () => {
-    setFormData((prev) => ({
-      ...prev,
-      price: prev.price === 0 ? "" : prev.price,
-    }));
-  };
-
-  // If the user leaves the price empty, normalize it back to 0
-  const handlePriceBlur = () => {
-    setFormData((prev) => ({
-      ...prev,
-      price: prev.price === "" ? 0 : prev.price,
     }));
   };
 
@@ -125,30 +113,32 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     let imageUrl = formData.image;
 
     if (selectedFile) {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("Authentication error. Please log in again.");
-        return;
+      // Get token if present; do NOT early-return if missing.
+      let token: string | null = null;
+      try {
+        token = localStorage.getItem("token");
+      } catch {
+        // ignore
       }
 
       try {
-        const { filePath } = await uploadImage(selectedFile, token);
-        // Construct the full URL to the image
-        const serverBase = "http://127.0.0.1:4200";
-        imageUrl = `${serverBase}${filePath}`;
+        const { filePath } = await uploadImage(
+          selectedFile,
+          token || undefined
+        );
+        imageUrl = absoluteFromFilePath(filePath);
       } catch (err) {
         console.error(err);
-        alert("Failed to upload image. Please try again.");
-        return;
+        alert("Image upload failed (401). Saving without the new image.");
+        // continue and save anyway
       }
     }
 
-    // Ensure price is a number when saving ('' -> 0)
     const normalizedPrice = formData.price === "" ? 0 : formData.price;
-
     onSave({ ...formData, price: normalizedPrice, image: imageUrl });
   };
 
@@ -157,6 +147,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       <div className="modal-content">
         <form onSubmit={handleSubmit} className="product-form">
           <h3>{product && "id" in product ? "Edit Product" : "Add Product"}</h3>
+
           <div className="form-group">
             <label>Name</label>
             <input
@@ -167,6 +158,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               required
             />
           </div>
+
           <div className="form-group">
             <label>Brand</label>
             <input
@@ -176,6 +168,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={handleChange}
             />
           </div>
+
           <div className="form-group">
             <label>Description</label>
             <textarea
@@ -185,6 +178,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               required
             />
           </div>
+
           <div className="form-group">
             <label>Price</label>
             <input
@@ -192,11 +186,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
               name="price"
               value={formData.price}
               onChange={handleChange}
-              onFocus={handlePriceFocus}
-              onBlur={handlePriceBlur}
+              // IMPORTANT: do NOT clear to "" on focus; that blocks mobile submits with `required`
+              min={0}
+              step={0.01}
+              inputMode="decimal"
               required
             />
           </div>
+
           <div className="form-group">
             <label>Image URL</label>
             <input
@@ -207,10 +204,17 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={handleChange}
             />
           </div>
+
           <div className="form-group">
             <label>Or Upload Image</label>
-            <input type="file" name="imageFile" onChange={handleFileChange} />
+            <input
+              type="file"
+              name="imageFile"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
           </div>
+
           {imagePreview && (
             <div className="form-group">
               <label>Image Preview</label>
@@ -250,9 +254,13 @@ const ProductForm: React.FC<ProductFormProps> = ({
               name="stock"
               value={formData.stock}
               onChange={handleChange}
+              min={0}
+              step={1}
+              inputMode="numeric"
               required
             />
           </div>
+
           <div className="form-actions">
             <button type="button" onClick={onCancel} className="cancel-btn">
               Cancel
