@@ -121,10 +121,10 @@ const SaleTag = styled.div`
   left: clamp(8px, 2vw, 16px);
   background: #e8c444;
   color: black;
-  font-size: clamp(0.7rem, 2.2vw, 0.875rem);
+  font-size: clamp(0.91rem, 2.86vw, 1.1375rem);
   font-weight: 600;
-  padding: 0.4rem 0.75rem;
-  border-radius: 20px;
+  padding: 0.52rem 0.975rem;
+  border-radius: 26px;
   z-index: 2;
 `;
 
