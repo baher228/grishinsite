@@ -190,32 +190,6 @@ const OriginalPrice = styled.span`
   text-decoration: line-through;
 `;
 
-const Discount = styled.span`
-  background: linear-gradient(135deg, var(--accent-color), #e53e3e);
-  color: white;
-  font-size: clamp(0.7rem, 2.4vw, 0.8rem);
-  padding: 0.25rem 0.5rem;
-  border-radius: 12px;
-  font-weight: 600;
-`;
-
-const RatingContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 0.9rem;
-  font-size: clamp(0.75rem, 2.3vw, 0.9rem);
-`;
-
-const Rating = styled.span`
-  color: var(--accent-color);
-  font-weight: 600;
-`;
-
-const Reviews = styled.span`
-  color: var(--text-light);
-`;
-
 interface StockStatusProps {
   $inStock?: boolean;
 }

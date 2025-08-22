@@ -136,7 +136,7 @@ const RightNav = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  font-family: "Nimbus Sans", sans-serif;
+  font-family: var(--font-display);
   text-transform: uppercase;
   font-size: 0.875rem;
   font-weight: 500;
@@ -152,7 +152,7 @@ const NavLink = styled(Link)`
 
 /* ====== Search ====== */
 const SearchBar = styled.div`
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-display);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -162,7 +162,7 @@ const SearchBar = styled.div`
   width: 300px;
 
   input {
-    font-family: "Noto Sans", sans-serif;
+    font-family: var(--font-display);
     border: none;
     width: 100%;
     padding: 0;
@@ -204,7 +204,7 @@ const MobileSearchBar = styled(SearchBar)`
 
 /* ====== Icons ====== */
 const IconLink = styled(Link)`
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-display);
   position: relative;
   color: var(--primary-color, #000);
   font-size: 1.25rem;
@@ -214,7 +214,7 @@ const IconLink = styled(Link)`
 `;
 
 const CartCount = styled.span`
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-display);
   position: absolute;
   top: -6px;
   right: -6px;
@@ -250,7 +250,7 @@ const Navigation = styled.nav`
 `;
 
 const NavList = styled.ul<{ $scrolled: boolean }>`
-  font-family: "Nimbus Sans", serif;
+  font-family: var(--font-display);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -270,7 +270,7 @@ const NavList = styled.ul<{ $scrolled: boolean }>`
 
 const NavItem = styled.li`
   a {
-    font-family: "Nimbus Sans", serif;
+    font-family: var(--font-display);
     text-transform: uppercase;
     font-size: 0.8125rem;
     font-weight: 500;
@@ -327,7 +327,7 @@ const MobileMenuBody = styled.div`
 `;
 
 const MobileSectionTitle = styled.div`
-  font-family: "Nimbus Sans", sans-serif;
+  font-family: var(--font-display);
   font-size: 0.75rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -345,7 +345,7 @@ const MobileList = styled.ul`
     padding: 0.75rem 0;
     text-decoration: none;
     color: var(--text-color, #333);
-    font-family: "Nimbus Sans", sans-serif;
+    font-family: var(--font-display);
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
