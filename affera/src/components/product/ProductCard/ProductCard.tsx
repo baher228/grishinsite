@@ -266,7 +266,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
 
         <CardContent>
           <CardInfo>
-            <Brand>{product.brand}</Brand>
+            <Brand>{product.brand === "Unknown" ? "" : product.brand}</Brand>
             <ProductName>{product.name}</ProductName>
 
             <PriceContainer>

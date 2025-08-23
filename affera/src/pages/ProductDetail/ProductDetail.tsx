@@ -500,7 +500,7 @@ const ProductDetail: React.FC = () => {
 
             {/* ------- Right: Info ------- */}
             <ProductInfo>
-              <Brand>{product.brand}</Brand>
+              <Brand>{product.brand === "Unknown" ? "" : product.brand}</Brand>
               <ProductName>{product.name}</ProductName>
               <Divider />
 
