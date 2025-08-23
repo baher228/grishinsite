@@ -1,4 +1,4 @@
-// api.ts — production-safe API client
+// api.ts — robust API client + image path normalization
 
 export interface ApiProduct {
   id: number;
@@ -6,14 +6,15 @@ export interface ApiProduct {
   brand: string | undefined;
   description: string;
   price: number;
-  image: string;
+  image: string; // may be '/uploads/x.jpg', 'public/uploads/x.jpg', or even 'x.jpg'
   category: string;
   stock: number;
 }
 
-interface ApiResponse {
+interface ApiResponseShapeA {
   products: ApiProduct[];
-}
+} // /products/* returns { products: [...] }
+type ApiResponse = ApiResponseShapeA | ApiProduct[]; // tolerate both shapes
 
 // Optional env override (supports Vite/CRA). If not set, auto-detect.
 const ENV_BASE =
@@ -33,12 +34,38 @@ const isLocalhost =
 // In prod: same-origin "/api". In local dev: http://127.0.0.1:4200/api
 const API_BASE =
   ENV_BASE ?? (isLocalhost ? "http://127.0.0.1:4200/api" : "/api");
-
-// Export helpers to construct absolute URLs for assets returned as file paths.
 export const API_BASE_URL = API_BASE;
-export const API_ORIGIN = API_BASE.replace(/\/api$/, "");
-export const absoluteFromFilePath = (filePath: string) =>
-  /^https?:\/\//i.test(filePath) ? filePath : `${API_ORIGIN}${filePath}`;
+
+// Derive an origin only if API_BASE is absolute; '/api' -> ''
+function originFromApiBase(api: string): string {
+  try {
+    if (/^https?:\/\//i.test(api)) return new URL(api).origin;
+  } catch {}
+  return "";
+}
+export const API_ORIGIN = originFromApiBase(API_BASE);
+
+// Safe join that ALWAYS yields a single leading slash when API_ORIGIN is ''
+const join = (a: string, b: string) =>
+  (a ? a.replace(/\/+$/, "") : "") + "/" + (b || "").replace(/^\/+/, "");
+
+// Normalize any backend-provided image path into a browser-usable URL
+export const absoluteFromFilePath = (filePath: string) => {
+  if (!filePath) return filePath;
+  if (/^https?:\/\//i.test(filePath)) return filePath;
+
+  // Fix Windows slashes and strip accidental "public/" prefix
+  let s = filePath.replace(/\\/g, "/").replace(/^\/?public\//, "/");
+  // Ensure we mount under /uploads if someone saved 'uploads/...'
+  if (!s.startsWith("/")) s = "/" + s;
+
+  // If someone saved just 'foo.jpg', default it under /uploads/
+  if (!/^\/(uploads|api\/uploads)\//.test(s) && /\.[a-z0-9]+$/i.test(s)) {
+    s = "/uploads" + (s.startsWith("/") ? "" : "/") + s.replace(/^\//, "");
+  }
+
+  return join(API_ORIGIN, s);
+};
 
 // Helper with better errors
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
@@ -53,25 +80,22 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   });
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`HTTP ${res.status} ${res.statusText} – ${text || url}`);
+    throw new Error(`HTTP ${res.status} ${res.statusText} — ${text || url}`);
   }
   return res.json() as Promise<T>;
 }
 
-// Transform backend product to frontend product format
 const transformProduct = (apiProduct: ApiProduct) => {
   return {
     id: apiProduct.id,
     name: apiProduct.name,
     price: apiProduct.price,
-    image: apiProduct.image,
+    // CRITICAL: normalize the path so <img src=...> points to a valid HTTPS URL on the same origin
+    image: absoluteFromFilePath(apiProduct.image),
     brand: apiProduct.brand || "Unknown",
     category: apiProduct.category,
     description: apiProduct.description,
-    inStock: apiProduct.stock > 0,
-    rating: 4.5,
-    reviews: 0,
-    originalPrice: undefined,
+    stock: apiProduct.stock,
   };
 };
 
@@ -80,23 +104,15 @@ export const getProductsByCategory = async (category: string) => {
     method: "POST",
     body: JSON.stringify({ category }),
   });
-  return data.products.map(transformProduct);
+  const products = Array.isArray(data) ? data : data.products;
+  return products.map(transformProduct);
 };
 
 export const getAllProducts = async () => {
-  // If your backend has GET /products you can switch to that;
-  // this mirrors your current POST-to-same-endpoint behavior.
-  //const data = await apiFetch<ApiResponse>("/products/all");
-  let way: string;
-  way = "/products/all";
-  const url = `${API_BASE}${way.startsWith("/") ? way : `/${way}`}`;
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error("Failed to fetch products from server");
-  }
-  const data = await res.json();
-
-  return data;
+  // Tolerate either {products:[...]} or just [...]
+  const data = await apiFetch<ApiResponse>("/products/all");
+  const products = Array.isArray(data) ? data : data.products;
+  return products.map(transformProduct);
 };
 
 export const getProductById = async (id: number) => {
@@ -117,9 +133,7 @@ export const createProduct = async (
 ) => {
   return apiFetch<{ product: ApiProduct }>("/products", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
     body: JSON.stringify(productData),
   });
 };
@@ -131,9 +145,7 @@ export const updateProduct = async (
 ) => {
   return apiFetch<{ product: ApiProduct }>(`/products/${id}`, {
     method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
     body: JSON.stringify(productData),
   });
 };
@@ -142,17 +154,16 @@ export const deleteProduct = async (id: number, token: string) => {
   const url = `${API_BASE}/products/${id}`;
   const res = await fetch(url, {
     method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
     credentials: "include",
   });
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`HTTP ${res.status} ${res.statusText} – ${text || url}`);
+    throw new Error(`HTTP ${res.status} ${res.statusText} — ${text || url}`);
   }
 };
 
+// NOTE: token is OPTIONAL; cookie auth will be used if available.
 export const uploadImage = async (file: File, tokenArg?: string) => {
   const url = `${API_BASE}/upload/image`;
   const formData = new FormData();
@@ -180,9 +191,10 @@ export const uploadImage = async (file: File, tokenArg?: string) => {
 
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    // Show the true status to avoid chasing ghosts
     throw new Error(`HTTP ${res.status} ${res.statusText} — ${text || url}`);
   }
 
-  return res.json() as Promise<{ filePath: string }>;
+  // If your UI wants a fully usable URL, normalize here as well:
+  const payload = (await res.json()) as { filePath: string };
+  return { filePath: absoluteFromFilePath(payload.filePath) };
 };
