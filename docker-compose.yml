@@ -24,7 +24,7 @@ services:
     ports:
       - "4200:4200"
     volumes:
-      - ./backend/uploads:/app/uploads
+      - ./backend/public/uploads:/app/public/uploads
     networks:
       - dev
 
