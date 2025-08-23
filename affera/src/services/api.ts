@@ -153,38 +153,36 @@ export const deleteProduct = async (id: number, token: string) => {
   }
 };
 
-// NOTE: token is now OPTIONAL; cookie auth (credentials: "include") will be used if available.
 export const uploadImage = async (file: File, tokenArg?: string) => {
   const url = `${API_BASE}/upload/image`;
   const formData = new FormData();
   formData.append("image", file);
 
-  // Try the explicit arg first; otherwise fall back to localStorage.
   let token = tokenArg;
   if (!token && typeof window !== "undefined") {
     try {
       const t = window.localStorage.getItem("token");
       if (t) token = t;
     } catch {
-      // ignore localStorage access errors
+      /* ignore */
     }
   }
 
   const headers: Record<string, string> = {};
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
+  if (token) headers.Authorization = `Bearer ${token}`;
 
   const res = await fetch(url, {
     method: "POST",
     headers,
     body: formData,
-    credentials: "include", // ok to include cookies, but server still needs Bearer
+    credentials: "include",
   });
 
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`HTTP 401 Unauthorized – ${text || url}`);
+    // Show the true status to avoid chasing ghosts
+    throw new Error(`HTTP ${res.status} ${res.statusText} — ${text || url}`);
   }
+
   return res.json() as Promise<{ filePath: string }>;
 };
