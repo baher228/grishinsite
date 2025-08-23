@@ -30,3 +30,4 @@ backend/.env
 backend/public/uploads/
 backend/public/uploads/*
 backend/public/uploads
+affera/src/oldworkingnginx.txt

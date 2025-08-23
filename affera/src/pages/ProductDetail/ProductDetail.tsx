@@ -524,11 +524,11 @@ const ProductDetail: React.FC = () => {
               )}
 
               <StockStatus
-                inStock={product.inStock}
+                inStock={product.stock > 0}
                 role="status"
                 aria-live="polite"
               >
-                {product.inStock ? "In Stock" : "Out of Stock"}
+                {product.stock > 0 ? "In Stock" : "Out of Stock"}
               </StockStatus>
 
               <Description $expanded={descExpanded}>

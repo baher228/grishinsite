@@ -14,7 +14,7 @@ interface Product {
   brand: string;
   category: string;
   description?: string;
-  inStock?: boolean;
+  stock: number;
   rating?: number;
   reviews?: number;
 }
@@ -281,8 +281,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
             </PriceContainer>
           </CardInfo>
           <CardFooter>
-            <StockStatus $inStock={product.inStock}>
-              {product.inStock ? "In Stock" : "Out of Stock"}
+            <StockStatus $inStock={product.stock > 0}>
+              {product.stock > 0 ? "In Stock" : "Out of Stock"}
             </StockStatus>
             <AddToCartButton onClick={handleAddToCart}>
               <Icon icon={FiShoppingCart} size={20} />
