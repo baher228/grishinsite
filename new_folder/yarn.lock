@@ -919,6 +919,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jercle/yargonaut@npm:1.1.5":
+  version: 1.1.5
+  resolution: "@jercle/yargonaut@npm:1.1.5"
+  dependencies:
+    chalk: "npm:^4.1.2"
+    figlet: "npm:^1.5.2"
+    parent-require: "npm:^1.0.0"
+  checksum: 10c0/7a3a891ebafc97c78aa38354a2bb2c2b2a467f03fd653b09d2ae70420582330917ffb35869d9cbe48396c5a18cef34cdda5704a2df0b0a6383a75297a3661f66
+  languageName: node
+  linkType: hard
+
 "@jest/console@npm:30.1.2":
   version: 30.1.2
   resolution: "@jest/console@npm:30.1.2"
@@ -1263,7 +1274,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mikro-orm/core@npm:^6.5.2":
+"@mikro-orm/cli@npm:^6.5.2":
+  version: 6.5.2
+  resolution: "@mikro-orm/cli@npm:6.5.2"
+  dependencies:
+    "@jercle/yargonaut": "npm:1.1.5"
+    "@mikro-orm/core": "npm:6.5.2"
+    "@mikro-orm/knex": "npm:6.5.2"
+    fs-extra: "npm:11.3.1"
+    tsconfig-paths: "npm:4.2.0"
+    yargs: "npm:17.7.2"
+  bin:
+    mikro-orm: ./cli
+    mikro-orm-esm: ./esm
+  checksum: 10c0/deb736bbc2b5b6bc42aa91289f76e367205efa39a1cfa54d2fcabe0eff78828a79e9a89a8864158a122f816eadace87f7911f3b2bc8c3a452854c2962a9c0b02
+  languageName: node
+  linkType: hard
+
+"@mikro-orm/core@npm:6.5.2, @mikro-orm/core@npm:^6.5.2":
   version: 6.5.2
   resolution: "@mikro-orm/core@npm:6.5.2"
   dependencies:
@@ -3325,6 +3353,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "commander@npm:14.0.0"
+  checksum: 10c0/73c4babfa558077868d84522b11ef56834165d472b9e86a634cd4c3ae7fc72d59af6377d8878e06bd570fe8f3161eced3cbe383c38f7093272bb65bd242b595b
+  languageName: node
+  linkType: hard
+
 "commander@npm:^2.20.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
@@ -4163,6 +4198,17 @@ __metadata:
   version: 0.8.2
   resolution: "fflate@npm:0.8.2"
   checksum: 10c0/03448d630c0a583abea594835a9fdb2aaf7d67787055a761515bf4ed862913cfd693b4c4ffd5c3f3b355a70cf1e19033e9ae5aedcca103188aaff91b8bd6e293
+  languageName: node
+  linkType: hard
+
+"figlet@npm:^1.5.2":
+  version: 1.9.1
+  resolution: "figlet@npm:1.9.1"
+  dependencies:
+    commander: "npm:^14.0.0"
+  bin:
+    figlet: bin/index.js
+  checksum: 10c0/72f06e6b7a8ce235c1feeca3297732e70de876a0991525634a7833d2ff6c05ade8a125e449c2787efcb354b260d90755c92853b22fb205c733d0828e874a6c46
   languageName: node
   linkType: hard
 
@@ -6171,6 +6217,7 @@ __metadata:
   dependencies:
     "@eslint/eslintrc": "npm:^3.2.0"
     "@eslint/js": "npm:^9.18.0"
+    "@mikro-orm/cli": "npm:^6.5.2"
     "@mikro-orm/core": "npm:^6.5.2"
     "@mikro-orm/migrations": "npm:^6.5.2"
     "@mikro-orm/nestjs": "npm:^6.1.1"
@@ -6422,6 +6469,13 @@ __metadata:
   dependencies:
     callsites: "npm:^3.0.0"
   checksum: 10c0/c63d6e80000d4babd11978e0d3fee386ca7752a02b035fd2435960ffaa7219dc42146f07069fb65e6e8bf1caef89daf9af7535a39bddf354d78bf50d8294f556
+  languageName: node
+  linkType: hard
+
+"parent-require@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "parent-require@npm:1.0.0"
+  checksum: 10c0/58eb17553192027a596bb3b13f567e4933894964ad47a9f9054a5dc4776e60e13903e937b2eec6e7afff8a34a4fc91b5397fdc6206aa2d50ba95b87059b4f2e0
   languageName: node
   linkType: hard
 
@@ -8332,7 +8386,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.7.2":
+"yargs@npm:17.7.2, yargs@npm:^17.7.2":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:
