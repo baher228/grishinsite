@@ -1,19 +1,24 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import styled from 'styled-components';
-import GlobalStyles from './styles/GlobalStyles';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Search from './pages/Search';
-import ProductDetail from './pages/ProductDetail';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Category from './pages/Category';
-import ProductGrid from './components/product/ProductGrid';
-import { CartProvider, useCart } from './context/CartContext';
-import { getProductsByCategory, sampleProducts } from './data/products';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import styled from "styled-components";
+import GlobalStyles from "./styles/GlobalStyles";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import Search from "./pages/Search";
+import ProductDetail from "./pages/ProductDetail";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Category from "./pages/Category";
+import ProductGrid from "./components/product/ProductGrid";
+import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop";
+import { CartProvider, useCart } from "./context/CartContext";
+import { getProductsByCategory, sampleProducts } from "./data/products";
+import PrivateRoute from "./components/common/PrivateRoute/PrivateRoute";
+import LoginPage from "./pages/Admin/Login/LoginPage";
+import AdminDashboard from "./pages/Admin/Dashboard/AdminDashboard";
+import AdminRedirect from "./pages/Admin/AdminRedirect";
 
 const AppWrapper = styled.div`
   min-height: 100vh;
@@ -28,23 +33,19 @@ const Main = styled.main`
 // Category page components
 const Tools: React.FC = () => {
   const { addItem } = useCart();
-  const toolsProducts = getProductsByCategory('tools');
-  
+  const toolsProducts = getProductsByCategory("tools");
+
   return (
-    <ProductGrid 
-      products={toolsProducts}
-      onAddToCart={addItem}
-      title="Tools"
-    />
+    <ProductGrid products={toolsProducts} onAddToCart={addItem} title="Tools" />
   );
 };
 
 const Plumbing: React.FC = () => {
   const { addItem } = useCart();
-  const plumbingProducts = getProductsByCategory('plumbing');
-  
+  const plumbingProducts = getProductsByCategory("plumbing");
+
   return (
-    <ProductGrid 
+    <ProductGrid
       products={plumbingProducts}
       onAddToCart={addItem}
       title="Plumbing"
@@ -54,10 +55,10 @@ const Plumbing: React.FC = () => {
 
 const Construction: React.FC = () => {
   const { addItem } = useCart();
-  const constructionProducts = getProductsByCategory('construction');
-  
+  const constructionProducts = getProductsByCategory("construction");
+
   return (
-    <ProductGrid 
+    <ProductGrid
       products={constructionProducts}
       onAddToCart={addItem}
       title="Construction"
@@ -67,9 +68,9 @@ const Construction: React.FC = () => {
 
 const Brands: React.FC = () => {
   const { addItem } = useCart();
-  
+
   return (
-    <ProductGrid 
+    <ProductGrid
       products={sampleProducts}
       onAddToCart={addItem}
       title="All Brands"
@@ -79,10 +80,12 @@ const Brands: React.FC = () => {
 
 const Sale: React.FC = () => {
   const { addItem } = useCart();
-  const saleProducts = sampleProducts.filter(product => product.originalPrice);
-  
+  const saleProducts = sampleProducts.filter(
+    (product) => product.originalPrice
+  );
+
   return (
-    <ProductGrid 
+    <ProductGrid
       products={saleProducts}
       onAddToCart={addItem}
       title="Sale Items"
@@ -94,6 +97,7 @@ function App() {
   return (
     <CartProvider>
       <Router>
+        <ScrollToTop />
         <AppWrapper>
           <GlobalStyles />
           <Header />
@@ -111,6 +115,11 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/:category" element={<Category />} />
+              <Route path="/admin" element={<AdminRedirect />} />
+              <Route path="/admin/login" element={<LoginPage />} />
+              <Route path="/admin/dashboard" element={<PrivateRoute />}>
+                <Route index element={<AdminDashboard />} />
+              </Route>
             </Routes>
           </Main>
           <Footer />

@@ -9,31 +9,6 @@ const AboutWrapper = styled.div`
   min-height: 100vh;
 `;
 
-const HeroSection = styled.section`
-  background: linear-gradient(135deg, var(--racing-green) 0%, #002211 100%);
-  color: white;
-  padding: clamp(4rem, 8vw, 8rem) 0;
-  text-align: center;
-`;
-
-const HeroTitle = styled.h1`
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  background: white;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const HeroSubtitle = styled.p`
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  opacity: 0.9;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-`;
-
 const ContentSection = styled.section`
   padding: clamp(4rem, 8vw, 6rem) 0;
 `;
@@ -54,7 +29,7 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(135deg, #3cb371, #00ff7f);
+    background: var(--racing-green);
     border-radius: 2px;
   }
 `;
@@ -210,74 +185,6 @@ const StatNumber = styled.div`
 const StatLabel = styled.div`
   font-size: clamp(1rem, 2vw, 1.2rem);
   opacity: 0.9;
-`;
-
-const TeamSection = styled.section`
-  padding: clamp(4rem, 8vw, 6rem) 0;
-  background: #f8f9fa;
-`;
-
-const TeamGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-
-const TeamCard = styled.div`
-  background: white;
-  border-radius: 20px;
-  padding: 2rem;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-  }
-`;
-
-const TeamPhoto = styled.div`
-  width: 120px;
-  height: 120px;
-  background: var(--racing-green);
-  border-radius: 50%;
-  margin: 0 auto 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 2rem;
-  font-weight: 600;
-`;
-
-const TeamName = styled.h3`
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
-`;
-
-const TeamRole = styled.p`
-  color: #3cb371;
-  font-weight: 500;
-  margin-bottom: 1rem;
-`;
-
-const TeamDescription = styled.p`
-  color: #666;
-  line-height: 1.6;
-  font-size: 0.95rem;
 `;
 
 /**previous hero: <HeroSection>

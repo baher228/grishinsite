@@ -1,9 +1,9 @@
-import React from 'react'; 
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FiShoppingCart, FiHeart } from 'react-icons/fi';
-import Icon from '../../common/Icon';
-import { formatCurrency } from '../../../utils/currency';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FiShoppingCart, FiHeart } from "react-icons/fi";
+import Icon from "../../common/Icon";
+import { formatCurrency } from "../../../utils/currency";
 
 interface Product {
   id: number;
@@ -14,7 +14,7 @@ interface Product {
   brand: string;
   category: string;
   description?: string;
-  inStock?: boolean;
+  stock: number;
   rating?: number;
   reviews?: number;
 }
@@ -24,25 +24,37 @@ interface ProductCardProps {
   onAddToCart: (product: Product) => void;
 }
 
-// 1. FIX HEIGHT AND FLEX ON THE CARD
+/* --- CARD: fluid width/height, mobile-safe, no overflow --- */
 const Card = styled.div`
   background: white;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 550px; // <--- Set to fit your design, 550px is usually good for 1-line/2-line names
   width: 100%;
-  max-width: 340px;
-  min-width: 300px;
+  min-width: 0; /* allow grid to shrink below content’s intrinsic width */
+  height: auto; /* remove rigid 550px height */
+  contain: layout paint; /* helps performance */
+  will-change: transform;
 
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  /* Hover only when a real pointer exists (not on touch) */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  @media (max-width: 768px) {
+    border-radius: 14px;
+  }
+
+  @media (max-width: 420px) {
+    border-radius: 12px;
   }
 `;
 
@@ -54,73 +66,77 @@ const ProductLink = styled(Link)`
   height: 100%;
 `;
 
+/* --- IMAGE: responsive square (works everywhere) --- */
 const ImageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 280px;
+  padding-top: 100%; /* 1:1 square aspect ratio */
   overflow: hidden;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 `;
 
 const ProductImage = styled.img`
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 
   ${Card}:hover & {
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
 `;
 
 const WishlistButton = styled.button`
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: clamp(8px, 2vw, 16px);
+  right: clamp(8px, 2vw, 16px);
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
+  width: clamp(36px, 6vw, 44px);
+  height: clamp(36px, 6vw, 44px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2.4vw, 1.2rem);
   color: var(--text-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
   z-index: 2;
 
-  &:hover {
-    color: var(--accent-color);
-    transform: scale(1.1);
-    background: white;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--accent-color);
+      transform: scale(1.08);
+      background: white;
+    }
   }
 `;
 
 const SaleTag = styled.div`
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: var(--accent-color);
-  color: white;
-  font-size: 0.875rem;
+  top: clamp(8px, 2vw, 16px);
+  left: clamp(8px, 2vw, 16px);
+  background: #e8c444;
+  color: black;
+  font-size: clamp(0.91rem, 2.86vw, 1.1375rem);
   font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.52rem 0.975rem;
+  border-radius: 26px;
   z-index: 2;
 `;
 
-// 2. FLEX COLUMN, FULL HEIGHT
+/* --- CONTENT: flexible and compact on small screens --- */
 const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  padding: 1.75rem;
+  padding: clamp(0.75rem, 2.5vw, 1.25rem);
   height: 100%;
 `;
 
-// 3. GROW INFO AREA TO FILL AVAILABLE SPACE
 const CardInfo = styled.div`
   flex: 1 1 auto;
   display: flex;
@@ -135,7 +151,7 @@ const CardFooter = styled.div`
 `;
 
 const Brand = styled.span`
-  font-size: 0.875rem;
+  font-size: clamp(0.7rem, 1.9vw, 0.875rem);
   color: var(--text-light);
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -143,11 +159,11 @@ const Brand = styled.span`
 `;
 
 const ProductName = styled.h3`
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2.6vw, 1.2rem);
   font-weight: 600;
   color: var(--primary-color);
-  margin: 0.75rem 0;
-  line-height: 1.4;
+  margin: 0.5rem 0;
+  line-height: 1.35;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -157,47 +173,21 @@ const ProductName = styled.h3`
 const PriceContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin: 1rem 0;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0.75rem 0;
   flex-wrap: wrap;
 `;
 
 const Price = styled.span`
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 3.6vw, 1.4rem);
   font-weight: 700;
   color: var(--primary-color);
 `;
 
 const OriginalPrice = styled.span`
-  font-size: 1.1rem;
+  font-size: clamp(0.85rem, 2.8vw, 1.1rem);
   color: var(--text-light);
   text-decoration: line-through;
-`;
-
-const Discount = styled.span`
-  background: linear-gradient(135deg, var(--accent-color), #e53e3e);
-  color: white;
-  font-size: 0.8rem;
-  padding: 0.3rem 0.6rem;
-  border-radius: 12px;
-  font-weight: 600;
-`;
-
-const RatingContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
-  font-size: 0.9rem;
-`;
-
-const Rating = styled.span`
-  color: var(--accent-color);
-  font-weight: 600;
-`;
-
-const Reviews = styled.span`
-  color: var(--text-light);
 `;
 
 interface StockStatusProps {
@@ -207,13 +197,13 @@ interface StockStatusProps {
 const StockStatus = styled.div<StockStatusProps>`
   display: inline-flex;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 0.75rem;
   border-radius: 12px;
   font-weight: 500;
-  font-size: 0.875rem;
-  background-color: ${props => props.$inStock ? '#e8f5e9' : '#ffebee'};
-  color: ${props => props.$inStock ? '#2e7d32' : '#c62828'};
-  margin-bottom: 1rem;
+  font-size: clamp(0.75rem, 2.3vw, 0.875rem);
+  background-color: ${(props) => (props.$inStock ? "#e8f5e9" : "#ffebee")};
+  color: ${(props) => (props.$inStock ? "#2e7d32" : "#c62828")};
+  margin-bottom: 0.5rem;
 `;
 
 const AddToCartButton = styled.button`
@@ -221,19 +211,21 @@ const AddToCartButton = styled.button`
   background: linear-gradient(135deg, var(--primary-color), #333);
   color: white;
   font-weight: 600;
-  padding: 0.875rem;
+  padding: clamp(0.6rem, 2.2vw, 0.875rem);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all 0.2s ease;
-  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  font-size: clamp(0.82rem, 2.2vw, 1rem);
 
-  &:hover {
-    background: linear-gradient(135deg, #333, #000);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: linear-gradient(135deg, #333, #000);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
   }
 
   &:active {
@@ -242,8 +234,10 @@ const AddToCartButton = styled.button`
 `;
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
-  const discountPercentage = product.originalPrice 
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+  const discountPercentage = product.originalPrice
+    ? Math.round(
+        ((product.originalPrice - product.price) / product.originalPrice) * 100
+      )
     : 0;
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -255,7 +249,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
   const handleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    // Wishlist functionality would go here
   };
 
   return (
@@ -273,29 +266,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
 
         <CardContent>
           <CardInfo>
-            <Brand>{product.brand}</Brand>
+            <Brand>{product.brand === "Unknown" ? "" : product.brand}</Brand>
             <ProductName>{product.name}</ProductName>
-
-            {(product.rating && product.reviews) && (
-              <RatingContainer>
-                <Rating>{product.rating}★</Rating>
-                <Reviews>({product.reviews} reviews)</Reviews>
-              </RatingContainer>
-            )}
 
             <PriceContainer>
               <Price>{formatCurrency(product.price)}</Price>
               {product.originalPrice && (
                 <>
-                  <OriginalPrice>{formatCurrency(product.originalPrice)}</OriginalPrice>
-                  <Discount>Save {discountPercentage}%</Discount>
+                  <OriginalPrice>
+                    {formatCurrency(product.originalPrice)}
+                  </OriginalPrice>
                 </>
               )}
             </PriceContainer>
           </CardInfo>
           <CardFooter>
-            <StockStatus $inStock={product.inStock}>
-              {product.inStock ? 'In Stock' : 'Out of Stock'}
+            <StockStatus $inStock={product.stock > 0}>
+              {product.stock > 0 ? "In Stock" : "Out of Stock"}
             </StockStatus>
             <AddToCartButton onClick={handleAddToCart}>
               <Icon icon={FiShoppingCart} size={20} />

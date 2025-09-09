@@ -1,15 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
-import Hero from '../../components/home/Hero';
-import Discounts from '../../components/home/Discounts';
-import Brands from '../../components/home/Brands';
-import ProductGrid from '../../components/product/ProductGrid';
-import Container from '../../components/common/Container';
-import { useCart } from '../../context/CartContext';
-import { getFeaturedProducts } from '../../data/products';
-import { FiTool, FiDroplet, FiSettings, FiHome, FiLock, FiPackage } from 'react-icons/fi';
-import Icon from '../../components/common/Icon';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import Hero from "../../components/home/Hero";
+import Discounts from "../../components/home/Discounts";
+import Brands from "../../components/home/Brands";
+import ProductGrid from "../../components/product/ProductGrid";
+import Container from "../../components/common/Container";
+import { useCart } from "../../context/CartContext";
+import { getFeaturedProducts } from "../../data/products";
+import {
+  FiTool,
+  FiDroplet,
+  FiSettings,
+  FiHome,
+  FiLock,
+  FiPackage,
+} from "react-icons/fi";
+import Icon from "../../components/common/Icon";
+import { Link } from "react-router-dom";
 
 const HomeWrapper = styled.div`
   min-height: 100vh;
@@ -29,7 +36,7 @@ const SectionTitle = styled.h2`
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -10px;
     left: 50%;
@@ -92,7 +99,7 @@ const CategoryCard = styled(Link)`
 const CategoryIcon = styled.div`
   width: clamp(60px, 8vw, 80px);
   height: clamp(60px, 8vw, 80px);
-  background: linear-gradient(135deg, rgba(0, 68, 34, 0.95) 0%, rgba(0, 34, 17, 0.95) 100%);
+  background: var(--racing-green);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -144,13 +151,13 @@ const StatsSection = styled.section`
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 68, 34, 0.95) 0%, rgba(0, 34, 17, 0.95) 100%);
+    background: var(--racing-green);
     pointer-events: none;
   }
 `;
@@ -286,17 +293,12 @@ const Home: React.FC = () => {
 
   return (
     <HomeWrapper>
-      
-      
       <Discounts />
-      
+
       <FeaturedSection>
         <Container>
           <SectionTitle>Featured Products</SectionTitle>
-          <ProductGrid 
-            products={featuredProducts}
-            onAddToCart={addItem}
-          />
+          <ProductGrid products={featuredProducts} onAddToCart={addItem} />
         </Container>
       </FeaturedSection>
 
@@ -312,7 +314,8 @@ const Home: React.FC = () => {
               </CategoryIcon>
               <CategoryTitle>Bathroom & Plumbing</CategoryTitle>
               <CategoryDescription>
-                Complete range of bathroom fixtures and plumbing supplies. Pipes, fittings, and repair kits for all your needs.
+                Complete range of bathroom fixtures and plumbing supplies.
+                Pipes, fittings, and repair kits for all your needs.
               </CategoryDescription>
             </CategoryCard>
 
@@ -322,7 +325,8 @@ const Home: React.FC = () => {
               </CategoryIcon>
               <CategoryTitle>Landscaping</CategoryTitle>
               <CategoryDescription>
-                Garden tools, outdoor equipment, and landscaping supplies to create and maintain beautiful outdoor spaces.
+                Garden tools, outdoor equipment, and landscaping supplies to
+                create and maintain beautiful outdoor spaces.
               </CategoryDescription>
             </CategoryCard>
 
@@ -332,7 +336,8 @@ const Home: React.FC = () => {
               </CategoryIcon>
               <CategoryTitle>Storage & Shelving</CategoryTitle>
               <CategoryDescription>
-                Organize your space with our selection of storage solutions, shelving units, and organizational systems.
+                Organize your space with our selection of storage solutions,
+                shelving units, and organizational systems.
               </CategoryDescription>
             </CategoryCard>
 
@@ -342,7 +347,8 @@ const Home: React.FC = () => {
               </CategoryIcon>
               <CategoryTitle>Lighting</CategoryTitle>
               <CategoryDescription>
-                Indoor and outdoor lighting solutions. From LED bulbs to decorative fixtures for every room and space.
+                Indoor and outdoor lighting solutions. From LED bulbs to
+                decorative fixtures for every room and space.
               </CategoryDescription>
             </CategoryCard>
 
@@ -352,7 +358,8 @@ const Home: React.FC = () => {
               </CategoryIcon>
               <CategoryTitle>Doors & Security</CategoryTitle>
               <CategoryDescription>
-                Secure your property with our range of door locks, security systems, and safety equipment.
+                Secure your property with our range of door locks, security
+                systems, and safety equipment.
               </CategoryDescription>
             </CategoryCard>
 
@@ -362,7 +369,8 @@ const Home: React.FC = () => {
               </CategoryIcon>
               <CategoryTitle>Screws & Fixings</CategoryTitle>
               <CategoryDescription>
-                Essential fasteners, screws, bolts, and fixing solutions for all your construction and repair projects.
+                Essential fasteners, screws, bolts, and fixing solutions for all
+                your construction and repair projects.
               </CategoryDescription>
             </CategoryCard>
           </CategoriesGrid>
@@ -396,17 +404,16 @@ const Home: React.FC = () => {
         <Container>
           <NewsletterTitle>Stay Updated</NewsletterTitle>
           <NewsletterDescription>
-            Subscribe to our newsletter for the latest updates, exclusive offers, and expert tips.
+            Subscribe to our newsletter for the latest updates, exclusive
+            offers, and expert tips.
           </NewsletterDescription>
           <NewsletterForm onSubmit={handleNewsletterSubmit}>
-            <NewsletterInput 
-              type="email" 
+            <NewsletterInput
+              type="email"
               placeholder="Enter your email address"
               required
             />
-            <NewsletterButton type="submit">
-              Subscribe
-            </NewsletterButton>
+            <NewsletterButton type="submit">Subscribe</NewsletterButton>
           </NewsletterForm>
         </Container>
       </NewsletterSection>

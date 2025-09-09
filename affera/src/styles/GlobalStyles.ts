@@ -1,11 +1,27 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
+@font-face {
+  font-family: "Tenor Sans";
+  src: url("/fonts/TenorSans-Regular.ttf") format("truetype");
+  font-weight: 100 400 700 900;
+  font-style: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
   :root {
     --header-height: 120px;
     --primary-color: #000000;
-    --accent-color: #004225;
-    --racing-green: #004225;
+    --accent-color: #224834;
+    --racing-green: #224834;
     --text-color: #000000;
     --text-light: #666666;
     --border-color: #e5e5e5;
@@ -20,7 +36,10 @@ const GlobalStyles = createGlobalStyle`
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
-    
+    --font-display: "Open Sans", sans-serif; /* primary body text */
+    --font-primary: "Open Sans", sans-serif; /* primary body text */
+    --font-logo: "Tenor Sans", serif; /* logo / brand display */
+
     /* Responsive breakpoints */
     --breakpoint-sm: 480px;
     --breakpoint-md: 768px;

@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import Container from '../../components/common/Container';
-import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
-import Icon from '../../components/common/Icon';
+import React from "react";
+import styled from "styled-components";
+import Container from "../../components/common/Container";
+import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import Icon from "../../components/common/Icon";
 
 const ContactWrapper = styled.div`
   min-height: 100vh;
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, var(--racing-green) 0%, #002211 100%);
+  background: var(--racing-green);
   color: white;
   padding: clamp(4rem, 8vw, 8rem) 0;
   text-align: center;
@@ -46,14 +46,14 @@ const SectionTitle = styled.h2`
   position: relative;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(135deg, #3CB371, #00FF7F);
+    background: var(--racing-green);
     border-radius: 2px;
   }
 `;
@@ -92,7 +92,7 @@ const InfoItem = styled.div`
 `;
 
 const InfoIcon = styled.div`
-  color: #3CB371;
+  color: var(--racing-green);
   font-size: 2rem;
   flex-shrink: 0;
 `;
@@ -131,7 +131,7 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #3CB371;
+    border-color: #3cb371;
     background: white;
     box-shadow: 0 0 0 3px rgba(60, 179, 113, 0.1);
   }
@@ -150,7 +150,7 @@ const Textarea = styled.textarea`
 
   &:focus {
     outline: none;
-    border-color: #3CB371;
+    border-color: #3cb371;
     background: white;
     box-shadow: 0 0 0 3px rgba(60, 179, 113, 0.1);
   }
@@ -191,7 +191,8 @@ const Contact: React.FC = () => {
         <Container>
           <HeroTitle>Contact Us</HeroTitle>
           <HeroSubtitle>
-            We're here to help! Reach out to our team for any questions, support, or business inquiries.
+            We're here to help! Reach out to our team for any questions,
+            support, or business inquiries.
           </HeroSubtitle>
         </Container>
       </HeroSection>
@@ -206,7 +207,8 @@ const Contact: React.FC = () => {
                   <Icon icon={FiMail} size={28} />
                 </InfoIcon>
                 <InfoContent>
-                  <strong>Email:</strong><br />
+                  <strong>Email:</strong>
+                  <br />
                   support@feronova.co.uk
                 </InfoContent>
               </InfoItem>
@@ -215,7 +217,8 @@ const Contact: React.FC = () => {
                   <Icon icon={FiPhone} size={28} />
                 </InfoIcon>
                 <InfoContent>
-                  <strong>Phone:</strong><br />
+                  <strong>Phone:</strong>
+                  <br />
                   +1 (555) 123-4567
                 </InfoContent>
               </InfoItem>
@@ -224,7 +227,8 @@ const Contact: React.FC = () => {
                   <Icon icon={FiMapPin} size={28} />
                 </InfoIcon>
                 <InfoContent>
-                  <strong>Address:</strong><br />
+                  <strong>Address:</strong>
+                  <br />
                   123 Main Street, London, UK
                 </InfoContent>
               </InfoItem>

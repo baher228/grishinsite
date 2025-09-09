@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Container = styled.div`
   max-width: var(--max-width);
@@ -12,6 +12,9 @@ const Container = styled.div`
 
   @media (min-width: 1920px) {
     padding: 0 var(--padding-xxl);
+  }
+  @media (max-width: 768px) {
+    padding: 0 0.4rem;
   }
 `;
 

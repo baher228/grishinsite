@@ -1,25 +1,25 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FiShield } from 'react-icons/fi';
-import Icon from '../../common/Icon';
-import Container from '../../common/Container';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FiShield } from "react-icons/fi";
+import Icon from "../../common/Icon";
+import Container from "../../common/Container";
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, var(--racing-green) 0%, #002211 100%);
+  background: var(--racing-green);
   color: white;
   padding: 3rem 0;
   position: relative;
   overflow: hidden;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 68, 34, 0.95) 0%, rgba(0, 34, 17, 0.95) 100%);
+    background: var(--racing-green);
     z-index: 0;
   }
 `;
@@ -176,23 +176,20 @@ const Hero: React.FC = () => {
             <Icon icon={FiShield} size={14} />
             Quality Guaranteed
           </Badge>
-          
-          <Title>
-            Professional supplies for Every Project
-          </Title>
-          
+
+          <Title>Professional supplies for Every Project</Title>
+
           <Subtitle>
-          Your trusted partner for professional tools and construction supplies. Quality equipment for professionals and DIY enthusiasts.
+            Your trusted partner for professional tools and construction
+            supplies. Quality equipment for professionals and DIY enthusiasts.
           </Subtitle>
-          
+
           <ButtonGroup>
             <PrimaryButton to="/products">
               Shop Now
               <span>→</span>
             </PrimaryButton>
-            <SecondaryButton to="/brands">
-              View Brands
-            </SecondaryButton>
+            <SecondaryButton to="/brands">View Brands</SecondaryButton>
           </ButtonGroup>
 
           <StatsGrid>
