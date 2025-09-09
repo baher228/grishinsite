@@ -8,11 +8,8 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Search from './pages/Search';
 import ProductDetail from './pages/ProductDetail';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Dashboard from './pages/Dashboard';
 import Category from './pages/Category';
 import ProductGrid from './components/product/ProductGrid';
 import { CartProvider, useCart } from './context/CartContext';
@@ -111,11 +108,8 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<Search />} />
               <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/:category" element={<Category />} />
             </Routes>
           </Main>
