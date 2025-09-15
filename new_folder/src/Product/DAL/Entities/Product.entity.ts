@@ -8,10 +8,16 @@ export class Product extends BaseEntity {
   public name: string;
 
   @Property()
+  public category: string;
+
+  @Property()
   public description: string;
 
   @Property()
   public price: number;
+
+  @Property()
+  public stock: number;
 
   constructor(name: string, description: string, price: number) {
     super();

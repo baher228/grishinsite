@@ -30,7 +30,7 @@ const DbConfig: MikroOrmModuleOptions<PostgreSqlDriver> = defineConfig({
   user: process.env.DB_USERNAME || 'postgres',
   port: Number(process.env.DB_PORT) || 5432,
   host: process.env.DB_HOST || 'localhost',
-  password: process.env.DB_PASSWORD || 'password',
+  password: process.env.DB_PASSWORD || 'bochka',
   ensureDatabase: false,
   pool: poolConfig,
   entities: [Product],

@@ -7,19 +7,29 @@ import { ProductService } from './Product.service';
 @ApiTags('product')
 @Controller('product')
 export class ProductController extends ApiBaseController {
-  constructor(private readonly _articleService: ProductService) {
+  constructor(private readonly productService: ProductService) {
     super();
   }
 
-  @Get()
+  @Get('/all')
   public async getAll(): Promise<ApiResponse<any>> {
-    const articles = await this._articleService.getAll();
-    return this.FormatResponse(articles);
+    const products = await this.productService.getAll();
+    return this.FormatResponse(products);
+  }
+
+  @Get('/category')
+  public async getCategory(@Body() category: string) {
+    return this.productService.getCategory(category);
+  }
+
+  @Get(':id')
+  public async getProductById(@Body() id: number){
+    return this.productService.getProductById(id)
   }
 
   @Post()
   public async create(@Body() request): Promise<ApiResponse<any>> {
-    const article = await this._articleService.create(request);
-    return this.FormatResponse(article);
+    const product = await this.productService.create(request);
+    return this.FormatResponse(product);
   }
 }

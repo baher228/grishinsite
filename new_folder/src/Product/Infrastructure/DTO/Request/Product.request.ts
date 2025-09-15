@@ -14,6 +14,16 @@ export class CreateProductRequest {
 
   @ApiProperty()
   @IsNotEmpty()
+  @IsString()
+  category!: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
   @IsNumber()
   price!: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  stock!: number;
 }

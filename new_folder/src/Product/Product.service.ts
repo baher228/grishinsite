@@ -12,16 +12,25 @@ export class ProductService {
   ) {}
 
   public async getAll() {
-    const products = await this._productRepository.findAll();
-    return products;
+    return await this._productRepository.findAll();
+  }
+
+  public async getCategory(category: string) {
+    return await this._productRepository.find(
+      { category: category },
+      { orderBy: { name: 'ASC' } },
+    );
+  }
+
+  public async getProductById(id: number) {
+    return await this._productRepository.find(
+      { id: id },
+      { orderBy: { name: 'ASC' } },
+    );
   }
 
   public async create(request: any): Promise<ProductResponse> {
-    const product = new Product(
-      request.name,
-      request.description,
-      request.price,
-    );
+    const product = this._em.create(Product, request);
 
     await this._em.persistAndFlush(product);
     return new ProductResponse(
@@ -29,6 +38,8 @@ export class ProductService {
       product.name,
       product.description,
       product.price,
+      product.stock,
+      product.category,
     );
   }
 }
