@@ -15,15 +15,20 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const Product_module_1 = require("./Product/Product.module");
+const uploads_module_1 = require("./uploads/uploads.module");
 const mikro_orm_config_1 = __importDefault(require("./mikro-orm.config"));
+const config_1 = require("@nestjs/config");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [
+        imports: [config_1.ConfigModule.forRoot({ isGlobal: true, }),
             nestjs_1.MikroOrmModule.forRoot(mikro_orm_config_1.default),
-            Product_module_1.ProductModule
+            Product_module_1.ProductModule,
+            uploads_module_1.UploadsModule,
+            auth_module_1.AuthModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

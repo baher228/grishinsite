@@ -1,4 +1,4 @@
-import { MikroORM } from '@mikro-orm/core';
+import { join } from 'path';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -12,14 +12,17 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.enableShutdownHooks();
 
-
+  
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
       whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
     }),
   );
-
+  app.useStaticAssets(join(process.cwd(), 'public'), {
+    prefix: '/public',
+  });
   const config = new DocumentBuilder()
     .setTitle('Market place')
     .setDescription('Market place API description')
