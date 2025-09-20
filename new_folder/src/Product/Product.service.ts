@@ -15,18 +15,17 @@ export class ProductService {
     return await this._productRepository.findAll();
   }
 
-  public async getCategory(category: string) {
-    return await this._productRepository.find(
-      { category: category },
+  public async getCategory(category: string): Promise<ProductResponse[]> {
+    const list = await this._productRepository.find(
+      { category },
       { orderBy: { name: 'ASC' } },
     );
+    return list.map((p) => new ProductResponse(p));
   }
 
-  public async getProductById(id: number) {
-    return await this._productRepository.find(
-      { id: id },
-      { orderBy: { name: 'ASC' } },
-    );
+  public async getProductById(id: number): Promise<ProductResponse | null> {
+    const product = await this._productRepository.findOne({ id });
+    return product ? new ProductResponse(product) : null;
   }
 
   public async create(request: any): Promise<ProductResponse> {

@@ -20,6 +20,7 @@ exports.ProductModule = ProductModule = __decorate([
         imports: [nestjs_1.MikroOrmModule.forFeature([Product_entity_1.Product])],
         providers: [Product_service_1.ProductService],
         controllers: [Product_controller_1.ProductController],
+        exports: [Product_service_1.ProductService],
     })
 ], ProductModule);
 //# sourceMappingURL=Product.module.js.map

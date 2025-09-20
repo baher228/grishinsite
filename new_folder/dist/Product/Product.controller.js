@@ -28,10 +28,15 @@ let ProductController = class ProductController extends ApiBaseController_1.ApiB
         return this.FormatResponse(products);
     }
     async getCategory(category) {
-        return this.productService.getCategory(category);
+        const products = await this.productService.getCategory(category);
+        return this.FormatResponse(products);
     }
     async getProductById(id) {
-        return this.productService.getProductById(id);
+        const product = await this.productService.getProductById(id);
+        if (!product) {
+            throw new common_1.NotFoundException(`Product with id ${id} not found`);
+        }
+        return this.FormatResponse(product);
     }
     async create(request) {
         const product = await this.productService.create(request);
@@ -47,14 +52,14 @@ __decorate([
 ], ProductController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Get)('/category'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Query)('category')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getCategory", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)

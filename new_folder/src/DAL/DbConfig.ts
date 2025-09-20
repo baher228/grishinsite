@@ -26,11 +26,11 @@ console.log('Pool config', poolConfig);
 
 const DbConfig: MikroOrmModuleOptions<PostgreSqlDriver> = defineConfig({
   driver: PostgreSqlDriver,
-  dbName: process.env.DB_NAME || 'affera',
-  user: process.env.DB_USERNAME || 'postgres',
-  port: Number(process.env.DB_PORT) || 5432,
-  host: process.env.DB_HOST || '127.0.0.1',
-  password: process.env.DB_PASSWORD || 'bochka',
+  dbName: process.env.DB_NAME,
+  user: process.env.DB_USERNAME,
+  port: Number(process.env.DB_PORT),
+  host: process.env.DB_HOST,
+  password: process.env.DB_PASSWORD,
   ensureDatabase: true,
   pool: poolConfig,
   entities: [Product],

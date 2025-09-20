@@ -17,11 +17,11 @@ const poolConfig = process.env.POOL_MODE != null && process.env.POOL_MODE === 'O
 console.log('Pool config', poolConfig);
 const DbConfig = (0, core_1.defineConfig)({
     driver: postgresql_1.PostgreSqlDriver,
-    dbName: process.env.DB_NAME || 'affera',
-    user: process.env.DB_USERNAME || 'postgres',
-    port: Number(process.env.DB_PORT) || 5432,
-    host: process.env.DB_HOST || '127.0.0.1',
-    password: process.env.DB_PASSWORD || 'bochka',
+    dbName: process.env.DB_NAME,
+    user: process.env.DB_USERNAME,
+    port: Number(process.env.DB_PORT),
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
     ensureDatabase: true,
     pool: poolConfig,
     entities: [Product_entity_1.Product],

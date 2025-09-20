@@ -1,6 +1,17 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiResponse } from '../Infrastructure/DTO/Response/ApiResponse';
+import { ApiResponse as ApiResponseDto } from '../Infrastructure/DTO/Response/ApiResponse';
+import { ProductResponse } from './Infrastructure/DTO/Response/Product.response';
 import { ApiBaseController } from '../Controllers/ApiBaseController';
 import { ProductService } from './Product.service';
 
@@ -18,13 +29,22 @@ export class ProductController extends ApiBaseController {
   }
 
   @Get('/category')
-  public async getCategory(@Body() category: string) {
-    return this.productService.getCategory(category);
+  public async getCategory(
+    @Query('category') category: string,
+  ): Promise<ApiResponseDto<any>> {
+    const products = await this.productService.getCategory(category);
+    return this.FormatResponse(products);
   }
 
   @Get(':id')
-  public async getProductById(@Body() id: number){
-    return this.productService.getProductById(id)
+  public async getProductById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<ApiResponseDto<ProductResponse>> {
+    const product = await this.productService.getProductById(id);
+    if (!product) {
+      throw new NotFoundException(`Product with id ${id} not found`);
+    }
+    return this.FormatResponse(product);
   }
 
   @Post()

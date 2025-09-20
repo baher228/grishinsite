@@ -7,7 +7,7 @@ export declare class ProductService {
     private readonly _em;
     constructor(_productRepository: ProductRepository, _em: EntityManager);
     getAll(): Promise<import("@mikro-orm/postgresql").Loaded<Product, never, "*", never>[]>;
-    getCategory(category: string): Promise<import("@mikro-orm/postgresql").Loaded<Product, never, "*", never>[]>;
-    getProductById(id: number): Promise<import("@mikro-orm/postgresql").Loaded<Product, never, "*", never>[]>;
+    getCategory(category: string): Promise<ProductResponse[]>;
+    getProductById(id: number): Promise<ProductResponse | null>;
     create(request: any): Promise<ProductResponse>;
 }

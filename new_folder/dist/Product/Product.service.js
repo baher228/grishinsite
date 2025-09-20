@@ -26,10 +26,12 @@ let ProductService = class ProductService {
         return await this._productRepository.findAll();
     }
     async getCategory(category) {
-        return await this._productRepository.find({ category: category }, { orderBy: { name: 'ASC' } });
+        const list = await this._productRepository.find({ category }, { orderBy: { name: 'ASC' } });
+        return list.map((p) => new Product_response_1.ProductResponse(p));
     }
     async getProductById(id) {
-        return await this._productRepository.find({ id: id }, { orderBy: { name: 'ASC' } });
+        const product = await this._productRepository.findOne({ id });
+        return product ? new Product_response_1.ProductResponse(product) : null;
     }
     async create(request) {
         const product = this._em.create(Product_entity_1.Product, request);

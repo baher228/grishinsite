@@ -7,6 +7,7 @@ import { UploadsModule } from './uploads/uploads.module';
 import DbConfig from './mikro-orm.config';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { PaymentsModule } from './payments/payments.module';
 
 
 @Module({
@@ -14,7 +15,8 @@ import { AuthModule } from './auth/auth.module';
     MikroOrmModule.forRoot(DbConfig),
     ProductModule,
     UploadsModule,
-    AuthModule
+    AuthModule,
+    PaymentsModule
   ],
   controllers: [AppController],
   providers: [AppService],
