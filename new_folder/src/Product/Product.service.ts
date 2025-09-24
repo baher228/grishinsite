@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ProductRepository } from './DAL/Repositories/Product.repository';
 import { Product } from './DAL/Entities/Product.entity';
 import { ProductResponse } from './Infrastructure/DTO/Response/Product.response';
+import { CreateProductRequest } from './Infrastructure/DTO/Request/Product.request';
 
 @Injectable()
 export class ProductService {
@@ -15,7 +16,7 @@ export class ProductService {
     return await this._productRepository.findAll();
   }
 
-  public async getCategory(category: string): Promise<ProductResponse[]> {
+  public async getCategory(category: "Bath & Plumbing" | "Landscaping" | "Storage & Shelving" | "Lighting" |"Doors & Security" | "Screws & Fixings"): Promise<ProductResponse[]> {
     const list = await this._productRepository.find(
       { category },
       { orderBy: { name: 'ASC' } },
@@ -28,10 +29,13 @@ export class ProductService {
     return product ? new ProductResponse(product) : null;
   }
 
-  public async create(request: any): Promise<ProductResponse> {
+  public async createProduct(
+    request: CreateProductRequest,
+  ): Promise<ProductResponse> {
     const product = this._em.create(Product, request);
-
     await this._em.persistAndFlush(product);
     return new ProductResponse(product);
   }
+
+  public async updateProduct(request) {}
 }

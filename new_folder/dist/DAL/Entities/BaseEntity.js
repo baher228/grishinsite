@@ -19,6 +19,7 @@ var BaseEntityTableColumnNames;
     BaseEntityTableColumnNames["updatedAt"] = "updated_at";
 })(BaseEntityTableColumnNames || (exports.BaseEntityTableColumnNames = BaseEntityTableColumnNames = {}));
 class BaseEntity {
+    [core_1.OptionalProps];
     id;
     createdAt;
     updatedAt;

@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const ApiBaseController_1 = require("../Controllers/ApiBaseController");
 const Product_service_1 = require("./Product.service");
+const Product_request_1 = require("./Infrastructure/DTO/Request/Product.request");
 let ProductController = class ProductController extends ApiBaseController_1.ApiBaseController {
     productService;
     constructor(productService) {
@@ -38,8 +39,8 @@ let ProductController = class ProductController extends ApiBaseController_1.ApiB
         }
         return this.FormatResponse(product);
     }
-    async create(request) {
-        const product = await this.productService.create(request);
+    async createProduct(request) {
+        const product = await this.productService.createProduct(request);
         return this.FormatResponse(product);
     }
 };
@@ -68,9 +69,9 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Product_request_1.CreateProductRequest]),
     __metadata("design:returntype", Promise)
-], ProductController.prototype, "create", null);
+], ProductController.prototype, "createProduct", null);
 exports.ProductController = ProductController = __decorate([
     (0, swagger_1.ApiTags)('product'),
     (0, common_1.Controller)('product'),

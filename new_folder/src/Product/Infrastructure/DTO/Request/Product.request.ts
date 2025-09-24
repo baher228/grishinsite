@@ -22,7 +22,13 @@ export class CreateProductRequest {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  category!: string;
+  category!:
+    | 'Bath & Plumbing'
+    | 'Landscaping'
+    | 'Storage & Shelving'
+    | 'Lighting'
+    | 'Doors & Security'
+    | 'Screws & Fixings';
 
   @ApiProperty()
   @IsNotEmpty()

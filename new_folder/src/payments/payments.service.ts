@@ -1,12 +1,12 @@
 import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
-import { CreatePaymentIntentDto } from './DTO/create-payment-intent.dto';
 import { CreateCheckoutSessionDto } from './DTO/create-checkout-session.dto';
+
 import { ProductService } from '../Product/Product.service'; 
-import * as crypto from 'crypto';
+
 import { Product } from 'src/Product/DAL/Entities/Product.entity';
-import { ProductResponse } from 'src/Product/Infrastructure/DTO/Response/Product.response';
+
 
 @Injectable()
 export class PaymentsService {
@@ -35,10 +35,6 @@ export class PaymentsService {
       if (!product) {
         throw new InternalServerErrorException(`Product not found: ${item.productId}`);
       }
-      /**
-       * We assume product.price is stored in integer minor units (e.g., cents).
-       * If your DB stores decimal, convert carefully to cents here to avoid float errors.
-       */
       const unitAmount = Number(product.price);
       if (!Number.isInteger(unitAmount) || unitAmount < 0) {
         throw new InternalServerErrorException(
@@ -47,40 +43,9 @@ export class PaymentsService {
       }
       total += unitAmount * item.quantity;
     }
-    return total;
+    return total*100; // Product price is stored in pounds
   }
 
-  async createPaymentIntent(dto: CreatePaymentIntentDto) {
-    const currency = (dto.currency || 'gbp').toLowerCase();
-    const amount = await this.computeAmountInMinorUnits(dto.lineItems);
-    if (amount <= 0) {
-      throw new InternalServerErrorException('Computed amount must be greater than 0');
-    }
-
-    // Use an idempotency key to avoid duplicate charges on retries
-    const idempotencyKey = crypto.randomUUID();
-
-    const intent = await this.stripe.paymentIntents.create(
-      {
-        amount,
-        currency,
-        automatic_payment_methods: { enabled: true },
-        receipt_email: dto.customerEmail,
-        metadata: {
-          app: 'feronova',
-          items: JSON.stringify(dto.lineItems),
-        },
-      },
-      { idempotencyKey },
-    );
-
-    return {
-      clientSecret: intent.client_secret,
-      paymentIntentId: intent.id,
-      amount,
-      currency,
-    };
-  }
 
   /**
    * Optional path using Stripe Checkout (hosted page).
@@ -92,7 +57,6 @@ export class PaymentsService {
       throw new InternalServerErrorException('Computed amount must be greater than 0');
     }
 
-    // Build line items from trusted server prices
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
     for (const li of dto.lineItems) {
       const p = await this.productService.getProductById(li.productId);
@@ -104,9 +68,10 @@ export class PaymentsService {
         quantity: li.quantity,
         price_data: {
           currency,
-          unit_amount: unitAmount,
+          unit_amount: unitAmount * 100,
           product_data: {
             name: p.name ?? `Product ${p.id}`,
+
             // You can pass images, descriptions, etc. (avoid PII)
           },
         },
@@ -125,7 +90,7 @@ export class PaymentsService {
       allow_promotion_codes: true,
       customer_email: dto.customerEmail,
       metadata: {
-        app: 'nestjs-ecommerce',
+        app: 'feronova',
         items: JSON.stringify(dto.lineItems),
       },
     });

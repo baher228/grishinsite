@@ -8,6 +8,7 @@ import DbConfig from './mikro-orm.config';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { PaymentsModule } from './payments/payments.module';
+import { OrdersModule } from './orders/orders.module';
 
 
 @Module({
@@ -16,7 +17,8 @@ import { PaymentsModule } from './payments/payments.module';
     ProductModule,
     UploadsModule,
     AuthModule,
-    PaymentsModule
+    PaymentsModule,
+    OrdersModule
   ],
   controllers: [AppController],
   providers: [AppService],

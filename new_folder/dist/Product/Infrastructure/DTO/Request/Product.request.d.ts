@@ -3,7 +3,7 @@ export declare class CreateProductRequest {
     brand: string;
     description: string;
     image: string;
-    category: string;
+    category: 'Bath & Plumbing' | 'Landscaping' | 'Storage & Shelving' | 'Lighting' | 'Doors & Security' | 'Screws & Fixings';
     price: number;
     stock: number;
 }

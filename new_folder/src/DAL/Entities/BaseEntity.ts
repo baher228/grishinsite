@@ -1,4 +1,4 @@
-import { PrimaryKey, Property } from '@mikro-orm/core';
+import { PrimaryKey, Property, OptionalProps } from '@mikro-orm/core';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum BaseEntityTableColumnNames {
@@ -7,7 +7,9 @@ export enum BaseEntityTableColumnNames {
   updatedAt = 'updated_at',
 }
 
-export abstract class BaseEntity {
+export abstract class BaseEntity<TOpt extends string = never> {
+  [OptionalProps]?: 'id' | 'createdAt' | 'updatedAt' | TOpt;
+
   @ApiProperty()
   @PrimaryKey({ autoincrement: true, fieldName: BaseEntityTableColumnNames.id })
   public id!: number;

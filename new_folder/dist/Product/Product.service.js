@@ -33,11 +33,12 @@ let ProductService = class ProductService {
         const product = await this._productRepository.findOne({ id });
         return product ? new Product_response_1.ProductResponse(product) : null;
     }
-    async create(request) {
+    async createProduct(request) {
         const product = this._em.create(Product_entity_1.Product, request);
         await this._em.persistAndFlush(product);
         return new Product_response_1.ProductResponse(product);
     }
+    async updateProduct(request) { }
 };
 exports.ProductService = ProductService;
 exports.ProductService = ProductService = __decorate([

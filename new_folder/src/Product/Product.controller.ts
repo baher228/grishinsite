@@ -14,6 +14,7 @@ import { ApiResponse as ApiResponseDto } from '../Infrastructure/DTO/Response/Ap
 import { ProductResponse } from './Infrastructure/DTO/Response/Product.response';
 import { ApiBaseController } from '../Controllers/ApiBaseController';
 import { ProductService } from './Product.service';
+import { CreateProductRequest } from './Infrastructure/DTO/Request/Product.request';
 
 @ApiTags('product')
 @Controller('product')
@@ -30,7 +31,7 @@ export class ProductController extends ApiBaseController {
 
   @Get('/category')
   public async getCategory(
-    @Query('category') category: string,
+    @Query('category') category: "Bath & Plumbing" | "Landscaping" | "Storage & Shelving" | "Lighting" |"Doors & Security" | "Screws & Fixings",
   ): Promise<ApiResponseDto<any>> {
     const products = await this.productService.getCategory(category);
     return this.FormatResponse(products);
@@ -48,8 +49,10 @@ export class ProductController extends ApiBaseController {
   }
 
   @Post()
-  public async create(@Body() request): Promise<ApiResponse<any>> {
-    const product = await this.productService.create(request);
+  public async createProduct(
+    @Body() request: CreateProductRequest,
+  ): Promise<ApiResponse<any>> {
+    const product = await this.productService.createProduct(request);
     return this.FormatResponse(product);
   }
 }

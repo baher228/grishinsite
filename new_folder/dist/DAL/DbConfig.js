@@ -6,6 +6,8 @@ const postgresql_1 = require("@mikro-orm/postgresql");
 const reflection_1 = require("@mikro-orm/reflection");
 const dotenv_1 = require("dotenv");
 const path_1 = require("path");
+const order_entity_1 = require("../orders/DAL/Entities/order.entity");
+const order_item_entity_1 = require("../orders/DAL/Entities/order-item.entity");
 const Product_entity_1 = require("../Product/DAL/Entities/Product.entity");
 (0, dotenv_1.config)({ path: '.env' });
 const poolConfig = process.env.POOL_MODE != null && process.env.POOL_MODE === 'ON'
@@ -24,8 +26,8 @@ const DbConfig = (0, core_1.defineConfig)({
     password: process.env.DB_PASSWORD,
     ensureDatabase: true,
     pool: poolConfig,
-    entities: [Product_entity_1.Product],
-    entitiesTs: [Product_entity_1.Product],
+    entities: [Product_entity_1.Product, order_entity_1.Order, order_item_entity_1.OrderItem],
+    entitiesTs: [Product_entity_1.Product, order_entity_1.Order, order_item_entity_1.OrderItem],
     migrations: {
         path: (0, path_1.join)(__dirname, 'Migrations'),
         pathTs: (0, path_1.join)(__dirname, 'Migrations'),

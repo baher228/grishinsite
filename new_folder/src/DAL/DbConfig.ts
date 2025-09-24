@@ -10,7 +10,10 @@ import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import { config } from 'dotenv';
 import { join } from 'path';
+import { Order } from '../orders/DAL/Entities/order.entity';
+import { OrderItem } from '../orders/DAL/Entities/order-item.entity';
 import { Product } from '../Product/DAL/Entities/Product.entity';
+
 
 config({ path: '.env' });
 
@@ -33,9 +36,10 @@ const DbConfig: MikroOrmModuleOptions<PostgreSqlDriver> = defineConfig({
   password: process.env.DB_PASSWORD,
   ensureDatabase: true,
   pool: poolConfig,
-  entities: [Product],
-  entitiesTs: [Product],
+  entities: [Product, Order, OrderItem],
+  entitiesTs: [Product, Order, OrderItem],
   migrations: {
+
     path: join(__dirname, 'Migrations'),
     pathTs: join(__dirname, 'Migrations'),
     transactional: true,
