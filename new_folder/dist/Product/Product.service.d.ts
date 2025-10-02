@@ -7,8 +7,8 @@ export declare class ProductService {
     private readonly _productRepository;
     private readonly _em;
     constructor(_productRepository: ProductRepository, _em: EntityManager);
-    getAll(): Promise<import("@mikro-orm/postgresql").Loaded<Product, never, "*", never>[]>;
-    getCategory(category: "Bath & Plumbing" | "Landscaping" | "Storage & Shelving" | "Lighting" | "Doors & Security" | "Screws & Fixings"): Promise<ProductResponse[]>;
+    getAll(): Promise<Product[]>;
+    getCategory(category: 'Bath & Plumbing' | 'Landscaping' | 'Storage & Shelving' | 'Lighting' | 'Doors & Security' | 'Screws & Fixings'): Promise<ProductResponse[]>;
     getProductById(id: number): Promise<ProductResponse | null>;
     createProduct(request: CreateProductRequest): Promise<ProductResponse>;
     updateProduct(request: any): Promise<void>;

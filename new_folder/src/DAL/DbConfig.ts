@@ -14,7 +14,6 @@ import { Order } from '../orders/DAL/Entities/order.entity';
 import { OrderItem } from '../orders/DAL/Entities/order-item.entity';
 import { Product } from '../Product/DAL/Entities/Product.entity';
 
-
 config({ path: '.env' });
 
 const poolConfig: PoolConfig | undefined =
@@ -39,7 +38,6 @@ const DbConfig: MikroOrmModuleOptions<PostgreSqlDriver> = defineConfig({
   entities: [Product, Order, OrderItem],
   entitiesTs: [Product, Order, OrderItem],
   migrations: {
-
     path: join(__dirname, 'Migrations'),
     pathTs: join(__dirname, 'Migrations'),
     transactional: true,

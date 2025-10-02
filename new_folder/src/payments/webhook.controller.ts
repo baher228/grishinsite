@@ -10,10 +10,12 @@ export class WebhookController {
     private readonly ordersService: OrdersService,
   ) {}
 
-
   @Post('webhook')
   @HttpCode(200)
-  async handleWebhook(@Req() req: any, @Headers('stripe-signature') signature: string) {
+  async handleWebhook(
+    @Req() req: any,
+    @Headers('stripe-signature') signature: string,
+  ) {
     if (!signature) {
       return;
     }

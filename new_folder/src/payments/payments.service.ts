@@ -1,12 +1,13 @@
-import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
 import { CreateCheckoutSessionDto } from './DTO/create-checkout-session.dto';
 
-import { ProductService } from '../Product/Product.service'; 
-
-import { Product } from 'src/Product/DAL/Entities/Product.entity';
-
+import { ProductService } from '../Product/Product.service';
 
 @Injectable()
 export class PaymentsService {
@@ -33,7 +34,9 @@ export class PaymentsService {
     for (const item of items) {
       const product = await this.productService.getProductById(item.productId);
       if (!product) {
-        throw new InternalServerErrorException(`Product not found: ${item.productId}`);
+        throw new InternalServerErrorException(
+          `Product not found: ${item.productId}`,
+        );
       }
       const unitAmount = Number(product.price);
       if (!Number.isInteger(unitAmount) || unitAmount < 0) {
@@ -43,9 +46,8 @@ export class PaymentsService {
       }
       total += unitAmount * item.quantity;
     }
-    return total*100; // Product price is stored in pounds
+    return total * 100; // Product price is stored in pounds
   }
-
 
   /**
    * Optional path using Stripe Checkout (hosted page).
@@ -54,14 +56,18 @@ export class PaymentsService {
     const currency = (dto.currency || 'usd').toLowerCase();
     const amountCheck = await this.computeAmountInMinorUnits(dto.lineItems);
     if (amountCheck <= 0) {
-      throw new InternalServerErrorException('Computed amount must be greater than 0');
+      throw new InternalServerErrorException(
+        'Computed amount must be greater than 0',
+      );
     }
 
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
     for (const li of dto.lineItems) {
       const p = await this.productService.getProductById(li.productId);
       if (!p) {
-        throw new InternalServerErrorException(`Product not found: ${li.productId}`);
+        throw new InternalServerErrorException(
+          `Product not found: ${li.productId}`,
+        );
       }
       const unitAmount = Number(p.price);
       line_items.push({
@@ -78,7 +84,8 @@ export class PaymentsService {
       });
     }
 
-    const successBase = this.config.get<string>('FRONTEND_URL') ?? 'http://localhost:5173';
+    const successBase =
+      this.config.get<string>('FRONTEND_URL') ?? 'http://localhost:5173';
     const success_url = `${successBase}/payments/success?session_id={CHECKOUT_SESSION_ID}`;
     const cancel_url = `${successBase}/payments/cancel`;
 

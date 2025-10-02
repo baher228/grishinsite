@@ -5,34 +5,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
+const nestjs_1 = require("@mikro-orm/nestjs");
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const nestjs_1 = require("@mikro-orm/nestjs");
+const auth_module_1 = require("./auth/auth.module");
+const ApiConfigModule_1 = require("./Infrastructure/Config/ApiConfigModule");
+const ApiConfigService_1 = require("./Infrastructure/Config/ApiConfigService");
+const orders_module_1 = require("./orders/orders.module");
+const payments_module_1 = require("./payments/payments.module");
 const Product_module_1 = require("./Product/Product.module");
 const uploads_module_1 = require("./uploads/uploads.module");
-const mikro_orm_config_1 = __importDefault(require("./mikro-orm.config"));
-const config_1 = require("@nestjs/config");
-const auth_module_1 = require("./auth/auth.module");
-const payments_module_1 = require("./payments/payments.module");
-const orders_module_1 = require("./orders/orders.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot({ isGlobal: true, }),
-            nestjs_1.MikroOrmModule.forRoot(mikro_orm_config_1.default),
+        imports: [
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            nestjs_1.MikroOrmModule.forRootAsync({
+                imports: [ApiConfigModule_1.ApiConfigModule],
+                inject: [ApiConfigService_1.ApiConfigService],
+                useFactory: (configService) => {
+                    return {
+                        ...configService.dbConfig,
+                    };
+                },
+            }),
             Product_module_1.ProductModule,
             uploads_module_1.UploadsModule,
             auth_module_1.AuthModule,
             payments_module_1.PaymentsModule,
-            orders_module_1.OrdersModule
+            orders_module_1.OrdersModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

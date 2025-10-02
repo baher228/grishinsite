@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const core_1 = require("@mikro-orm/core");
-const Product_repository_1 = require("../Repositories/Product.repository");
 const BaseEntity_1 = require("../../../DAL/Entities/BaseEntity");
+const Product_repository_1 = require("../Repositories/Product.repository");
 let Product = class Product extends BaseEntity_1.BaseEntity {
     name;
     category;

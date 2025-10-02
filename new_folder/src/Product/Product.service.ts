@@ -12,11 +12,19 @@ export class ProductService {
     private readonly _em: EntityManager,
   ) {}
 
-  public async getAll() {
+  public async getAll(): Promise<Product[]> {
     return await this._productRepository.findAll();
   }
 
-  public async getCategory(category: "Bath & Plumbing" | "Landscaping" | "Storage & Shelving" | "Lighting" |"Doors & Security" | "Screws & Fixings"): Promise<ProductResponse[]> {
+  public async getCategory(
+    category:
+      | 'Bath & Plumbing'
+      | 'Landscaping'
+      | 'Storage & Shelving'
+      | 'Lighting'
+      | 'Doors & Security'
+      | 'Screws & Fixings',
+  ): Promise<ProductResponse[]> {
     const list = await this._productRepository.find(
       { category },
       { orderBy: { name: 'ASC' } },

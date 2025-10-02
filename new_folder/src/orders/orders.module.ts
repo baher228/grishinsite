@@ -7,10 +7,7 @@ import { OrderItem } from './DAL/Entities/order-item.entity';
 import { ProductModule } from '../Product/Product.module';
 
 @Module({
-  imports: [
-    MikroOrmModule.forFeature([Order, OrderItem]),
-    ProductModule,
-  ],
+  imports: [MikroOrmModule.forFeature([Order, OrderItem]), ProductModule],
   controllers: [OrdersController],
   providers: [OrdersService],
   exports: [OrdersService], // Exporting so other modules like PaymentsModule can use it

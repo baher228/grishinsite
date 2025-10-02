@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { RequiredEntityData } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/postgresql';
 
@@ -9,7 +13,6 @@ import Stripe from 'stripe';
 import { OrderItem } from './DAL/Entities/order-item.entity';
 import { Product } from '../Product/DAL/Entities/Product.entity';
 
-
 @Injectable()
 export class OrdersService {
   private readonly logger = new Logger(OrdersService.name);
@@ -19,7 +22,6 @@ export class OrdersService {
     private readonly productService: ProductService,
     private readonly em: EntityManager,
   ) {}
-
 
   /**
    * Creates an order from a completed Stripe Checkout Session.
@@ -32,7 +34,9 @@ export class OrdersService {
       );
     }
     if (!session.metadata?.items) {
-      throw new InternalServerErrorException('Session metadata is missing items');
+      throw new InternalServerErrorException(
+        'Session metadata is missing items',
+      );
     }
     if (!session.amount_total) {
       throw new InternalServerErrorException('Session is missing amount_total');
@@ -44,8 +48,6 @@ export class OrdersService {
       totalAmount: session.amount_total,
       status: OrderStatus.PAID,
     } as RequiredEntityData<Order>);
-
-
 
     const lineItems: { productId: number; quantity: number }[] = JSON.parse(
       session.metadata.items,
@@ -66,7 +68,6 @@ export class OrdersService {
         priceAtPurchase: Number(product.price) * 100, // Store price in minor units
         order: order,
       } as RequiredEntityData<OrderItem>);
-
 
       order.items.add(orderItem);
 
