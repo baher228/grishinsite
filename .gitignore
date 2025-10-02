@@ -33,3 +33,4 @@ backend/public/uploads
 affera/src/oldworkingnginx.txt
 node_modules
 dist
+new_folder/dist
