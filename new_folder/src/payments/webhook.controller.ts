@@ -31,7 +31,7 @@ export class WebhookController {
     // Handle relevant events
     switch (event.type) {
       case 'checkout.session.completed': {
-        const session = event.data.object as Stripe.Checkout.Session;
+        const session = event.data.object;
         // This is the crucial step: create an order record from the successful payment.
         await this.ordersService.createOrderFromStripeSession(session);
         break;

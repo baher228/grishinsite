@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException, InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
@@ -11,25 +16,36 @@ export class AuthService {
     private readonly jwt: JwtService,
   ) {}
 
-  async validateAndLogin(username: string, password: string): Promise<{ token: string }> {
-    this.logger.log('Login attempt - Request body: ' + JSON.stringify({
-      username,
-      hasPassword: !!password,
-    }));
+  async validateAndLogin(
+    username: string,
+    password: string,
+  ): Promise<{ token: string }> {
+    this.logger.log(
+      'Login attempt - Request body: ' +
+        JSON.stringify({
+          username,
+          hasPassword: !!password,
+        }),
+    );
 
     const adminUsername = this.config.get<string>('ADMIN_USERNAME');
     const adminPassword = this.config.get<string>('ADMIN_PASSWORD');
     const jwtSecret = this.config.get<string>('JWT_SECRET');
 
-    this.logger.log('Environment check: ' + JSON.stringify({
-      hasAdminUsername: !!adminUsername,
-      hasAdminPassword: !!adminPassword,
-      hasJwtSecret: !!jwtSecret,
-    }));
+    this.logger.log(
+      'Environment check: ' +
+        JSON.stringify({
+          hasAdminUsername: !!adminUsername,
+          hasAdminPassword: !!adminPassword,
+          hasJwtSecret: !!jwtSecret,
+        }),
+    );
 
     if (!adminUsername || !adminPassword) {
       this.logger.error('Missing admin credentials in environment');
-      throw new InternalServerErrorException('Admin credentials not configured');
+      throw new InternalServerErrorException(
+        'Admin credentials not configured',
+      );
     }
 
     if (!jwtSecret) {
@@ -44,7 +60,10 @@ export class AuthService {
         this.logger.log('Login successful for user: ' + username);
         return { token };
       } catch (error) {
-        this.logger.error('JWT signing error: ' + (error as Error).message, error as Error);
+        this.logger.error(
+          'JWT signing error: ' + (error as Error).message,
+          error as Error,
+        );
         throw new InternalServerErrorException('Error generating token');
       }
     }

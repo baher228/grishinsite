@@ -6,7 +6,6 @@ import { WebhookController } from './webhook.controller';
 import { ProductModule } from '../Product/Product.module'; // adapt import name if different
 import { OrdersModule } from '../orders/orders.module';
 
-
 @Module({
   imports: [ConfigModule, ProductModule, OrdersModule],
   controllers: [PaymentsController, WebhookController],

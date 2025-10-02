@@ -1,4 +1,12 @@
-import { IsArray, IsEmail, IsInt, IsOptional, IsPositive, IsString, Min } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsInt,
+  IsOptional,
+  IsPositive,
+  IsString,
+  Min,
+} from 'class-validator';
 
 export class CheckoutItemDto {
   @IsString()

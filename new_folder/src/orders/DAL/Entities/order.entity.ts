@@ -3,7 +3,6 @@ import { BaseEntity } from '../../../DAL/Entities/BaseEntity';
 import { OrderRepository } from '../Repositories/order.repository';
 import { OrderItem } from './order-item.entity';
 
-
 export enum OrderStatus {
   PENDING = 'pending',
   PAID = 'paid',
